@@ -9,7 +9,8 @@ function createMainWindow() {
     height: 600,
   });
 
-  mainWindow.webContents.openDevTools();
+  //show devtools
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL('http://localhost:8080');
 }
