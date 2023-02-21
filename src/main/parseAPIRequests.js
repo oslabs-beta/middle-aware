@@ -4,6 +4,15 @@ const path = require('path');
 const testDir = '../../../scratch/client';
 
 function processLineByLine() {
+  // This function returns a promise that resolves to an array of all the resources and options for fetch operations in a given front end.
+
+  var promiseResolve, promiseReject;
+
+  var promise = new Promise(function (resolve, reject) {
+    promiseResolve = resolve;
+    promiseReject = reject;
+  });
+
   const outArray = [];
   fs.readdirSync(testDir).forEach(async (file, i, arr) => {
     const fileStream = fs.createReadStream(
@@ -17,10 +26,11 @@ function processLineByLine() {
     // Note: we use the crlfDelay option to recognize all instances of CR LF
     // ('\r\n') in input.txt as a single line break.
 
+    // Likely need to create and return a promise from the function and resolve it here.
     rl.on('close', () => {
       if (i === arr.length - 1) {
-        console.log(outArray);
-        return outArray;
+        // console.log(outArray);
+        promiseResolve(outArray);
       }
     });
 
@@ -41,9 +51,13 @@ function processLineByLine() {
         else console.log('fetch found but unable to find end of resource');
       }
     }
-
-    // Do something at the end of the filestream
   });
+  return promise;
 }
 
-console.log(processLineByLine());
+const myFunc = async () => {
+  result = await processLineByLine();
+  console.log(result);
+};
+
+myFunc();
