@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain } = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -7,6 +7,9 @@ function createMainWindow() {
     title: 'Middle-Aware',
     width: 800,
     height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.ts'),
+    },
   });
 
   //show devtools
@@ -15,4 +18,16 @@ function createMainWindow() {
   mainWindow.loadURL('http://localhost:8080');
 }
 
-app.whenReady().then(createMainWindow);
+async function handleFileOpen() {
+  const { canceled, filePaths } = await dialog.showOpenDialog();
+  if (canceled) {
+    return;
+  } else {
+    return filePaths[0];
+  }
+}
+
+app.whenReady(() => {
+  createMainWindow();
+  ipcMain.handle('dialog:openFile', handleFileOpen);
+});
