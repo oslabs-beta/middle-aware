@@ -1,18 +1,18 @@
-const { app, BrowserWindow } = require('electron');
-const url = require('url');
-const path = require('path');
+const { app, BrowserWindow } = require('electron')
+const url = require('url')
+const path = require('path')
 
-function createMainWindow() {
+function createMainWindow () {
   const mainWindow = new BrowserWindow({
     title: 'Middle-Aware',
     width: 800,
-    height: 600,
-  });
+    height: 600
+  })
 
-  //show devtools
-  //mainWindow.webContents.openDevTools();
+  // show devtools
+  // mainWindow.webContents.openDevTools();
 
-  mainWindow.loadURL('http://localhost:8080');
+  mainWindow.loadURL('http://localhost:8080')
 }
 
-app.whenReady().then(createMainWindow);
+app.whenReady().then(createMainWindow)
