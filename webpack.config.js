@@ -61,5 +61,9 @@ module.exports = {
     hot: true,
     host: 'localhost',
     historyApiFallback: true,
+    //once server is setup
+    // proxy: {
+    //   '/': 'http://127.0.0.1:9000',
+    // },
   },
 };
