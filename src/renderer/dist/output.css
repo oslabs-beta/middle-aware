@@ -7884,30 +7884,58 @@ html {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
-#section {
+/* --------START: header section------------- */
+
+header {
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  width: 90%;
-  flex-direction: row;
+  width: 80%;
+  border-style: solid;
+  padding-top: 0.75rem;
 }
 
-#paths {
-  margin-right: 2.5rem;
-  width: 15%;
+header h1 {
+  text-align: center;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 3.75rem;
+  line-height: 1;
+  font-style: italic;
+}
+
+hr {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
+/* --------END: header section------------- */
+
+/* --------START: interface section------------- */
+
+/* --------END: interface section------------- */
+
+/* 
+#section{
+  @apply w-[90%] flex flex-row mx-auto
+}
+
+#paths{
+  @apply w-[15%] mr-10
 }
 
 #functions {
-  width: 60%;
+  @apply w-[60%]
 }
 
-.small {
-  margin-bottom: 1.5rem;
+.small{
+  @apply mb-6
 }
 
-.large {
-  margin-bottom: 1.5rem;
-}
+.large{
+  @apply mb-6
+} */
 
 .table .hover\:hover:hovertr:hover th,
     .table .hover\:hover:hovertr:hover td,
