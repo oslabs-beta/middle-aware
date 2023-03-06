@@ -7884,6 +7884,11 @@ html {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+body {
+  background-color: #faf8f4;
+  height: 100vh;
+}
+
 /* --------START: header section------------- */
 
 header {
@@ -7914,28 +7919,51 @@ hr {
 
 /* --------START: interface section------------- */
 
+#interface {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 /* --------END: interface section------------- */
 
-/* 
-#section{
-  @apply w-[90%] flex flex-row mx-auto
+/* --------START: Main section------------- */
+
+#main {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 90%;
+  flex-direction: row;
 }
 
-#paths{
-  @apply w-[15%] mr-10
+/* START: routes section------------- */
+
+#routes {
+  height: 11rem;
+  width: 33%;
 }
 
-#functions {
-  @apply w-[60%]
+/* END: routes section------------- */
+
+/* START: results section------------- */
+
+#results {
+  height: 11rem;
+  width: 67%;
+  border-left-width: 2px;
+  border-style: solid;
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 
-.small{
-  @apply mb-6
-}
+/* END: results section------------- */
 
-.large{
-  @apply mb-6
-} */
+/* --------END: Main section------------- */
 
 .table .hover\:hover:hovertr:hover th,
     .table .hover\:hover:hovertr:hover td,
@@ -8552,3 +8580,5 @@ hr {
 .focus\:outline-offset-0:focus {
   outline-offset: 0px;
 }
+
+

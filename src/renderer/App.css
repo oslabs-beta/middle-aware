@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #faf8f4;
+  height: 100vh;
+}
+
 /* --------START: header section------------- */
 header{
   @apply mx-auto w-[80%] border-solid pt-3
@@ -18,27 +23,34 @@ hr{
 
 /* --------START: interface section------------- */
 
+#interface {
+  @apply mx-auto w-[90%] pt-2 pb-2 flex justify-evenly
+}
+
 /* --------END: interface section------------- */
 
 
+/* --------START: Main section------------- */
 
-/* 
-#section{
+#main{
   @apply w-[90%] flex flex-row mx-auto
 }
 
-#paths{
-  @apply w-[15%] mr-10
-}
+  /* START: routes section------------- */
 
-#functions {
-  @apply w-[60%]
-}
+  #routes{
+    @apply h-44 w-[33%]
+  }
 
-.small{
-  @apply mb-6
-}
+  /* END: routes section------------- */
 
-.large{
-  @apply mb-6
-} */
+  /* START: results section------------- */
+
+   #results{
+    @apply h-44 w-[67%] border-solid border-l-2 border-gray-500
+  }
+
+  /* END: results section------------- */
+/* --------END: Main section------------- */
+
+

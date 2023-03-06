@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Button, Dropdown, Indicator, Badge, FileInput } from 'react-daisyui';
+import { Input, Button, FileInput } from 'react-daisyui';
 import LargeCards from './components/LargeCards';
 import SmallCards from './components/SmallCards';
 
@@ -13,6 +13,7 @@ function App() {
 
   // dummy data to replace
   const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5'];
+  const [dummyUpload, setDummyUpload]: any = useState('')
 
 
   //end dummy data
@@ -30,8 +31,9 @@ function App() {
   // };
 
   // Arguments for DaisyUI Components
-  const fileArgs: {} = {}
-
+  const fetchArgs: {} = { animation: true, size: 'sm', children: 'Find All Requests' }
+  const inputArgs: {} = { size: 'sm', placeholder: 'PORT' }
+  const fileArgs: {} = { size: 'sm', bordered: true, placeholder: "You can't touch this" }
 
   // END OF Arguments for DaisyUI Components
 
@@ -59,15 +61,27 @@ function App() {
       </header>
       <hr />
       <div id='interface'>
-        <button></button>
-        <button></button>
-        <FileInput {...fileArgs} className='xs' />
+        <Button {...fetchArgs} />
+        <Input {...inputArgs} />
+        {/* <FileInput {...fileArgs}/> */}
+        <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
+          onChange={(e) => {
+            console.log(e.target.files?.[0].name)
+            setDummyUpload(e.target.files?.[0].name)
+            console.log(typeof dummyUpload)
+
+          }} />
       </div>
-
       <hr />
+      <div id="main">
+        <div id='routes'>
+          <SmallCards />
 
-      <div id="section">
+        </div>
+        <div id='results'>
+          <LargeCards />
 
+        </div>
 
       </div>
     </>
