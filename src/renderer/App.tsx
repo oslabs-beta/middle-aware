@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Input, Button, FileInput } from 'react-daisyui';
-import LargeCards from './components/LargeCards';
-import SmallCards from './components/SmallCards';
+import ResultCards from './components/ResultCards';
+import RouteCards from './components/RouteCards';
+import AwaitingInput from './components/AwaitingInput';
 
 declare global {
   interface Window {
@@ -31,7 +32,7 @@ function App() {
   // };
 
   // Arguments for DaisyUI Components
-  const fetchArgs: {} = { animation: true, size: 'sm', children: 'Find All Requests' }
+  const fetchArgs: {} = { animation: true, size: 'sm', children: 'Find All Paths' }
   const inputArgs: {} = { size: 'sm', placeholder: 'PORT' }
   const fileArgs: {} = { size: 'sm', bordered: true, placeholder: "You can't touch this" }
 
@@ -54,6 +55,8 @@ function App() {
       .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
   };
 
+  
+
   return (
     <>
       <header>
@@ -74,13 +77,15 @@ function App() {
       </div>
       <hr />
       <div id="main">
-        <div id='routes'>
-          <SmallCards />
+        <div id='routesSection'>
+          <h2 className='title'>Routes</h2>
+          <RouteCards />
 
         </div>
-        <div id='results'>
-          <LargeCards />
-
+        <div id='resultsSection'>
+          <h2 className='title'>Results</h2>
+          {/* <ResultCards /> */}
+             <AwaitingInput />
         </div>
 
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Button, Dropdown, Indicator, Badge } from 'react-daisyui';
-import LargeCards from './components/LargeCards';
-import SmallCards from './components/SmallCards';
+import LargeCards from './components/ResultCards';
+import SmallCards from './components/RouteCards';
 
 declare global {
   interface Window {
