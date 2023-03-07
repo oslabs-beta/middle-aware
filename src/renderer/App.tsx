@@ -3,15 +3,27 @@ import { Navbar, Button, Dropdown, Indicator, Badge } from 'react-daisyui';
 import LargeCards from './components/LargeCards';
 import SmallCards from './components/SmallCards';
 
+
+//add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
   interface Window {
     electronAPI: any;
+    myAPI: any;
   }
 }
 
 function App() {
+  interface IData {
+    name: string,
+    message: string
+  }
+
   const menuItems = ['test'];
   const [fetchResources, setResources] = useState([]);
+  const [testData, setTestData] = useState<IData>({
+    name: '',
+    message: ''
+  })
 
   let directory;
 
@@ -39,6 +51,20 @@ function App() {
       })
       .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    console.log('changed')
+    setTestData({
+      ...testData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleItemSave = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    window.myAPI.sendFormDataToMain(testData)
+  }
 
   return (
     <>
@@ -115,6 +141,29 @@ function App() {
       <div>
         <button onClick={handleButtonClick}> Click here to parse files </button>
         <p>{fetchResources}</p>
+        <form onSubmit={(e) => handleItemSave(e)}>
+        <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={testData.name}
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
+      <div>
+        <label htmlFor="message">Message:</label>
+        <input
+          type="text"
+          id="message"
+          name="message"
+          value={testData.message}
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
+      <button type="submit">Save</button>
+        </form>
       </div>
       <div id="section">
         <div id="paths">
