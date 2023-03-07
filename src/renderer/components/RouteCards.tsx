@@ -6,6 +6,7 @@ const RouteCards = () => {
 
   return (
     <>
+      {/* DUPLICATED FOR DEMO PURPOSES ONLY */}
       <div id='routes' style={{ backgroundColor: statusColors.good }}>
       <h2>Endpoint: </h2>
       <h2>Method: </h2>

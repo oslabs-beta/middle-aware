@@ -8,9 +8,7 @@ const AwaitingInput = () => {
         <h1>Johnny 5 Needs More Input!</h1>
         <h2>Please test the selected route with fetch requests...</h2>
       </div>
-
         <CgSpinner id='spinner' />
-
     </div>
   )
 }

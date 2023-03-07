@@ -61,6 +61,7 @@ function App() {
         <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
           onChange={(e) => {
             //We are missing some attributes here like value!!!!!:
+            //I had difficulty trying to debug this section
             console.log(e.target.files?.[0].name)
             setDummyUpload(e.target.files?.[0].name)
             console.log(typeof dummyUpload)
@@ -76,8 +77,8 @@ function App() {
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
-          {/* <ResultCards /> */}
-             <AwaitingInput />
+          <ResultCards />
+          <AwaitingInput />
         </div>
 
       </div>

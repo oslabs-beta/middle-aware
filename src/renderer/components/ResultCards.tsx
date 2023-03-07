@@ -5,6 +5,8 @@ const resultCards = () => {
 
   return (
     <>
+
+    {/* DUPLICATED FOR DEMO PURPOSES ONLY */}
     <div id='resultCards'>
       <h2>Message: </h2>
       <h2>Payload: </h2>
