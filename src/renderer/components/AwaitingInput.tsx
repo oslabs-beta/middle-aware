@@ -5,7 +5,7 @@ const AwaitingInput = () => {
   return (
     <div id = 'overlay'>
       <div id='insideOverlay'>
-        <h1>More Input Needed!</h1>
+        <h1>Johnny 5 Needs More Input!</h1>
         <h2>Please test the selected route with fetch requests...</h2>
       </div>
 
