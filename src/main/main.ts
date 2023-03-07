@@ -1,7 +1,8 @@
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
-// const url = require('url')
+const url = require('url')
 const path = require('path')
 const parseAPIRequests = require('./parseAPIRequests')
+const db = require('./dbController')
 const mongoose = require('mongoose')
 const Item = require('./testModel')
 const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
