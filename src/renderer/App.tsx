@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Input, Button, FileInput } from 'react-daisyui';
 import ResultCards from './components/ResultCards';
 import RouteCards from './components/RouteCards';
 import AwaitingInput from './components/AwaitingInput';
@@ -31,12 +30,6 @@ function App() {
   //   setResources(await temp);
   // };
 
-  // Arguments for DaisyUI Components
-  const fetchArgs: {} = { animation: true, size: 'sm', children: 'Find All Paths' }
-  const inputArgs: {} = { size: 'sm', placeholder: 'PORT' }
-  const fileArgs: {} = { size: 'sm', bordered: true, placeholder: "You can't touch this" }
-
-  // END OF Arguments for DaisyUI Components
 
   const handleButtonClick = () => {
     window.electronAPI
@@ -55,8 +48,6 @@ function App() {
       .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
   };
 
-  
-
   return (
     <>
       <header>
@@ -64,11 +55,12 @@ function App() {
       </header>
       <hr />
       <div id='interface'>
-        <Button {...fetchArgs} />
-        <Input {...inputArgs} />
-        {/* <FileInput {...fileArgs}/> */}
+        {/* turn loading on within the button when parsing paths */}
+        <button className="btn btn-sm loading">Find All Paths</button>
+        <input type="text" placeholder="PORT" className="input input-sm input-bordered w-[10%] max-w-xs" />
         <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
           onChange={(e) => {
+            //We are missing some attributes here like value!!!!!:
             console.log(e.target.files?.[0].name)
             setDummyUpload(e.target.files?.[0].name)
             console.log(typeof dummyUpload)
