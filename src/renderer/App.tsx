@@ -25,8 +25,8 @@ function App() {
   ]
 
   const dummyTests: any = [
-    { id: 'foreignKey1', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
-    { id: 'foreignKey2', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
+    { id: 'foreignKey1', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'good', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
+    { id: 'foreignKey2', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'good', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
 
@@ -91,13 +91,15 @@ function App() {
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
          { dummyRoutes.map((routes: any) =>(
-           <RouteCards detail={routes.detail} method={routes.input} error={routes.latest_test} />
+          // message is referencing the first object in the tests array
+           <RouteCards id={routes.id} detail={routes.detail} method={routes.input} message={dummyTests?.[0].response.message} />
          ))}
 
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
           <ResultCards />
+
         </div>
 
       </div>
