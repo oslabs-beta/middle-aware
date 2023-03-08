@@ -15,6 +15,9 @@ function App() {
   const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5'];
   const [dummyUpload, setDummyUpload]: any = useState('')
 
+// based on ERD
+  const dummyRoutes: any = { id: 'id1', detail: 'detailString', input: 'inputSTR', middleware: [{ detail: 'detailSTR', input: 'inputSTR'} ], latest_test: 'foreignKey1' };
+  const dummyTests: any =  {id: 'foreignKey1', route: 'id1', created_at: 'createdStr', request: {method: 'methodStr', endpoint: 'someEndstr'}, response: {status_code: 'statusStr', message: 'MessageStr', payload: {somePayLoad: 'PLString'}}, error: 'errorStr', rtt: 'rttString' }
 
   //end dummy data
 
@@ -56,8 +59,6 @@ function App() {
       <hr />
       <div id='interface'>
         {/* turn loading on within the button when parsing paths */}
-        <button className="btn btn-sm loading">Find All Paths</button>
-        <input type="text" placeholder="PORT" className="input input-sm input-bordered w-[10%] max-w-xs" />
         <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
           onChange={(e) => {
             //We are missing some attributes here like value!!!!!:
@@ -67,6 +68,8 @@ function App() {
             console.log(typeof dummyUpload)
 
           }} />
+        <button className="btn btn-sm">Find All Paths</button>
+        <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
       <div id="main">
@@ -78,7 +81,6 @@ function App() {
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
           <ResultCards />
-          <AwaitingInput />
         </div>
 
       </div>
@@ -86,4 +88,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
