@@ -56,14 +56,19 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    port: 8080,
-    hot: true,
-    host: 'localhost',
-    historyApiFallback: true,
+  // devServer: {
+  //   port: 8080,
+  //   hot: true,
+  //   host: 'localhost',
+  //   historyApiFallback: true,
     //once server is setup
     // proxy: {
     //   '/': 'http://127.0.0.1:9000',
     // },
-  },
+    // proxy: {
+    //   context: ['/api/**', 'static/**'],
+    //   target: 'http://localhost:9000/',
+    //   secure: false,
+    // },
+  // },
 };
