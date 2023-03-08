@@ -12,12 +12,27 @@ declare global {
 function App() {
 
   // dummy data to replace
+
   const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5'];
   const [dummyUpload, setDummyUpload]: any = useState('')
 
-// based on ERD
-  const dummyRoutes: any = { id: 'id1', detail: 'detailString', input: 'inputSTR', middleware: [{ detail: 'detailSTR', input: 'inputSTR'} ], latest_test: 'foreignKey1' };
-  const dummyTests: any =  {id: 'foreignKey1', route: 'id1', created_at: 'createdStr', request: {method: 'methodStr', endpoint: 'someEndstr'}, response: {status_code: 'statusStr', message: 'MessageStr', payload: {somePayLoad: 'PLString'}}, error: 'errorStr', rtt: 'rttString' }
+
+  // based on ERD
+  const dummyRoutes: any = [
+    { id: 'id1', detail: 'detailString1', input: 'inputSTR1', middleware: [{ detail: 'detailSTR1', input: 'inputSTR1' }], latest_test: 'foreignKey1' },
+    { id: 'id2', detail: 'detailString2', input: 'inputSTR2', middleware: [{ detail: 'detailSTR2', input: 'inputSTR2' }], latest_test: 'foreignKey2' },
+    { id: 'id3', detail: 'detailString3', input: 'inputSTR3', middleware: [{ detail: 'detailSTR3', input: 'inputSTR3' }], latest_test: 'foreignKey3' }
+  ]
+
+  const dummyTests: any = [
+    { id: 'foreignKey1', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
+    { id: 'foreignKey2', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
+    { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
+  ]
+
+
+
+
 
   //end dummy data
 
@@ -75,7 +90,9 @@ function App() {
       <div id="main">
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
-          <RouteCards />
+         { dummyRoutes.map((routes: any) =>(
+           <RouteCards detail={routes.detail} method={routes.input} error={routes.latest_test} />
+         ))}
 
         </div>
         <div id='resultsSection'>

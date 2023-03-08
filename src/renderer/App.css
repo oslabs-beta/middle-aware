@@ -94,9 +94,10 @@ hr{
         @apply mx-auto text-5xl text-[#fba8a0] animate-pulse
       }
 
-      #successArrow{
-        @apply mx-auto text-5xl text-[#7ec7a7] animate-bounce
+      #arrow{
+        @apply mx-auto text-5xl text-[#b3b2af]
       }
+
 
       /* END: results section------------- */
 /* --------END: Main section------------- */
