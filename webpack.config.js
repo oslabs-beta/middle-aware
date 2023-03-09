@@ -1,5 +1,5 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+// const path = require('path')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -15,8 +15,8 @@ module.exports = {
       '.jpeg',
       '.gif',
       '.css',
-      '.scss',
-    ],
+      '.scss'
+    ]
   },
   // output: {
   //   path: path.join(__dirname, '/dist'),
@@ -25,8 +25,8 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: './src/renderer/index.html',
-      filename: 'index.html',
-    }),
+      filename: 'index.html'
+    })
   ],
   module: {
     rules: [
@@ -34,32 +34,32 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader',
+          loader: 'ts-loader'
           // options: {
           //   presets: ['@babel/preset-env', '@babel/preset-react'],
           // },
-        },
+        }
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          'postcss-loader',
-        ],
+          'postcss-loader'
+        ]
       },
       {
         test: /\.(jpg|png)$/,
         use: {
-          loader: 'url-loader',
-        },
-      },
-    ],
+          loader: 'url-loader'
+        }
+      }
+    ]
   },
   devServer: {
     port: 8080,
     hot: true,
     host: 'localhost',
-    historyApiFallback: true,
-  },
-};
+    historyApiFallback: true
+  }
+}
