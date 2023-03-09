@@ -7,9 +7,3 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getRoute: (route) => ipcRenderer.invoke('db:getRoute', route),
   getTest: (test) => ipcRenderer.invoke('db:getTest', test)
 })
-
-contextBridge.exposeInMainWorld('myAPI', {
-  sendFormDataToMain: (testData) => {
-    ipcRenderer.send('submit-form-data', testData)
-  }
-})
