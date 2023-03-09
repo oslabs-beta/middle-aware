@@ -7884,7 +7884,71 @@ html {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
-#section {
+/* Universally applied styles and vanill css where necessary*/
+
+html, body{
+  background-color: #FAF8F4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Crect stroke='%23FAF8F4' stroke-width='0.3' width='1' height='1' id='s'/%3E%3Cpattern id='a' width='3' height='3' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cuse fill='%23f7f6f2' href='%23s' y='2'/%3E%3Cuse fill='%23f7f6f2' href='%23s' x='1' y='2'/%3E%3Cuse fill='%23f5f3ef' href='%23s' x='2' y='2'/%3E%3Cuse fill='%23f5f3ef' href='%23s'/%3E%3Cuse fill='%23f2f0ed' href='%23s' x='2'/%3E%3Cuse fill='%23f2f0ed' href='%23s' x='1' y='1'/%3E%3C/pattern%3E%3Cpattern id='b' width='7' height='11' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23f0eeea'%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' y='5' /%3E%3Cuse href='%23s' x='1' y='10'/%3E%3Cuse href='%23s' x='2' y='1'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='8'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='5' y='2'/%3E%3Cuse href='%23s' x='5' y='6'/%3E%3Cuse href='%23s' x='6' y='9'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='h' width='5' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23f0eeea'%3E%3Cuse href='%23s' y='5'/%3E%3Cuse href='%23s' y='8'/%3E%3Cuse href='%23s' x='1' y='1'/%3E%3Cuse href='%23s' x='1' y='9'/%3E%3Cuse href='%23s' x='1' y='12'/%3E%3Cuse href='%23s' x='2'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='2'/%3E%3Cuse href='%23s' x='3' y='6'/%3E%3Cuse href='%23s' x='3' y='11'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='4' y='10'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='c' width='17' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23edebe7'%3E%3Cuse href='%23s' y='11'/%3E%3Cuse href='%23s' x='2' y='9'/%3E%3Cuse href='%23s' x='5' y='12'/%3E%3Cuse href='%23s' x='9' y='4'/%3E%3Cuse href='%23s' x='12' y='1'/%3E%3Cuse href='%23s' x='16' y='6'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='d' width='19' height='17' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23FAF8F4'%3E%3Cuse href='%23s' y='9'/%3E%3Cuse href='%23s' x='16' y='5'/%3E%3Cuse href='%23s' x='14' y='2'/%3E%3Cuse href='%23s' x='11' y='11'/%3E%3Cuse href='%23s' x='6' y='14'/%3E%3C/g%3E%3Cg fill='%23ebe9e5'%3E%3Cuse href='%23s' x='3' y='13'/%3E%3Cuse href='%23s' x='9' y='7'/%3E%3Cuse href='%23s' x='13' y='10'/%3E%3Cuse href='%23s' x='15' y='4'/%3E%3Cuse href='%23s' x='18' y='1'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='e' width='47' height='53' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23FAF8F4'%3E%3Cuse href='%23s' x='2' y='5'/%3E%3Cuse href='%23s' x='16' y='38'/%3E%3Cuse href='%23s' x='46' y='42'/%3E%3Cuse href='%23s' x='29' y='20'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='f' width='59' height='71' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23FAF8F4'%3E%3Cuse href='%23s' x='33' y='13'/%3E%3Cuse href='%23s' x='27' y='54'/%3E%3Cuse href='%23s' x='55' y='55'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='g' width='139' height='97' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23FAF8F4'%3E%3Cuse href='%23s' x='11' y='8'/%3E%3Cuse href='%23s' x='51' y='13'/%3E%3Cuse href='%23s' x='17' y='73'/%3E%3Cuse href='%23s' x='99' y='57'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23b)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23h)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23c)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23d)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23e)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23f)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1, .title , #interface{
+  font-family: 'Silkscreen', cursive;
+}
+
+.title {
+  padding-bottom: 1.25rem;
+  padding-top: 0.75rem;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+/* --------START: header section------------- */
+
+header {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  border-style: solid;
+  padding-top: 0.75rem;
+  padding-bottom: 1.25rem;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+hr {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
+/* --------END: header section------------- */
+
+/* --------START: interface section------------- */
+
+#interface {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* --------END: interface section------------- */
+
+/* --------START: Main section------------- */
+
+#main {
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -7892,22 +7956,144 @@ html {
   flex-direction: row;
 }
 
-#paths {
-  margin-right: 2.5rem;
-  width: 15%;
+/* START: routes section------------- */
+
+#routesSection {
+  height: 11rem;
+  width: 33%;
 }
 
-#functions {
-  width: 60%;
+#routes {
+  margin-bottom: 1rem;
+  border-radius: 0.375rem;
+  border-bottom-width: 2px;
+  border-style: solid;
+  padding: 1.25rem;
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.small {
-  margin-bottom: 1.5rem;
+#status {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
-.large {
-  margin-bottom: 1.5rem;
+/* END: routes section------------- */
+
+/* START: results section------------- */
+
+#resultsSection {
+  height: 11rem;
+  width: 67%;
 }
+
+#resultCards {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  border-radius: 0.375rem;
+  border-width: 2px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  padding: 1.25rem;
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+#overlay {
+  margin-left: 1.5rem;
+  height: 24rem;
+  border-radius: 0.375rem;
+  border-width: 2px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  padding: 1.25rem;
+}
+
+#insideOverlay h1, #insideOverlay h2 {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+#spinner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#spinner {
+  animation: spin 1s linear infinite;
+  font-size: 8rem;
+  line-height: 1;
+}
+
+#successStatus {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 3rem;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(126 199 167 / var(--tw-text-opacity));
+}
+
+#errorStatus {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+#errorStatus {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  font-size: 3rem;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(251 168 160 / var(--tw-text-opacity));
+}
+
+#successArrow {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+#successArrow {
+  animation: bounce 1s infinite;
+  font-size: 3rem;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(126 199 167 / var(--tw-text-opacity));
+}
+
+/* END: results section------------- */
+
+/* --------END: Main section------------- */
 
 .table .hover\:hover:hovertr:hover th,
     .table .hover\:hover:hovertr:hover td,
@@ -8524,3 +8710,5 @@ html {
 .focus\:outline-offset-0:focus {
   outline-offset: 0px;
 }
+
+
