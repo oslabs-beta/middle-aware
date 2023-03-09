@@ -54,7 +54,7 @@ hr{
         @apply h-44 w-[33%]
       }
 
-      #routes{
+      .routes{
         @apply  border-solid border-b-2 p-5 mb-4 rounded-md drop-shadow-md
       }
 
@@ -70,7 +70,7 @@ hr{
         @apply h-44 w-[67%] 
       }
 
-      #resultCards{
+      .resultCards{
         @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300
       }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ResultCards from './components/ResultCards';
 import RouteCards from './components/RouteCards';
 import AwaitingInput from './components/AwaitingInput';
+import { forEachChild } from 'typescript';
 
 declare global {
   interface Window {
@@ -30,8 +31,28 @@ function App() {
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
 
+  let testToFilter = '';
 
+  let filteredTests: any[]= [];
 
+  const [results, setResults] = useState<any>([])
+
+  //Find the right mouse event instead of any!!!!!!
+  const resultHandler = (event: any) => {
+    event.preventDefault()
+    testToFilter = event.target.id
+    console.log('testToFilter:', testToFilter);
+    //push any test that are associated to the selected route based on id/route respectively
+    for(const test of dummyTests){
+      if(test.route === testToFilter){
+        filteredTests.push(test)
+      }
+    }
+    console.log('filteredTests',filteredTests);
+    setResults(filteredTests);
+    testToFilter = ''
+    filteredTests = []
+  }
 
 
   //end dummy data
@@ -90,15 +111,19 @@ function App() {
       <div id="main">
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
-         { dummyRoutes.map((routes: any) =>(
-          // message is referencing the first object in the tests array
-           <RouteCards id={routes.id} detail={routes.detail} method={routes.input} message={dummyTests?.[0].response.message} />
-         ))}
+          {dummyRoutes.map((routes: any) => (
+            // message is referencing the first object in the tests array
+            <RouteCards id={routes.id} detail={routes.detail} method={routes.input} message={dummyTests?.[0].response.message} onClick={resultHandler} key={routes.id} />
+          ))}
 
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
-          <ResultCards />
+            {!results[0] ? <AwaitingInput/>:
+
+          results.map((results: any) => (
+            <ResultCards id={results.id} message={results.response.message} payload={results.response?.payload} status={results.response.status} key={results.id}/>
+          ))}
 
         </div>
 
