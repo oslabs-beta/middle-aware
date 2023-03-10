@@ -12,7 +12,7 @@ html, body{
 }
 
 h1, .title , #interface{
-  font-family: 'Silkscreen', cursive;
+  font-family: 'Silkscreen', sans-serif;
 }
 
 .title{

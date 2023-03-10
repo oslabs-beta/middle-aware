@@ -72,15 +72,17 @@ function App() {
         //const temp = window.electronAPI.openFile().then((result) => {
         // Expect result to be a directory
         window.electronAPI
-          .parseFiles('../../../scratch/client', '2', '3', '4')
+          .parseFiles(result)
           .then((result: any) => {
             // Expect result to be an array of fetch resources
+            console.log(result);
             setResources(result); //    return result;
           })
           .catch((err: any) => console.log('parseFiles Error:', err));
       })
       .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
   };
+
 
   return (
     <>
@@ -99,7 +101,7 @@ function App() {
             console.log(typeof dummyUpload)
 
           }} />
-        <button className="btn btn-sm">Find All Paths</button>
+        <button className="btn btn-sm" onClick={handleButtonClick}>Find All Paths</button>
         <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
