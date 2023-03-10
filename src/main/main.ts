@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const url = require('url')
 const path = require('path')
 const parseAPIRequests = require('./parseAPIRequests')
+const db = require('./dbController')
 
 let mainWindow
 
@@ -17,7 +18,7 @@ function createMainWindow () {
   })
 
   // show devtools
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools()
 
   mainWindow.loadURL('http://localhost:8080')
 }
@@ -35,7 +36,7 @@ async function handleFileOpen () {
     properties: ['openDirectory']
   })
   if (canceled) {
-
+    //
   } else {
     return filePaths[0]
   }
@@ -49,4 +50,7 @@ app.whenReady().then(() => {
   createMainWindow()
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('parseFiles', handleFileParse)
+  ipcMain.handle('db:getAllRoutes', db.getAllRoutes)
+  ipcMain.handle('db:getRoute', db.getRoutes)
+  ipcMain.handle('db:getTest', db.getTest)
 })
