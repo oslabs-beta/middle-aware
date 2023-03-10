@@ -1,5 +1,5 @@
-const session = require('electron').session;
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const session = require('electron').session
+const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const url = require('url')
 const path = require('path')
 const parseAPIRequests = require('./parseAPIRequests')

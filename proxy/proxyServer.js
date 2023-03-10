@@ -18,7 +18,7 @@ let startTime;
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 const options = {
-  target: 'http://localhost:5002', // Your target URL here
+  target: 'http://localhost:3000', // Your target URL here
   onProxyReq: (proxyReq, req, res) => {
     startTime = new Date().getTime();
   },
@@ -76,7 +76,7 @@ const options = {
   if(route){
     cache.routeId = route._id
   }else {
-    route = await dbController.createRoute(endpoint);
+    route = await dbController.createRoute(payload.endpoint);
     cache.routeId = route._id
   }
   
