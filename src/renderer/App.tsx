@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import ResultCards from './components/ResultCards';
 import RouteCards from './components/RouteCards';
 import AwaitingInput from './components/AwaitingInput';
@@ -30,32 +30,25 @@ function App() {
     { id: 'foreignKey2', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'good', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
-
-  let testToFilter = '';
-
-  let filteredTests: any[]= [];
+  //end dummy data
 
   const [results, setResults] = useState<any>([])
-
-  //Find the right mouse event instead of any!!!!!!
+ //Find the right mouse event instead of any!!!!!!
   const resultHandler = (event: any) => {
     event.preventDefault()
+    let testToFilter = '';
+    const filteredTests: string[] = [];
     testToFilter = event.target.id
-    console.log('testToFilter:', testToFilter);
     //push any test that are associated to the selected route based on id/route respectively
-    for(const test of dummyTests){
-      if(test.route === testToFilter){
+    for (const test of dummyTests) {
+      if (test.route === testToFilter) {
         filteredTests.push(test)
       }
     }
-    console.log('filteredTests',filteredTests);
     setResults(filteredTests);
-    testToFilter = ''
-    filteredTests = []
   }
 
 
-  //end dummy data
 
   const [fetchResources, setResources] = useState([]);
 
