@@ -4,6 +4,8 @@ import RouteCards from './components/RouteCards';
 import AwaitingInput from './components/AwaitingInput';
 import { forEachChild } from 'typescript';
 
+
+//add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
   interface Window {
     electronAPI: any;
