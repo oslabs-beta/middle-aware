@@ -1,4 +1,5 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const session = require('electron').session
+const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const url = require('url')
 const path = require('path')
 const parseAPIRequests = require('./parseAPIRequests')
@@ -22,6 +23,14 @@ function createMainWindow () {
   mainWindow.loadURL('http://localhost:8080')
 }
 
+app.whenReady().then(() => {
+  session.defaultSession.setProxy({
+    proxyRules: 'http://127.0.0.1:9000',
+    // proxyBypassRules: 'localhost'
+  });
+
+  createMainWindow();
+});
 async function handleFileOpen () {
   const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --hot & tailwindcss -i ./src/renderer/App.css -o ./src/renderer/dist/output.css --watch & npx electronmon --trace-warning .",
-    "electron": "electron ."
+    "electron": "electron .",
+    "proxy": "nodemon proxy/proxy.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,10 @@
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
     "html-webpack-plugin": "^5.5.0",
-    "mongoose": "^6.10.0",
+    "http-proxy": "^1.18.1",
+    "http-proxy-middleware": "^2.0.6",
+    "mongoose": "^7.0.1",
+    "nodemon": "^2.0.21",
     "postcss-loader": "^7.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,6 +30,7 @@
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.2",
+    "url": "^0.11.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.75.0"
   },
