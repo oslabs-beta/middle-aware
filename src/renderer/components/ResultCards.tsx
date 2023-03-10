@@ -1,42 +1,34 @@
 import React from 'react'
-import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineArrowDown } from "react-icons/ai";
+import ErrorArrow from './ErrorArrow'
+import SuccessArrow from './SuccessArrow'
 
-const resultCards = () => {
+type ResultProps = {
+  id: string;
+  message: string;
+  payload: string;
+  status: string;
+}
+//dummy data
+const error = true;
+
+const resultCards = ({id, message, payload, status}: ResultProps) => {
 
   return (
     <>
+    {/* use a conditional statement to not allow 
+    the first arrow to be rendered perhaps passing the index and making a rule if its [0] */}
 
-    {/* DUPLICATED FOR DEMO PURPOSES ONLY */}
-    <div id='resultCards'>
-      <h2>Message: </h2>
-      <h2>Payload: </h2>
-      <h2>Status: </h2>
-    </div>
-<AiOutlineArrowDown id='successArrow' />
-<AiOutlineCheckCircle id='successStatus'/>
-     
-      <div id='resultCards'>
-        <h2>Message: </h2>
-        <h2>Payload: </h2>
-        <h2>Status: </h2>
-      </div>
-<AiOutlineCloseCircle id='errorStatus'/>
-      <div id='resultCards'>
-        <h2>Message: </h2>
-        <h2>Payload: </h2>
-        <h2>Status: </h2>
-      </div>
-      <div id='resultCards'>
-        <h2>Message: </h2>
-        <h2>Payload: </h2>
-        <h2>Status: </h2>
+    
+    {
+      error ? <ErrorArrow/> : <SuccessArrow/>
+    }
+
+      <div id={id} className='resultCards'>
+      Message: {message}<br />
+      {/* Payload: {payload}<br /> */}
+      Status: {status}
       </div>
 
-      <div id='resultCards'>
-        <h2>Message: </h2>
-        <h2>Payload: </h2>
-        <h2>Status: </h2>
-      </div>
     </>
   )
 }
