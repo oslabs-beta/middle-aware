@@ -7251,6 +7251,10 @@ hr {
   width: 67%;
 }
 
+/* .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
+      } */
+
 .resultCards {
   margin-left: auto;
   margin-right: auto;
@@ -7262,7 +7266,7 @@ hr {
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  background-color: rgb(254 240 228 / var(--tw-bg-opacity));
   padding: 1.25rem;
   --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -7277,7 +7281,7 @@ hr {
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  background-color: rgb(254 240 228 / var(--tw-bg-opacity));
   padding: 1.25rem;
 }
 

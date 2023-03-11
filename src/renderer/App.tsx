@@ -182,9 +182,10 @@ function App () {
               databaseRoutes.push(routeData.detail)
             }
             const available = databaseRoutes.includes(routes)
+            const error = (routes === '/api/cards')
             return (
               // key is using index above because there is no id; try to use the element index
-              <RouteCards id={routes} detail={routes} onClick={resultHandler} key={index++} available={available}/>
+              <RouteCards id={routes} detail={routes} onClick={resultHandler} key={index++} available={available} error={error}/>
             )
           })}
 
