@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 type RouteProps = {
   id?: string;
   detail: string;
@@ -12,8 +11,6 @@ type RouteProps = {
 }
 
 const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
-
-
   const statusColors: any = { error: '#fba8a0', good: '#9ffad3', default: '#FAF8F4' }
   const color = (available ? (error ? statusColors.error : statusColors.good) : statusColors.default)
 
@@ -21,8 +18,6 @@ const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
 
     <div id={id} className='routes' style={{ backgroundColor: color }} onClick={onClick}>
       Endpoint: {detail}<br/>
-      {/* Method: {method} <br/>
-      Status: {message} */}
     </div>
 
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiOutlineCloseCircle, AiOutlineArrowDown } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiOutlineArrowDown } from 'react-icons/ai'
 
 const ErrorArrow = () => {
   return (
