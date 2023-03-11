@@ -34,8 +34,8 @@ const resultCards = ({ id, request, response, rtt }: ResultProps) => {
      <h1>Response</h1>
       <p>Message: {response.message}</p>
       <br />
-      <p>Payload: {response.payload}</p>
-      <br />
+      {/* <p>Payload: {response.payload}</p>
+      <br /> */}
       <p>Status Code: {response.status_code}</p>
       <br />
       <p>Round Trip Time: {rtt}</p>

@@ -7341,6 +7341,22 @@ hr {
 #arrow {
   margin-left: auto;
   margin-right: auto;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+#arrow {
+  animation: bounce 1s infinite;
   font-size: 3rem;
   line-height: 1;
   --tw-text-opacity: 1;

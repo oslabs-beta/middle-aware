@@ -98,7 +98,7 @@ hr{
       }
 
       #arrow{
-        @apply mx-auto text-5xl text-[#b3b2af]
+        @apply mx-auto text-5xl text-[#b3b2af] animate-bounce
       }
 
 

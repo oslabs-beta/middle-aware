@@ -176,10 +176,17 @@ function App () {
             // message is referencing the first object in the tests array
             <RouteCards id={routes.id} detail={routes.detail} method={routes.input} message={dummyTests?.[0].response.message} onClick={resultHandler} key={routes.id} />
           ))} */}
-          {fetchResources.map((routes: any) => (
-            // key is using index above because there is no id; try to use the element index
-            <RouteCards id={routes} detail={routes} onClick={resultHandler} key={index++} />
-          ))}
+          {fetchResources.map((routes: any) => {
+            const databaseRoutes = []
+            for (const routeData of allRoutes) {
+              databaseRoutes.push(routeData.detail)
+            }
+            const available = databaseRoutes.includes(routes)
+            return (
+              // key is using index above because there is no id; try to use the element index
+              <RouteCards id={routes} detail={routes} onClick={resultHandler} key={index++} available={available}/>
+            )
+          })}
 
         </div>
         <div id='resultsSection'>
