@@ -46,11 +46,19 @@ async function handleFileParse (event, dir) {
   return await parseAPIRequests(dir)
 }
 
+async function handleGetRoute (event, route) {
+  return await db.getRoute(route)
+}
+
+async function handleGetTest (event, test) {
+  return await db.getTest(test)
+}
+
 app.whenReady().then(() => {
   createMainWindow()
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('parseFiles', handleFileParse)
   ipcMain.handle('db:getAllRoutes', db.getAllRoutes)
-  ipcMain.handle('db:getRoute', db.getRoutes)
-  ipcMain.handle('db:getTest', db.getTest)
+  ipcMain.handle('db:getRoute', handleGetRoute)
+  ipcMain.handle('db:getTest', handleGetTest)
 })

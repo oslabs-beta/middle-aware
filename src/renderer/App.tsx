@@ -1,24 +1,21 @@
-import React, { MouseEventHandler, useState} from 'react';
-import ResultCards from './components/ResultCards';
-import RouteCards from './components/RouteCards';
-import AwaitingInput from './components/AwaitingInput';
-//import { forEachChild } from 'typescript';
+import React, { MouseEventHandler, useState, useEffect } from 'react'
+import ResultCards from './components/ResultCards'
+import RouteCards from './components/RouteCards'
+import AwaitingInput from './components/AwaitingInput'
+// import { forEachChild } from 'typescript';
 
-
-//add fx to preload (contextIsolation) to prevent end users from reaching electron API
+// add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
   interface Window {
     electronAPI: any;
   }
 }
 
-function App() {
-
+function App () {
   // dummy data to replace
 
-  const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5'];
+  const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5']
   const [dummyUpload, setDummyUpload]: any = useState('')
-
 
   // based on ERD
   const dummyRoutes: any = [
@@ -32,32 +29,75 @@ function App() {
     { id: 'foreignKey2', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'good', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' },
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
-  //end dummy data
+  // end dummy data
 
   // const [routesFromButton, setRoutesFromButton] = useState<any>([])
 
+  let directoryButton
+  let getAllRoutes: any = []
+  let getTests: any
 
+  // useEffect(() => {
+
+  // }, []);
+
+  // working version before messing with it
+
+  //   const [results, setResults] = useState<any>([])
+  //  //Find the right mouse event instead of any!!!!!!
+  //   const resultHandler = (event: any) => {
+  //     event.preventDefault()
+  //     let testToFilter = '';
+  //     const filteredTests: string[] = [];
+  //     testToFilter = event.target.id
+  //     //push any test that are associated to the selected route based on id/route respectively
+  //     for (const test of dummyTests) {
+  //       if (test.route === testToFilter) {
+  //         filteredTests.push(test)
+  //       }
+  //     }
+  //     setResults(filteredTests);
+  //   }
   const [results, setResults] = useState<any>([])
- //Find the right mouse event instead of any!!!!!!
-  const resultHandler = (event: any) => {
-    event.preventDefault()
-    let testToFilter = '';
-    const filteredTests: string[] = [];
-    testToFilter = event.target.id
-    //push any test that are associated to the selected route based on id/route respectively
-    for (const test of dummyTests) {
-      if (test.route === testToFilter) {
-        filteredTests.push(test)
-      }
-    }
-    setResults(filteredTests);
+
+  const fetchTestsFromDB = (id: string) => {
+    console.log('test id passed in app:', id)
+    window.electronAPI
+      .getTest(id)
+      .then((data: any) => {
+        // console.log(data)
+        getTests = JSON.parse(data)
+        console.log(getTests)
+        setResults(getTests)
+      })
+      .catch((err: any) => console.log('Problem with db Tests:', err))
   }
 
+  // Find the right mouse event instead of any!!!!!!
+  const resultHandler = (event: any) => {
+    event.preventDefault()
+    let testToFilter = ''
+    // let filteredTests: string[] = [];
+    testToFilter = event.target.id // path name
 
+    for (const item of getAllRoutes) {
+      if (testToFilter === item.detail) {
+        testToFilter = item._id
+        break
+      }
+    }
+    console.log('testToFilter: ', testToFilter)
+    // tried hard coding:
+    fetchTestsFromDB('640a91ecc1d2fa10b8532abc')
+    // for (const test of getTests) {
+    //   if (test.detail === testToFilter) {
+    //     filteredTests.push(test)
+    //   }
+  }
 
-  const [fetchResources, setResources] = useState([]);
+  const [fetchResources, setResources] = useState([])
 
-  let directory;
+  let directory
 
   // const handleButtonClick = async () => {
   //   directory = await window.electronAPI.openFile(); //.then()? Maybe save this as temp and chain open file and parse file in one here;
@@ -67,35 +107,36 @@ function App() {
   //   setResources(await temp);
   // };
 
-
   const handleButtonClick = () => {
     window.electronAPI
       .openFile()
       .then((result: string) => {
-        //const temp = window.electronAPI.openFile().then((result) => {
+        // const temp = window.electronAPI.openFile().then((result) => {
         // Expect result to be a directory
         window.electronAPI
           .parseFiles(result)
           .then((result: any) => {
             // Expect result to be an array of fetch resources
-            console.log(result);
-            setResources(result); //    return result;
+            console.log(result)
+            setResources(result) //    return result;
           })
-          .catch((err: any) => console.log('parseFiles Error:', err));
+          .catch((err: any) => console.log('parseFiles Error:', err))
       })
-      .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
-  };
+      .catch((err: any) => console.log('openFile Error: ', err)) // .then()? Maybe save this as temp and chain open file and parse file in one here;
+  }
 
-  const fetchFromDB = () =>{
+  const fetchFromDB = () => {
     window.electronAPI
       .getAllRoutes()
       .then((data: any) => {
-        console.log(JSON.parse(data));
-      }) 
-      .catch((err: any) => console.log('Problem with db Routes:', err));
+        getAllRoutes = JSON.parse(data)
+        console.log(getAllRoutes)
+      })
+      .catch((err: any) => console.log('Problem with db Routes:', err))
   }
 
-
+  // this is for the key in the routes being rendered
+  let index = 0
 
   return (
     <>
@@ -117,32 +158,37 @@ function App() {
           }} /> */}
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
 
-        <button className="btn btn-sm" onClick={fetchFromDB}>Look For Tests</button>
+        <button className="btn btn-sm" onClick={fetchFromDB}>DB for Last Test ID</button>
         <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
       <div id="main">
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
-          {dummyRoutes.map((routes: any) => (
+          {/* {fetchResources.map((routes: any) => (
             // message is referencing the first object in the tests array
             <RouteCards id={routes.id} detail={routes.detail} method={routes.input} message={dummyTests?.[0].response.message} onClick={resultHandler} key={routes.id} />
+          ))} */}
+          {fetchResources.map((routes: any) => (
+            // key is using index above because there is no id; try to use the element index
+            <RouteCards id={routes} detail={routes} onClick={resultHandler} key={index++} />
           ))}
 
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
-            {!results[0] ? <AwaitingInput/>:
+            {!results[0]
+              ? <AwaitingInput/>
 
-          results.map((results: any) => (
+              : results.map((results: any) => (
             <ResultCards id={results.id} message={results.response.message} payload={results.response?.payload} status={results.response.status} key={results.id}/>
-          ))}
+              ))}
 
         </div>
 
       </div>
     </>
-  );
+  )
 }
 
 export default App
