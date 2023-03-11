@@ -81,14 +81,15 @@ function App () {
     testToFilter = event.target.id // path name
 
     for (const item of getAllRoutes) {
-      if (testToFilter === item.detail) {
-        testToFilter = item._id
-        break
-      }
+// item.detail (e.g. /api/auth/user/)
+const temp = ( item.detail.charAt(item.detail.length-1) === "/" ? item.detail.slice(0,item.detail.length -2) : item.detail )
+if (testToFilter === temp) {
+  testToFilter = item.last_test_id
+}
     }
     console.log('testToFilter: ', testToFilter)
     // tried hard coding:
-    fetchTestsFromDB('640a91ecc1d2fa10b8532abc')
+    fetchTestsFromDB(testToFilter)
     // for (const test of getTests) {
     //   if (test.detail === testToFilter) {
     //     filteredTests.push(test)
@@ -117,7 +118,7 @@ function App () {
           .parseFiles(result)
           .then((result: any) => {
             // Expect result to be an array of fetch resources
-            console.log(result)
+            console.log('handlebuttonclick/fetchFromResources', result)
             setResources(result) //    return result;
           })
           .catch((err: any) => console.log('parseFiles Error:', err))
@@ -130,7 +131,7 @@ function App () {
       .getAllRoutes()
       .then((data: any) => {
         getAllRoutes = JSON.parse(data)
-        console.log(getAllRoutes)
+        console.log('fetchfromDB: getallRoutes', getAllRoutes)
       })
       .catch((err: any) => console.log('Problem with db Routes:', err))
   }
@@ -181,7 +182,7 @@ function App () {
               ? <AwaitingInput/>
 
               : results.map((results: any) => (
-            <ResultCards id={results.id} message={results.response.message} payload={results.response?.payload} status={results.response.status} key={results.id}/>
+            <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id}/>
               ))}
 
         </div>
