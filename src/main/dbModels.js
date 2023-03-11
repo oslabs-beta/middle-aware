@@ -1,7 +1,5 @@
-require('dotenv').config()
 const mongoose = require('mongoose')
-
-const { MONGODB_URI } = process.env
+const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
 
 mongoose.connect(MONGODB_URI, {
   // options for the connect method to parse the URI
@@ -50,7 +48,7 @@ const testSchema = new Schema({
     payload: String
   },
   error: String,
-  rtt: Number
+  rtt: String,
 })
 
 const Test = mongoose.model('Test', testSchema)
