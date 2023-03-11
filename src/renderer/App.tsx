@@ -34,7 +34,7 @@ function App () {
   // const [routesFromButton, setRoutesFromButton] = useState<any>([])
 
   let directoryButton
-  let getAllRoutes: any = []
+  const getAllRoutes: any = []
   let getTests: any
 
   // useEffect(() => {
@@ -59,6 +59,7 @@ function App () {
   //     setResults(filteredTests);
   //   }
   const [results, setResults] = useState<any>([])
+  const [allRoutes, setAllRoutes] = useState<any>([])
 
   const fetchTestsFromDB = (id: string) => {
     console.log('test id passed in app:', id)
@@ -80,12 +81,12 @@ function App () {
     // let filteredTests: string[] = [];
     testToFilter = event.target.id // path name
 
-    for (const item of getAllRoutes) {
-// item.detail (e.g. /api/auth/user/)
-const temp = ( item.detail.charAt(item.detail.length-1) === "/" ? item.detail.slice(0,item.detail.length -2) : item.detail )
-if (testToFilter === temp) {
-  testToFilter = item.last_test_id
-}
+    for (const item of allRoutes) {
+      // item.detail (e.g. /api/auth/user/)
+      const temp = (item.detail.charAt(item.detail.length - 1) === '/' ? item.detail.slice(0, item.detail.length - 2) : item.detail)
+      if (testToFilter === temp) {
+        testToFilter = item.last_test_id
+      }
     }
     console.log('testToFilter: ', testToFilter)
     // tried hard coding:
@@ -130,11 +131,16 @@ if (testToFilter === temp) {
     window.electronAPI
       .getAllRoutes()
       .then((data: any) => {
-        getAllRoutes = JSON.parse(data)
-        console.log('fetchfromDB: getallRoutes', getAllRoutes)
+        setAllRoutes(JSON.parse(data))
+        // console.log('fetchfromDB: getallRoutes', getAllRoutes)
       })
       .catch((err: any) => console.log('Problem with db Routes:', err))
   }
+
+  useEffect(() => {
+    // Console log routes for debugging
+    console.log('routes: ', allRoutes)
+  })
 
   // this is for the key in the routes being rendered
   let index = 0
@@ -159,7 +165,7 @@ if (testToFilter === temp) {
           }} /> */}
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
 
-        <button className="btn btn-sm" onClick={fetchFromDB}>DB for Last Test ID</button>
+        {/* <button className="btn btn-sm" onClick={fetchFromDB}>DB for Last Test ID</button> */}
         <input type="text" placeholder="PORT #: 9000" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
@@ -179,8 +185,12 @@ if (testToFilter === temp) {
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
             {!results[0]
-              ? <AwaitingInput/>
-
+              ? <>
+              <AwaitingInput/>
+              <div id='checkForData'>
+              <button className="btn btn-sm" onClick={fetchFromDB}>Look For Test Data</button>
+              </div>
+              </>
               : results.map((results: any) => (
             <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id}/>
               ))}

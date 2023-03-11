@@ -71,7 +71,7 @@ hr{
       }
 
       .resultCards{
-        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
       }
 
       #overlay{
@@ -84,6 +84,9 @@ hr{
 
       #spinner{
         @apply animate-spin text-9xl mx-auto
+      }
+      #checkForData {
+        @apply w-[25%] pt-5 mx-auto
       }
 
         #successStatus{
