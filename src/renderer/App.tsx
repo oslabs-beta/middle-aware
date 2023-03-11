@@ -159,7 +159,7 @@ function App () {
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
 
         <button className="btn btn-sm" onClick={fetchFromDB}>DB for Last Test ID</button>
-        <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
+        <input type="text" placeholder="PORT #: 9000" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
       <div id="main">
