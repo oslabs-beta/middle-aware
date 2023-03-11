@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
-import ResultCards from './components/ResultCards';
-import RouteCards from './components/RouteCards';
-import AwaitingInput from './components/AwaitingInput';
-import { forEachChild } from 'typescript';
+import React, { useState } from 'react'
+import ResultCards from './components/ResultCards'
+import RouteCards from './components/RouteCards'
+import AwaitingInput from './components/AwaitingInput'
+import { forEachChild } from 'typescript'
 
-
-//add fx to preload (contextIsolation) to prevent end users from reaching electron API
+// add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
   interface Window {
     electronAPI: any;
   }
 }
 
-function App() {
-
+function App () {
   // dummy data to replace
 
-  const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5'];
+  const dummypaths: string[] = ['fetch/request/1', 'fetch/request/2', 'fetch/request/3', 'fetch/request/4', 'fetch/request/5']
   const [dummyUpload, setDummyUpload]: any = useState('')
-
 
   // based on ERD
   const dummyRoutes: any = [
@@ -33,35 +30,34 @@ function App() {
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
 
-  let testToFilter = '';
+  let testToFilter = ''
 
-  let filteredTests: any[]= [];
+  let filteredTests: any[] = []
 
   const [results, setResults] = useState<any>([])
 
-  //Find the right mouse event instead of any!!!!!!
+  // Find the right mouse event instead of any!!!!!!
   const resultHandler = (event: any) => {
     event.preventDefault()
     testToFilter = event.target.id
-    console.log('testToFilter:', testToFilter);
-    //push any test that are associated to the selected route based on id/route respectively
-    for(const test of dummyTests){
-      if(test.route === testToFilter){
+    console.log('testToFilter:', testToFilter)
+    // push any test that are associated to the selected route based on id/route respectively
+    for (const test of dummyTests) {
+      if (test.route === testToFilter) {
         filteredTests.push(test)
       }
     }
-    console.log('filteredTests',filteredTests);
-    setResults(filteredTests);
+    console.log('filteredTests', filteredTests)
+    setResults(filteredTests)
     testToFilter = ''
     filteredTests = []
   }
 
+  // end dummy data
 
-  //end dummy data
+  const [fetchResources, setResources]:any = useState<any>([])
 
-  const [fetchResources, setResources] = useState([]);
-
-  let directory;
+  let directory
 
   // const handleButtonClick = async () => {
   //   directory = await window.electronAPI.openFile(); //.then()? Maybe save this as temp and chain open file and parse file in one here;
@@ -71,23 +67,22 @@ function App() {
   //   setResources(await temp);
   // };
 
-
   const handleButtonClick = () => {
     window.electronAPI
       .openFile()
       .then((result: string) => {
-        //const temp = window.electronAPI.openFile().then((result) => {
+        // const temp = window.electronAPI.openFile().then((result) => {
         // Expect result to be a directory
         window.electronAPI
-          .parseFiles('../../../scratch/client', '2', '3', '4')
+          .parseFiles(result)
           .then((result: any) => {
             // Expect result to be an array of fetch resources
-            setResources(result); //    return result;
+            setResources(result)
           })
-          .catch((err: any) => console.log('parseFiles Error:', err));
+          .catch((err: any) => console.log('parseFiles Error:', err))
       })
-      .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
-  };
+      .catch((err: any) => console.log('openFile Error: ', err)) // .then()? Maybe save this as temp and chain open file and parse file in one here;
+  }
 
   return (
     <>
@@ -99,16 +94,16 @@ function App() {
         {/* turn loading on within the button when parsing paths */}
         <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
           onChange={(e) => {
-            //We are missing some attributes here like value!!!!!:
-            //I had difficulty trying to debug this section
+            // We are missing some attributes here like value!!!!!:
+            // I had difficulty trying to debug this section
             console.log(e.target.files?.[0].name)
             setDummyUpload(e.target.files?.[0].name)
             console.log(typeof dummyUpload)
-
           }} />
-        <button className="btn btn-sm">Find All Paths</button>
+        <button className="btn btn-sm" onClick={handleButtonClick}>Find All Paths</button>
         <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
+      {fetchResources}
       <hr />
       <div id="main">
         <div id='routesSection'>
@@ -121,17 +116,18 @@ function App() {
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
-            {!results[0] ? <AwaitingInput/>:
+            {!results[0]
+              ? <AwaitingInput/>
 
-          results.map((results: any) => (
+              : results.map((results: any) => (
             <ResultCards id={results.id} message={results.response.message} payload={results.response?.payload} status={results.response.status} key={results.id}/>
-          ))}
+              ))}
 
         </div>
 
       </div>
     </>
-  );
+  )
 }
 
 export default App

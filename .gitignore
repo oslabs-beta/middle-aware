@@ -10,6 +10,7 @@
 
 # production
 /build
+/src/renderer/dist
 
 # misc
 .DS_Store
@@ -24,4 +25,3 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-.package-lock.json

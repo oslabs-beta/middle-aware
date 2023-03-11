@@ -25,12 +25,12 @@ function createMainWindow () {
 
 app.whenReady().then(() => {
   session.defaultSession.setProxy({
-    proxyRules: 'http://127.0.0.1:9000',
+    proxyRules: 'http://127.0.0.1:9000'
     // proxyBypassRules: 'localhost'
-  });
+  })
 
-  createMainWindow();
-});
+  createMainWindow()
+})
 async function handleFileOpen () {
   const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']

@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 type RouteProps = {
   id: string;
   detail: string;
@@ -10,8 +9,6 @@ type RouteProps = {
 }
 
 const RouteCards = ({ id, detail, method, message, onClick }: RouteProps) => {
-
-
   const statusColors: any = { error: '#fba8a0', good: '#9ffad3', default: '#FAF8F4' }
 
   return (

@@ -1,5 +1,4 @@
 const { Test, Route } = require('./dbModels')
-const mongoose = require('mongoose')
 
 // interface ControllerConfig {
 //   getAllRoutes: Function;
@@ -19,7 +18,6 @@ const mongoose = require('mongoose')
 //   rtt?: string;
 // }
 
-
 // interface Route {
 //   detail: string;
 //   input: string;
@@ -27,66 +25,67 @@ const mongoose = require('mongoose')
 //   last_test: Test;
 // }
 
-
 const dbController = {
   getAllRoutes: async () => {
     try {
-      return await Route.find({});
+      const allRoutes = await Route.find({})
+      const allRoutesStringified = JSON.stringify(allRoutes)
+      console.log(allRoutesStringified)
+      return allRoutesStringified
     } catch (err) {
-      console.log('Error caught in dbController.getAllRoutes: ', err);
+      console.log('something: ', err)
     }
   },
 
   getRoute: async (route) => {
-    // This function expects to receive a route / fetch resource. E.g.: "/api/user/" as a string 
+    // This function expects to receive a route / fetch resource. E.g.: "/api/user/" as a string
     try {
       // If an actual path was provided as string, search the route detail
       if (route.includes('/')) {
-        return await Route.findOne({ detail: route });  //changed to findOne.
+        return await Route.findOne({ detail: route }) // changed to findOne.
       } else {
         // otherwise assume a route _id was passed
-        return await Route.findById({ _id: route });  //changed to findById.
+        return await Route.findById({ _id: route }) // changed to findById.
       }
     } catch (err) {
-      console.log('Error caught in dbController.getRoute: ', err);
+      console.log('Error caught in dbController.getRoute: ', err)
     }
   },
 
-  //find route
+  // find route
   updateRoute: async (obj) => {
     try {
-     const route = await Route.findOne({_id: obj.routeId})
-     route.last_test_id = obj.testId
-     return await route.save();
-
-    }catch (err) {
+      const route = await Route.findOne({ _id: obj.routeId })
+      route.last_test_id = obj.testId
+      return await route.save()
+    } catch (err) {
       console.log('Error in updateRoute in dbController', err)
     }
   },
 
   createRoute: async (route) => {
-  try {
-  return await Route.create({detail: route})
-  }catch (err) {
-    console.log('Error in createRoute in dbController:', err)
-  }
+    try {
+      return await Route.create({ detail: route })
+    } catch (err) {
+      console.log('Error in createRoute in dbController:', err)
+    }
   },
 
   getTest: async (test) => {
     try {
-      return await Route.find({ _id: test });
+      return await Route.find({ _id: test })
     } catch (err) {
-      console.log('Error caught in dbController.getTest: ', err);
+      console.log('Error caught in dbController.getTest: ', err)
     }
   },
-  
+
   createTest: async (test, info) => {
     try {
       return await Test.create({
-        route_id: test, 
+        route_id: test,
         created_at: Date.now(),
         request: {
-          method: info.method, 
+          method: info.method,
           endpoint: info.endpoint
         },
         response: {
@@ -94,14 +93,13 @@ const dbController = {
           message: info.body,
           payload: ''
         },
-        error: info.body, //we already capture the status code and message, is there anything else we want to capture here?
-        rtt: info.roundTripTime, 
-       })
+        error: info.body, // we already capture the status code and message, is there anything else we want to capture here?
+        rtt: info.roundTripTime
+      })
     } catch (err) {
-      console.log('Error in dbController.createTest: ', err);
+      console.log('Error in dbController.createTest: ', err)
     }
-  },
-};
+  }
+}
 
-
-module.exports = dbController;
+module.exports = dbController

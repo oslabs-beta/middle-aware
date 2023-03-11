@@ -36,7 +36,7 @@ function processLineByLine (dirToParse) {
 
       for await (const line of rl) {
         // Each line in input.txt will be successively available here as `line`.
-        searchTerm = 'fetch('
+        const searchTerm = 'fetch('
         if (line.includes(searchTerm)) {
           // console.log(`Line from file (index ${line.indexOf(searchTerm)}): ${line}`);
           // extract endpoint from code
