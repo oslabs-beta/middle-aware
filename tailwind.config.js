@@ -3,10 +3,10 @@ module.exports = {
   content: [
     './src/renderer/*.{html, tsx}',
     'node_modules/daisyui/dist/**/*.js',
-    'node_modules/react-daisyui/dist/**/*.js',
+    'node_modules/react-daisyui/dist/**/*.js'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [require('daisyui')],
   // daisyui: {
@@ -19,7 +19,7 @@ module.exports = {
   //   prefix: '',
   //   darkTheme: 'light',
   // },
-  daisyui:{
+  daisyui: {
     themes: ['emerald']
   }
-};
+}

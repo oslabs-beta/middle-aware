@@ -70,12 +70,16 @@ hr{
         @apply h-44 w-[67%] 
       }
 
-      .resultCards{
-        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300
+      /* .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
+      } */
+
+            .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#fef0e4] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
       }
 
       #overlay{
-        @apply rounded-md p-5 border-dashed border-2 border-slate-300 bg-[#f1efea] ml-6 h-96
+        @apply rounded-md p-5 border-dashed border-2 border-slate-300 bg-[#fef0e4] ml-6 h-96
       }
 
       #insideOverlay h1, #insideOverlay h2{
@@ -84,6 +88,9 @@ hr{
 
       #spinner{
         @apply animate-spin text-9xl mx-auto
+      }
+      #checkForData {
+        @apply w-[25%] pt-5 mx-auto
       }
 
         #successStatus{
@@ -95,7 +102,7 @@ hr{
       }
 
       #arrow{
-        @apply mx-auto text-5xl text-[#b3b2af]
+        @apply mx-auto text-5xl text-[#b3b2af] animate-bounce
       }
 
 

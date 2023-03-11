@@ -44,7 +44,17 @@ function processLineByLine (dirToParse) {
           const tempLine = line.slice(
             searchTerm.length + line.indexOf(searchTerm) + 1
           )
-          if (tempLine.indexOf(',') > 0) { outArray.push(tempLine.slice(0, tempLine.indexOf(',') - 1)) } else if (tempLine.indexOf(')') > 0) { outArray.push(tempLine.slice(0, tempLine.indexOf(')') - 1)) } else console.log('fetch found but unable to find end of resource')
+          let pathToPush
+
+          if (tempLine.indexOf(',') > 0) {
+            pathToPush = tempLine.slice(0, tempLine.indexOf(',') - 1)
+            if (pathToPush.charAt(pathToPush.length - 1) === '/') pathToPush = pathToPush.slice(0, pathToPush.length - 2)
+            if (!outArray.includes(pathToPush)) outArray.push(pathToPush)
+          } else if (tempLine.indexOf(')') > 0) {
+            pathToPush = tempLine.slice(0, tempLine.indexOf(')') - 1)
+            if (pathToPush.charAt(pathToPush.length - 1) === '/') pathToPush = pathToPush.slice(0, pathToPush.length - 2)
+            if (!outArray.includes(pathToPush)) outArray.push(pathToPush)
+          } else console.log('fetch found but unable to find end of resource')
         }
       }
     }
