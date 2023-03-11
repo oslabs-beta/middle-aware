@@ -31,9 +31,13 @@ const mongoose = require('mongoose')
 const dbController = {
   getAllRoutes: async () => {
     try {
-      return await Route.find({});
+      // return await JSON.stringify(models.Route.find({}))
+      const allRoutes = await Route.find({})
+      const allRoutesStringified = JSON.stringify(allRoutes)
+      console.log(allRoutesStringified)
+      return allRoutesStringified
     } catch (err) {
-      console.log('Error caught in dbController.getAllRoutes: ', err);
+      console.log('something: ', err)
     }
   },
 

@@ -1,8 +1,8 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useState} from 'react';
 import ResultCards from './components/ResultCards';
 import RouteCards from './components/RouteCards';
 import AwaitingInput from './components/AwaitingInput';
-import { forEachChild } from 'typescript';
+//import { forEachChild } from 'typescript';
 
 
 //add fx to preload (contextIsolation) to prevent end users from reaching electron API
@@ -33,6 +33,9 @@ function App() {
     { id: 'foreignKey3', route: 'id1', created_at: 'createdStr', request: { method: 'methodStr', endpoint: 'someEndstr' }, response: { status_code: 'statusStr', message: 'MessageStr', payload: { somePayLoad: 'PLString' } }, error: 'errorStr', rtt: 'rttString' }
   ]
   //end dummy data
+
+  // const [routesFromButton, setRoutesFromButton] = useState<any>([])
+
 
   const [results, setResults] = useState<any>([])
  //Find the right mouse event instead of any!!!!!!
@@ -83,6 +86,16 @@ function App() {
       .catch((err: any) => console.log('openFile Error: ', err)); //.then()? Maybe save this as temp and chain open file and parse file in one here;
   };
 
+  const fetchFromDB = () =>{
+    window.electronAPI
+      .getAllRoutes()
+      .then((data: any) => {
+        console.log(JSON.parse(data));
+      }) 
+      .catch((err: any) => console.log('Problem with db Routes:', err));
+  }
+
+
 
   return (
     <>
@@ -91,8 +104,9 @@ function App() {
       </header>
       <hr />
       <div id='interface'>
-        {/* turn loading on within the button when parsing paths */}
-        <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
+
+        {/* can probably delete this block since the button takes care of this function */}
+        {/* <input type="file" className="file-input file-input-bordered file-input-sm w-[10%] max-w-xs"
           onChange={(e) => {
             //We are missing some attributes here like value!!!!!:
             //I had difficulty trying to debug this section
@@ -100,8 +114,10 @@ function App() {
             setDummyUpload(e.target.files?.[0].name)
             console.log(typeof dummyUpload)
 
-          }} />
-        <button className="btn btn-sm" onClick={handleButtonClick}>Find All Paths</button>
+          }} /> */}
+        <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
+
+        <button className="btn btn-sm" onClick={fetchFromDB}>Look For Tests</button>
         <input type="text" placeholder="PORT #" className="input input-sm input-bordered w-[10%] max-w-xs" />
       </div>
       <hr />
