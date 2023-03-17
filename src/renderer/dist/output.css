@@ -7251,17 +7251,22 @@ hr {
   width: 67%;
 }
 
+/* .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
+      } */
+
 .resultCards {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+  overflow: hidden;
   border-radius: 0.375rem;
   border-width: 2px;
   border-style: dashed;
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  background-color: rgb(254 240 228 / var(--tw-bg-opacity));
   padding: 1.25rem;
   --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -7276,7 +7281,7 @@ hr {
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(241 239 234 / var(--tw-bg-opacity));
+  background-color: rgb(254 240 228 / var(--tw-bg-opacity));
   padding: 1.25rem;
 }
 
@@ -7300,6 +7305,13 @@ hr {
   animation: spin 1s linear infinite;
   font-size: 8rem;
   line-height: 1;
+}
+
+#checkForData {
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  padding-top: 1.25rem;
 }
 
 #successStatus {
@@ -7333,6 +7345,22 @@ hr {
 #arrow {
   margin-left: auto;
   margin-right: auto;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+#arrow {
+  animation: bounce 1s infinite;
   font-size: 3rem;
   line-height: 1;
   --tw-text-opacity: 1;

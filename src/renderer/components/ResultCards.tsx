@@ -4,29 +4,41 @@ import SuccessArrow from './SuccessArrow'
 
 type ResultProps = {
   id: string;
-  message: string;
-  payload: string;
-  status: string;
+  request: any;
+  response: any;
+  rtt: string;
+  route_id?:string;
 }
-//dummy data
-const error = true;
 
-const resultCards = ({id, message, payload, status}: ResultProps) => {
-
+const resultCards = ({ id, request, response, rtt }: ResultProps) => {
   return (
     <>
-    {/* use a conditional statement to not allow 
+    {/* use a conditional statement to not allow
     the first arrow to be rendered perhaps passing the index and making a rule if its [0] */}
 
-    
-    {
-      error ? <ErrorArrow/> : <SuccessArrow/>
+      <div id={id} className='resultCards'>
+     <h1>Request</h1>
+      {/* Endpoint: {request.endpoint}<br />
+      Method: {request.method}<br /> */}
+
+      <p>Endpoint: {request.endpoint}</p>
+      <br />
+      <p>Method: {request.method}</p>
+      </div>
+
+      {
+      response.status_code !== 200 ? <ErrorArrow/> : <SuccessArrow/>
     }
 
-      <div id={id} className='resultCards'>
-      Message: {message}<br />
-      {/* Payload: {payload}<br /> */}
-      Status: {status}
+    <div id={id} className='resultCards'>
+     <h1>Response</h1>
+      <p>Message: {response.message}</p>
+      <br />
+      {/* <p>Payload: {response.payload}</p>
+      <br /> */}
+      <p>Status Code: {response.status_code}</p>
+      <br />
+      <p>Round Trip Time: {rtt}</p>
       </div>
 
     </>
