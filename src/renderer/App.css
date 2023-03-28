@@ -12,7 +12,7 @@ html, body{
 }
 
 h1, .title , #interface{
-  font-family: 'Silkscreen', cursive;
+  font-family: 'Silkscreen', sans-serif;
 }
 
 .title{
@@ -54,7 +54,7 @@ hr{
         @apply h-44 w-[33%]
       }
 
-      #routes{
+      .routes{
         @apply  border-solid border-b-2 p-5 mb-4 rounded-md drop-shadow-md
       }
 
@@ -70,12 +70,16 @@ hr{
         @apply h-44 w-[67%] 
       }
 
-      #resultCards{
-        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300
+      /* .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
+      } */
+
+            .resultCards{
+        @apply w-[80%] mx-auto drop-shadow-md bg-[#fef0e4] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
       }
 
       #overlay{
-        @apply rounded-md p-5 border-dashed border-2 border-slate-300 bg-[#f1efea] ml-6 h-96
+        @apply rounded-md p-5 border-dashed border-2 border-slate-300 bg-[#fef0e4] ml-6 h-96
       }
 
       #insideOverlay h1, #insideOverlay h2{
@@ -84,6 +88,9 @@ hr{
 
       #spinner{
         @apply animate-spin text-9xl mx-auto
+      }
+      #checkForData {
+        @apply w-[25%] pt-5 mx-auto
       }
 
         #successStatus{
@@ -94,9 +101,10 @@ hr{
         @apply mx-auto text-5xl text-[#fba8a0] animate-pulse
       }
 
-      #successArrow{
-        @apply mx-auto text-5xl text-[#7ec7a7] animate-bounce
+      #arrow{
+        @apply mx-auto text-5xl text-[#b3b2af] animate-bounce
       }
+
 
       /* END: results section------------- */
 /* --------END: Main section------------- */

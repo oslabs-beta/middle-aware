@@ -1,9 +1,13 @@
-const models = require('./dbModels')
+const { Test, Route } = require('./dbModels')
+const mongoose = require('mongoose')
 
-// interface dbController {
+// interface ControllerConfig {
 //   getAllRoutes: Function;
 //   getRoute: Function;
+//   createRoute: Function;
+//   updateRoute: Function;
 //   getTest: Function;
+//   createTest: Function;
 // }
 
 // interface Test {
@@ -12,8 +16,9 @@ const models = require('./dbModels')
 //   request?: string;
 //   response?: string;
 //   error?: string;
-//   payload?: string;
+//   rtt?: string;
 // }
+
 
 // interface Route {
 //   detail: string;
@@ -22,73 +27,89 @@ const models = require('./dbModels')
 //   last_test: Test;
 // }
 
-// READ!: The following function and then statement allows you to view the data (in the console) on the front-end/Electron app
-// const test = async () => {
-//   const result = window.electronAPI.getAllRoutes();
-//   return await result;
-// }
-
-// test().then((data) => console.log('this is our data: ', JSON.parse(data)));
 
 const dbController = {
   getAllRoutes: async () => {
     try {
       // return await JSON.stringify(models.Route.find({}))
-      const allRoutes = await models.Route.find({})
+      const allRoutes = await Route.find({})
       const allRoutesStringified = JSON.stringify(allRoutes)
-      console.log(allRoutesStringified)
+      // console.log(allRoutesStringified)
       return allRoutesStringified
     } catch (err) {
       console.log('something: ', err)
     }
   },
-  // return models.Route.find({})
-  //   .then((data) => {
-  //     return {
-  //       ...data[0],
-  //       _id: data[0]._id.toString(),
-  //       last_test_id: data[0].last_test_id.toString()
-  //     }
-  //   })
-
-  // try {
-  //   // https://mongoosejs.com/docs/api.html#model_Model-find
-
-  //   const queryResult = await models.Route.find({})
-  //   // console.log(result[0]._id.toString())
-  //   const result = await {
-  //     ...queryResult,
-  //     _id: queryResult._id.toString(),
-  //     last_test_id: queryResult.last_test_id.toString()
-  //   }
-  //   console.log(result)
-  //   return result
-  // } catch (err) {
-  //   console.log('Error caught in dbController.getAllRoutes: ', err)
-  // }
 
   getRoute: async (route) => {
-    // This function expects to receive a route / fetch resource. E.g.: "/api/user/" as a string
+    // This function expects to receive a route / fetch resource. E.g.: "/api/user/" as a string 
     try {
       // If an actual path was provided as string, search the route detail
       if (route.includes('/')) {
-        return await models.Route.find({ detail: route })
+        return await Route.findOne({ detail: route });  //changed to findOne.
       } else {
         // otherwise assume a route _id was passed
-        return await models.Route.find({ _id: route })
+        return await Route.findById({ _id: route });  //changed to findById.
       }
     } catch (err) {
-      console.log('Error caught in dbController.getRoute: ', err)
+      console.log('Error caught in dbController.getRoute: ', err);
     }
+  },
+
+  //find route
+  updateRoute: async (obj) => {
+    try {
+     const route = await Route.findOne({_id: obj.routeId})
+     route.last_test_id = obj.testId
+     return await route.save();
+
+    }catch (err) {
+      console.log('Error in updateRoute in dbController', err)
+    }
+  },
+
+  createRoute: async (route) => {
+  try {
+  return await Route.create({detail: route})
+  }catch (err) {
+    console.log('Error in createRoute in dbController:', err)
+  }
   },
 
   getTest: async (test) => {
     try {
-      return await models.Route.find({ _id: test })
+      console.log('test id queried: ', test)
+      const testData = await Test.find({ _id: test });
+      const testDataStringified = JSON.stringify(testData)
+      console.log(testDataStringified);
+      return testDataStringified
     } catch (err) {
-      console.log('Error caught in dbController.getTest: ', err)
+      console.log('Error caught in dbController.getTest: ', err);
     }
-  }
-}
+  },
+  
+  createTest: async (test, info) => {
+    try {
+      return await Test.create({
+        route_id: test, 
+        created_at: Date.now(),
+        request: {
+          method: info.method, 
+          endpoint: info.endpoint
+        },
+        response: {
+          status_code: info.statusCode,
+          message: info.body,
+          payload: ''
+        },
+        error: info.body, //we already capture the status code and message, is there anything else we want to capture here?
+        rtt: info.roundTripTime, 
+       })
+    } catch (err) {
+      console.log('Error in dbController.createTest: ', err);
+    }
+  },
+};
 
-module.exports = dbController
+
+module.exports = dbController;

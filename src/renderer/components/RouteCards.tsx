@@ -1,29 +1,25 @@
 import React from 'react'
 
-const RouteCards = () => {
+type RouteProps = {
+  id?: string;
+  detail: string;
+  method?: string;
+  message?: string;
+  available?: boolean;
+  error?: boolean;
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
+}
 
+const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
   const statusColors: any = { error: '#fba8a0', good: '#9ffad3', default: '#FAF8F4' }
+  const color = (available ? (error ? statusColors.error : statusColors.good) : statusColors.default)
 
   return (
-    <>
-      {/* DUPLICATED FOR DEMO PURPOSES ONLY */}
-      <div id='routes' style={{ backgroundColor: statusColors.good }}>
-      <h2>Endpoint: </h2>
-      <h2>Method: </h2>
-      <h2>Status: </h2>
-    </div>
-      <div id='routes' style={{ backgroundColor: statusColors.default }}>
-        <h2>Endpoint: </h2>
-        <h2>Method: </h2>
-        <h2>Status: </h2>
-      </div>
-      <div id='routes' style={{ backgroundColor: statusColors.error }}>
-        <h2>Endpoint: </h2>
-        <h2>Method: </h2>
-        <h2>Status: </h2>
-      </div>
 
-    </>
+    <div id={id} className='routes' style={{ backgroundColor: color }} onClick={onClick}>
+      Endpoint: {detail}<br/>
+    </div>
+
   )
 }
 
