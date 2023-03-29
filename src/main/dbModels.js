@@ -48,7 +48,7 @@ const testSchema = new Schema({
     payload: String
   },
   error: String,
-  rtt: String,
+  rtt: String
 })
 
 const Test = mongoose.model('Test', testSchema)
