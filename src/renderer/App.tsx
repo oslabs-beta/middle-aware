@@ -11,10 +11,28 @@ declare global {
 }
 
 function App () {
-  let getTests: any
+  let getTests: any;
 
-  const [results, setResults] = useState<any>([])
-  const [allRoutes, setAllRoutes] = useState<any>([])
+  interface Response {
+  _id: string,
+  request: {
+    method: string,
+    endpoint: string
+  },
+  response: {
+    message: string,
+    payload: string,
+    status_code: number
+  },
+  rtt: string,
+  route_id: {
+    type: string,
+    ref: string
+  }
+}
+
+  const [results, setResults] = useState<Response[]>([])
+  const [allRoutes, setAllRoutes] = useState<{detail: string, last_test_id: string}[]>([])
 
   const fetchTestsFromDB = (id: string) => {
     console.log('test id passed in app:', id)
@@ -29,12 +47,32 @@ function App () {
       .catch((err: any) => console.log('Problem with db Tests:', err))
   }
 
+
+
+  //   route_id: {
+  //   // type of ObjectId makes this behave like a foreign key referencing the 'species' collection
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Route'
+  // },
+  // created_at: Number,
+  // request: {
+  //   method: String,
+  //   endpoint: String
+  // },
+  // response: {
+  //   status_code: Number,
+  //   message: String,
+  //   payload: String
+  // },
+  // error: String,
+  // rtt: String,
+
   // Find the right mouse event instead of any!!!!!!
-  const resultHandler = (event: any) => {
+  const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
     let testToFilter = ''
     // let filteredTests: string[] = [];
-    testToFilter = event.target.id // path name
+    // testToFilter = event.target.id // path name
 
     for (const item of allRoutes) {
       // item.detail (e.g. /api/auth/user/)

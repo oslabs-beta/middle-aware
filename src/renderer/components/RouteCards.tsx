@@ -7,7 +7,7 @@ type RouteProps = {
   message?: string;
   available?: boolean;
   error?: boolean;
-  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined | any;
 }
 
 const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
