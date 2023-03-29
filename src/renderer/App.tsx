@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import AwaitingInput from './components/AwaitingInput'
+import { Responses } from './Types'
 
 // add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
@@ -11,68 +12,31 @@ declare global {
 }
 
 function App () {
-  let getTests: any;
+  let getTests: Responses[]
 
-  interface Response {
-  _id: string,
-  request: {
-    method: string,
-    endpoint: string
-  },
-  response: {
-    message: string,
-    payload: string,
-    status_code: number
-  },
-  rtt: string,
-  route_id: {
-    type: string,
-    ref: string
-  }
-}
-
-  const [results, setResults] = useState<Response[]>([])
+  const [results, setResults] = useState<Responses[]>([])
   const [allRoutes, setAllRoutes] = useState<{detail: string, last_test_id: string}[]>([])
 
   const fetchTestsFromDB = (id: string) => {
     console.log('test id passed in app:', id)
     window.electronAPI
       .getTest(id)
-      .then((data: any) => {
+      .then((data: string) => {
         // console.log(data)
         getTests = JSON.parse(data)
         console.log(getTests)
         setResults(getTests)
       })
-      .catch((err: any) => console.log('Problem with db Tests:', err))
+      .catch((err: unknown) => console.log('Problem with db Tests:', err))
   }
 
-
-
-  //   route_id: {
-  //   // type of ObjectId makes this behave like a foreign key referencing the 'species' collection
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Route'
-  // },
-  // created_at: Number,
-  // request: {
-  //   method: String,
-  //   endpoint: String
-  // },
-  // response: {
-  //   status_code: Number,
-  //   message: String,
-  //   payload: String
-  // },
-  // error: String,
-  // rtt: String,
-
   // Find the right mouse event instead of any!!!!!!
+  // type eventID = {
+  //   id: string
+  // }
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    let testToFilter = ''
-    // let filteredTests: string[] = [];
-    // testToFilter = event.target.id // path name
+    let testToFilter = (event.target as HTMLDivElement).id // path name
 
     for (const item of allRoutes) {
       // item.detail (e.g. /api/auth/user/)
@@ -90,7 +54,7 @@ function App () {
     //   }
   }
 
-  const [fetchResources, setResources] = useState([])
+  const [fetchResources, setResources] = useState<string[]>([])
 
   const handleButtonClick = () => {
     window.electronAPI
@@ -100,24 +64,24 @@ function App () {
         // Expect result to be a directory
         window.electronAPI
           .parseFiles(result)
-          .then((result: any) => {
+          .then((result: string[]) => {
             // Expect result to be an array of fetch resources
             console.log('handlebuttonclick/fetchFromResources', result)
             setResources(result) //    return result;
           })
-          .catch((err: any) => console.log('parseFiles Error:', err))
+          .catch((err: unknown) => console.log('parseFiles Error:', err))
       })
-      .catch((err: any) => console.log('openFile Error: ', err)) // .then()? Maybe save this as temp and chain open file and parse file in one here;
+      .catch((err: unknown) => console.log('openFile Error: ', err)) // .then()? Maybe save this as temp and chain open file and parse file in one here;
   }
 
   const fetchFromDB = () => {
     window.electronAPI
       .getAllRoutes()
-      .then((data: any) => {
+      .then((data: string) => {
         setAllRoutes(JSON.parse(data))
         // console.log('fetchfromDB: getallRoutes', getAllRoutes)
       })
-      .catch((err: any) => console.log('Problem with db Routes:', err))
+      .catch((err: unknown) => console.log('Problem with db Routes:', err))
   }
 
   useEffect(() => {
@@ -168,8 +132,8 @@ function App () {
               <button className="btn btn-sm" onClick={fetchFromDB}>Look For Test Data</button>
               </div>
               </>
-              : results.map((results: any) => (
-            <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id}/>
+              : results.map((results: Responses) => (
+            <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref}/>
               ))}
 
         </div>
