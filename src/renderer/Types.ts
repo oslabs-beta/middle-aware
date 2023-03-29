@@ -46,3 +46,11 @@ export type ResultProps = {
   rtt: string;
   route_id?:string;
 }
+
+export type APIfuncs ={
+  openFile: () => Promise<string>;
+  parseFiles: (dir: string) => Promise<string[]>;
+  getAllRoutes: () => Promise<string>;
+  // getRoute: (route: any) => any;
+  getTest: (test: string) => Promise<string>;
+}

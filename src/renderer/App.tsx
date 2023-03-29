@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import AwaitingInput from './components/AwaitingInput'
-import { Responses } from './Types'
+import { Responses, APIfuncs } from './Types'
 
 // add fx to preload (contextIsolation) to prevent end users from reaching electron API
 declare global {
   interface Window {
-    electronAPI: any;
+    electronAPI: APIfuncs;
   }
 }
 
