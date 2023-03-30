@@ -2,10 +2,10 @@
   "name": "middle-aware",
   "version": "1.0.0",
   "description": "Complete route testing for full stack applications.",
-  "main": "./src/main/main.ts",
+  "main": "./dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --hot & npx electronmon --trace-warning .",
+    "start": "concurrently \"webpack serve --hot\" \"tsc --watch\" \"electronmon --trace-warning .\" ",
     "electron": "electron .",
     "proxy": "nodemon proxy/proxy.js"
   },
@@ -39,10 +39,12 @@
     "webpack": "^5.75.0"
   },
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
+    "concurrently": "^8.0.1",
     "electron": "^23.1.0",
     "electronmon": "^2.0.2",
     "eslint": "^8.35.0",

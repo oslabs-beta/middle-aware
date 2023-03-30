@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
+require('dotenv').config()
+const MONGODB_URI = process.env.MONGODB_URI
 
 mongoose.connect(MONGODB_URI, {
   // options for the connect method to parse the URI
