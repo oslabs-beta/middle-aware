@@ -1,3 +1,4 @@
+require('source-map-support').install()
 const session = require('electron').session
 const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const path = require('path')
