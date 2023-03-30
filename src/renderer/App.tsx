@@ -109,8 +109,8 @@ function App () {
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
 
-          {fetchResources.map((routes: any) => {
-            const databaseRoutes = []
+          {fetchResources.map((routes: string) => {
+            const databaseRoutes: string[] = []
             for (const routeData of allRoutes) {
               databaseRoutes.push(routeData.detail)
             }
