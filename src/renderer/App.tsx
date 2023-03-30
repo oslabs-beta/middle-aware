@@ -32,11 +32,12 @@ function App () {
   // Each route card on the left is a div, when clicked the divs render the result cards on the right; fetchTestsFromDB is invoked for the test data
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    let testToFilter = (event.target as HTMLDivElement).id // path name
-
+    let testToFilter = (event.target as HTMLDivElement).id // path name from parseAPIReq.js
+    // this will stay as is. consider adding a popover or something to explain template literals!!!!!!
     for (const item of allRoutes) {
       // item.detail (e.g. /api/auth/user/)
       const temp = (item.detail.charAt(item.detail.length - 1) === '/' ? item.detail.slice(0, item.detail.length - 2) : item.detail)
+      // if path from div === cleaned up temp
       if (testToFilter === temp) {
         testToFilter = item.last_test_id
       }
@@ -96,6 +97,7 @@ function App () {
               databaseRoutes.push(routeData.detail)
             }
             const available = databaseRoutes.includes(routes)
+            // change this to use and display the status codes on the GUI
             const error = (routes === '/api/cards')
             return (
               <RouteCards id={routes} detail={routes} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={error}/>
