@@ -14,13 +14,15 @@ function createMainWindow () {
     height: 768,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js') // This must be .js to account for the compiled version
-    }
+    },
+    show: false
   })
 
   // show devtools
   // mainWindow.webContents.openDevTools()
 
   mainWindow.loadURL('http://localhost:8080')
+  mainWindow.showInactive()
 }
 
 app.whenReady().then(() => {
