@@ -43,7 +43,6 @@ function App () {
       }
     }
     console.log('testToFilter: ', testToFilter)
-    // tried hard coding:
     fetchTestsFromDB(testToFilter)
   }
   // select a directory button to select a path
@@ -98,7 +97,7 @@ function App () {
             }
             const available = databaseRoutes.includes(routes)
             // change this to use and display the status codes on the GUI
-            const error = (routes === '/api/cards')
+            const error = true
             return (
               <RouteCards id={routes} detail={routes} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={error}/>
             )

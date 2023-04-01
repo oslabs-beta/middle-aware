@@ -24,6 +24,9 @@ export type RouteProps = {
   available?: boolean;
   error?: boolean;
   onClick: React.MouseEventHandler<HTMLDivElement> | undefined | any;
+  response?: {
+    status_code: number;
+  }
 }
 
 export type statusColors = {
