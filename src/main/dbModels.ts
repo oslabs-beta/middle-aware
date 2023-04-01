@@ -1,6 +1,11 @@
 import mongoose, { Schema, model, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
+import * as dotenv from 'dotenv'
+// process.env.MONGODB_URI as MONGODB_URI
 
-const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
+// Load config
+dotenv.config({ path: '../.env' })
+
+const MONGODB_URI: string = process.env.MONGODB_URI!
 
 // create extended ConnectOptions interface by adding two new property
 interface MongoConnectOps extends ConnectOptions {
@@ -19,8 +24,6 @@ const connectionOptions: MongoConnectOps = {
 mongoose.connect(MONGODB_URI, connectionOptions)
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err))
-
-// const Schema = mongoose.Schema
 
 interface RouteSchemaType {
   detail: string

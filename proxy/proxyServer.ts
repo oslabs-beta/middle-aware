@@ -5,6 +5,7 @@
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware'
 import * as express from 'express'
 import dbController from '../src/main/dbController'
+import { performance, PerformanceObserver } from 'perf_hooks'
 
 interface Payload {
   endpoint: string
@@ -36,6 +37,22 @@ const app = express()
 app.set('etag', false)
 let startTime: number
 
+// const obs = new PerformanceObserver((list) => {
+//   console.log(list.getEntries()[0].duration)
+//   performance.clearMarks()
+//   performance.clearMeasures()
+//   obs.disconnect()
+// })
+
+// obs.observe({ entryTypes: ['function'] })
+const obs = new PerformanceObserver((perfObserverList, observer) => {
+  console.log(perfObserverList.getEntries())
+  performance.clearMarks()
+  performance.clearMeasures()
+  observer.disconnect()
+})
+obs.observe({ type: 'mark' })
+
 // these options will be used in the proxy server, to help configure it
 //  1. target is the server the proxied requests will be forwarded to
 //  2. onProxyReq will allow us to handle the proxied request
@@ -43,7 +60,9 @@ let startTime: number
 const options: Options = {
   target: 'http://localhost:3000', // Your target URL here
   onProxyReq: (proxyReq, req, res) => {
-    startTime = new Date().getTime()
+    // startTime = new Date().getTime()
+    console.log('Hello from onProxyReq')
+    performance.mark('proxyReq')
   },
   onProxyRes: (proxyRes, req, res) => {
     // Modify the headers to prevent caching, specifically to avoid the 304 status code
