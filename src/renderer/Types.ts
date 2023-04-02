@@ -16,6 +16,12 @@ export interface Responses {
   }
 }
 
+export interface fetchCall {
+  method: string,
+  route: string,
+  options: object
+}
+
 export type RouteProps = {
   id?: string;
   detail: string;
@@ -52,7 +58,7 @@ export type ResultProps = {
 
 export type APIfuncs ={
   openFile: () => Promise<string>;
-  parseFiles: (dir: string) => Promise<string[]>;
+  parseFiles: (dir: string) => Promise<fetchCall[]>;
   getAllRoutes: () => Promise<string>;
   // getRoute: (route: any) => any;
   getTest: (test: string) => Promise<string>;
