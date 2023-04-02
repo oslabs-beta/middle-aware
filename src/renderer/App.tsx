@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
-import AwaitingInput from './components/AwaitingInput'
 import { Responses, APIfuncs } from './Types'
 
 declare global {
@@ -17,6 +16,8 @@ function App () {
   const [allRoutes, setAllRoutes] = useState<{detail: string, last_test_id: string}[]>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<string[]>([])
+
+  // const [routeAndResultVisibility, setRouteAndResultVisibility] = useState(false)
 
   // fetchTestFromDB fetches the tests associated with the endpoint that is selected on the left hand side of the app; this is used to render the Result cards
   const fetchTestsFromDB = (id: string) => {
@@ -45,6 +46,18 @@ function App () {
     console.log('testToFilter: ', testToFilter)
     fetchTestsFromDB(testToFilter)
   }
+
+  // triggered by 'Look for test data' button
+  const fetchFromDB = () => {
+    window.electronAPI
+      .getAllRoutes()
+      .then((data: string) => {
+        // save all the routes to setAllRoutes
+        setAllRoutes(JSON.parse(data))
+      })
+      .catch((err: unknown) => console.log('Problem with db Routes:', err))
+  }
+
   // select a directory button to select a path
   const handleButtonClick = () => {
     window.electronAPI
@@ -60,33 +73,35 @@ function App () {
           .catch((err: unknown) => console.log('parseFiles Error:', err))
       })
       .catch((err: unknown) => console.log('openFile Error: ', err))
+    fetchFromDB()
   }
 
-  // triggered by 'Look for test data' button
-  const fetchFromDB = () => {
-    window.electronAPI
-      .getAllRoutes()
-      .then((data: string) => {
-        // save all the routes to setAllRoutes
-        setAllRoutes(JSON.parse(data))
-      })
-      .catch((err: unknown) => console.log('Problem with db Routes:', err))
-  }
+  // const routeAndResultDisplayHandler = () => {
+  //   setRouteAndResultVisibility((priorState) => {
+  //   !priorState
+  // })
+  // }
 
   return (
     <>
       <header>
         <h1>Middle-Aware</h1>
+
       </header>
       <hr />
       <div id='interface'>
-
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
-
-        <input type="text" placeholder="PORT #: 9000" className="input input-sm input-bordered w-[10%] max-w-xs" />
+        <div className='reFetch'>
+           <button className="btn btn-sm" onClick={fetchFromDB}>Fetch Tests</button>
+        </div>
       </div>
       <hr />
       <div id="main">
+
+        {/* <div id="routesAndResults"> */}
+        {/* {!routeAndResultVisibility ?
+          <button onClick={routeAndResultDisplayHandler}>Show Routes and Results</button>
+         : */}
         <div id='routesSection'>
           <h2 className='title'>Routes</h2>
           {/* iterate through routes */}
@@ -106,18 +121,20 @@ function App () {
         </div>
         <div id='resultsSection'>
           <h2 className='title'>Results</h2>
+
             {!results[0]
               ? <>
-              <AwaitingInput/>
-              <div id='checkForData'>
+              {/* <div id='checkForData'>
               <button className="btn btn-sm" onClick={fetchFromDB}>Look For Test Data</button>
-              </div>
+              </div> */}
               </>
               : results.map((results: Responses) => (
             <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref}/>
               ))}
 
         </div>
+        {/* } */}
+        {/* </div> */}
 
       </div>
     </>
