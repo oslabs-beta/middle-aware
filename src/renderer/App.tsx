@@ -3,6 +3,7 @@ import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import { Responses, APIfuncs } from './Types'
 
+
 declare global {
   interface Window {
     electronAPI: APIfuncs;
