@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"webpack serve --hot\" \"tsc --watch\" \"electronmon --trace-warning .\" ",
     "electron": "electron .",
-    "proxy": "nodemon proxy/proxy.js"
+    "proxy": "nodemon proxy/proxyServer.ts"
   },
   "author": "",
   "license": "ISC",

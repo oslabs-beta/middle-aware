@@ -1,11 +1,12 @@
-import mongoose, { Schema, model, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
+import mongoose, { Schema, model, Document, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
 import * as dotenv from 'dotenv'
 // process.env.MONGODB_URI as MONGODB_URI
 
 // Load config
 dotenv.config({ path: '../.env' })
 
-const MONGODB_URI: string = process.env.MONGODB_URI!
+// const MONGODB_URI: string = process.env.MONGODB_URI!
+const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
 
 // create extended ConnectOptions interface by adding two new property
 interface MongoConnectOps extends ConnectOptions {
@@ -25,20 +26,10 @@ mongoose.connect(MONGODB_URI, connectionOptions)
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err))
 
-interface RouteSchemaType {
-  detail: string
-  input?: string
-  middleware: object[]
-  last_test_id: {
-    type: ObjectId
-    ref: string
-  }
-}
-
-interface TestSchemaType {
-  created_at: number
-  request?: {
-    method?: string
+  interface TestSchemaType extends Document<Types.ObjectId> {
+    created_at: number
+    request?: {
+      method?: string
     endpoint?: string
   }
   response?: {
@@ -48,10 +39,17 @@ interface TestSchemaType {
   }
   error?: string
   rtt?: string
-  route_id: {
+  route_id?: {
     type: ObjectId
     ref: string
   }
+}
+
+interface RouteSchemaType extends Document<Types.ObjectId> {
+  detail: string
+  input?: string
+  middleware: object[]
+  last_test_id: TestSchemaType | null// change last_test_id to last test showing the whole object
 }
 
 const RouteSchema: Schema<RouteSchemaType> = new Schema({
@@ -94,7 +92,4 @@ const TestSchema: Schema<TestSchemaType> = new Schema({
 const Route = model('Route', RouteSchema)
 const Test = model('Test', TestSchema)
 
-export default {
-  Route,
-  Test
-}
+export { Route, Test }

@@ -1,5 +1,7 @@
-const { Test, Route } = require('./dbModels')
-const mongoose = require('mongoose')
+// const { Test, Route } = require('./dbModels')
+import { Test, Route } from './dbModels'
+import mongoose from 'mongoose'
+import { Details, Payload, TestType, RouteType } from './defs'
 
 // interface ControllerConfig {
 //   getAllRoutes: Function;
@@ -10,21 +12,21 @@ const mongoose = require('mongoose')
 //   createTest: Function;
 // }
 
-interface Test {
-  route: string;
-  created_at?: string;
-  request?: string;
-  response?: string;
-  error?: string;
-  rtt?: string;
-}
+// interface Test {
+//   route: string;
+//   created_at?: string;
+//   request?: string;
+//   response?: string;
+//   error?: string;
+//   rtt?: string;
+// }
 
-interface Route {
-  detail: string;
-  input: string;
-  middleware?: string;
-  last_test: Test;
-}
+// interface Route {
+//   detail: string;
+//   input: string;
+//   middleware?: string;
+//   last_test: Test;
+// }
 
 const dbController = {
   getAllRoutes: async () => {
@@ -39,7 +41,7 @@ const dbController = {
     }
   },
 
-  getRoute: async (route) => {
+  getRoute: async (route: string) => {
     // This function expects to receive a route / fetch resource. E.g.: "/api/user/" as a string
     try {
       // If an actual path was provided as string, search the route detail
@@ -55,17 +57,17 @@ const dbController = {
   },
 
   // find route
-  updateRoute: async (obj) => {
+  updateRoute: async (obj: Details) => {
     try {
-      const route = await Route.findOne({ _id: obj.routeId })
-      route.last_test_id = obj.testId
-      return await route.save()
+      const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test_id: obj.testId })
+      // route.last_test_id = obj.testId
+      return await route
     } catch (err) {
       console.log('Error in updateRoute in dbController', err)
     }
   },
 
-  createRoute: async (route) => {
+  createRoute: async (route: string) => {
     try {
       return await Route.create({ detail: route })
     } catch (err) {
@@ -73,7 +75,7 @@ const dbController = {
     }
   },
 
-  getTest: async (test) => {
+  getTest: async (test: string) => {
     try {
       console.log('test id queried: ', test)
       const testData = await Test.find({ _id: test })
@@ -85,7 +87,7 @@ const dbController = {
     }
   },
 
-  createTest: async (test, info) => {
+  createTest: async (test: string, info: Payload) => {
     try {
       return await Test.create({
         route_id: test,
