@@ -1,3 +1,4 @@
+require('source-map-support').install()
 const session = require('electron').session
 const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const path = require('path')
@@ -12,14 +13,16 @@ function createMainWindow () {
     width: 1024,
     height: 768,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.ts')
-    }
+      preload: path.join(__dirname, 'preload.js') // This must be .js to account for the compiled version
+    },
+    show: false
   })
 
   // show devtools
   // mainWindow.webContents.openDevTools()
 
   mainWindow.loadURL('http://localhost:8080')
+  mainWindow.showInactive()
 }
 
 app.whenReady().then(() => {

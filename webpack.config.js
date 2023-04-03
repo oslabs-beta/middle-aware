@@ -34,10 +34,10 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader'
-          // options: {
-          //   presets: ['@babel/preset-env', '@babel/preset-react'],
-          // },
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig.webpack.json'
+          }
         }
       },
       {
