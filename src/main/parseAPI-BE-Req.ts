@@ -10,26 +10,17 @@ interface fetchCall {
   options: object
 }
 
+// Traverse directory structure and generate ASTs, return ASTs in an array for further processing
+
 function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
-  // This function returns a promise that resolves to an array of all the resources and options for fetch operations in a given front end.
-
-  // let promiseResolve, promiseReject
-
-  // const promise = new Promise(function (resolve, reject) {
-  //   promiseResolve = resolve
-  //   promiseReject = reject
-  //   setTimeout(() => {
-  //     reject(new Error('There was an issue with the file parse promise'))
-  //   }, 100)
-  // })
-
   fs.readdirSync(path.resolve(__dirname, dirToParse)).forEach(
-    // For each file in the directory, we are going to call this anonymous arrow function to open a file stream and parse the file line by line.
+    // For each file in the directory, generate an AST
     (file, i, arr) => {
       const pathAndFile = path.resolve(__dirname, dirToParse, file)
       // Create allowed extensions to prevent the parser from parsing non javascript files.
       const allowedExtensions = { '.js': true, '.jsx': true, '.ts': true, '.tsx': true }
 
+      // If the subject file is actually a directory, then call this function recursively
       if (fs.lstatSync(pathAndFile).isDirectory()) {
         outArray.concat(parseAPIRequests(pathAndFile, outArray))
         // prevent reading non-js files
