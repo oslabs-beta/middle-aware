@@ -4,6 +4,7 @@ import traverse from '@babel/traverse'
 import * as t from '@babel/types'
 import generate from '@babel/generator'
 import path from 'path'
+
 interface fetchCall {
   method: string,
   route: string,
@@ -12,13 +13,22 @@ interface fetchCall {
 
 // Traverse directory structure and generate ASTs, return ASTs in an array for further processing
 
-function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
+// Method for determining WHERE to inject our code
+// If upon visiting a function (e.g. app.use('/api',apiRouter)) there is a call to another file, then
+// navigate to node where this is defined (const apiRouter = require('./routes/api.js'))
+//  IF this is a function, inject code blockat (top? bottom?) of function
+//  IF this is an import or require statement, traverse THAT text file (recursive call?)
+//    Could we use an Object with file names as keys, and ASTs as values
+
+
+function parseAPIBERequests (dirToParse: string, outArray: fetchCall[] = []) {
+  //fetchCall starts as an empty array and gets called recursively
   fs.readdirSync(path.resolve(__dirname, dirToParse)).forEach(
     // For each file in the directory, generate an AST
     (file, i, arr) => {
       const pathAndFile = path.resolve(__dirname, dirToParse, file)
       // Create allowed extensions to prevent the parser from parsing non javascript files.
-      const allowedExtensions = { '.js': true, '.jsx': true, '.ts': true, '.tsx': true }
+      const allowedExtensions = { '.js': true, '.ts': true }
 
       // If the subject file is actually a directory, then call this function recursively
       if (fs.lstatSync(pathAndFile).isDirectory()) {
