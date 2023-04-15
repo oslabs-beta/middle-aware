@@ -1,17 +1,8 @@
 import React from 'react'
-
-type RouteProps = {
-  id?: string;
-  detail: string;
-  method?: string;
-  message?: string;
-  available?: boolean;
-  error?: boolean;
-  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
-}
+import { RouteProps, statusColors } from '../Types'
 
 const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
-  const statusColors: any = { error: '#fba8a0', good: '#9ffad3', default: '#FAF8F4' }
+  const statusColors: statusColors = { error: '#fba8a0', good: '#9ffad3', default: '#FAF8F4' }
   const color = (available ? (error ? statusColors.error : statusColors.good) : statusColors.default)
 
   return (

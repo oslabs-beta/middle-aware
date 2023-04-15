@@ -39,6 +39,7 @@ hr{
   @apply mx-auto w-[90%] pt-4 pb-4 flex justify-evenly
 }
 
+
 /* --------END: interface section------------- */
 
 
@@ -46,6 +47,11 @@ hr{
 
 #main{
   @apply w-[90%] flex flex-row mx-auto
+}
+
+/*  Route and Result container*/
+#routesAndResults{
+  visibility: hidden;
 }
 
       /* START: routes section------------- */
