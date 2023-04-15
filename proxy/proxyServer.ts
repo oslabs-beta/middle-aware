@@ -6,8 +6,7 @@ import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-pro
 import express from 'express'
 import dbController from '../src/main/dbController'
 import { Details, Payload, TestType, RouteType } from '../src/main/defs'
-import { performance, PerformanceObserver } from 'perf_hooks'
-import { ObjectId } from 'mongoose'
+import { performance } from 'perf_hooks'
 
 // setup express server so that we can start the proxy server and disable etag
 // etag needs to be disabled otherwise we will get 304 status code for frequent requests and the reponse body will not be captured
@@ -22,7 +21,6 @@ let endTime: number
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 
-// compile a list of edge cases, use cases
 const options: Options = {
   target: 'http://localhost:5002', // Your target URL here
   onProxyReq: (proxyReq, req, res) => {
