@@ -1,8 +1,9 @@
+
 require('source-map-support').install()
+const parseAPIRequests = require('./parseAPIRequests')
 const session = require('electron').session
 const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const path = require('path')
-const parseAPIRequests = require('./parseAPIRequests')
 const db = require('./dbController')
 
 let mainWindow
@@ -15,14 +16,14 @@ function createMainWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js') // This must be .js to account for the compiled version
     },
-    show: false
+    show: false // Added to prevent focus change on reload during development
   })
 
   // show devtools
   // mainWindow.webContents.openDevTools()
 
   mainWindow.loadURL('http://localhost:8080')
-  mainWindow.showInactive()
+  mainWindow.showInactive() // Added to prevent focus change on reload during development
 }
 
 app.whenReady().then(() => {
@@ -44,8 +45,8 @@ async function handleFileOpen () {
   }
 }
 
-async function handleFileParse (event, dir) {
-  return await parseAPIRequests(dir)
+function handleFileParse (event, dir) {
+  return parseAPIRequests(dir)
 }
 
 async function handleGetRoute (event, route) {
