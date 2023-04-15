@@ -64,7 +64,10 @@ const RouteSchema: Schema<RouteSchemaType> = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Test'
   }
+  // last _test - including the whole test
+  // update in the route(only last_test), add it to the test(test collection)
 
+// rendering history, see if it gets better or worse
 })
 
 const TestSchema: Schema<TestSchemaType> = new Schema({
@@ -83,7 +86,7 @@ const TestSchema: Schema<TestSchemaType> = new Schema({
     message: String,
     payload: String
   },
-  error: String,
+  error: String, // set to a boolean value
   rtt: String
 })
 

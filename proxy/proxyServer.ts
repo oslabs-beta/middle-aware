@@ -15,43 +15,19 @@ import { ObjectId } from 'mongoose'
 const app = express()
 app.set('etag', false)
 let startTime: number
-
-// const obs = new PerformanceObserver((list) => {
-//   console.log(list.getEntries()[0].duration)
-//   performance.clearMarks()
-//   performance.clearMeasures()
-//   obs.disconnect()
-// })
-
-// obs.observe({ entryTypes: ['function'] })
+let endTime: number
 
 // these options will be used in the proxy server, to help configure it
 //  1. target is the server the proxied requests will be forwarded to
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
+
+// compile a list of edge cases, use cases
 const options: Options = {
   target: 'http://localhost:5002', // Your target URL here
   onProxyReq: (proxyReq, req, res) => {
-    // startTime = new Date().getTime()
-    let duration: string | number = 0
-    const obs = new PerformanceObserver((perfObserverList, observer) => {
-      console.log(perfObserverList.getEntries())
-      duration = perfObserverList.getEntries()[0].duration
-      performance.clearMarks()
-      performance.clearMeasures()
-      observer.disconnect()
-    })
-    // obs.observe({ type: 'mark' })
-    // const perfObserver = new PerformanceObserver((items) => {
-    //   items.getEntries().forEach((entry) => {
-    //     console.log(entry)
-    //   })
-    //   performance.clearMarks()
-    //   performance.clearMeasures()
-    // })
-
-    obs.observe({ entryTypes: ['measure'], buffered: true })
-    performance.mark('start')
+    startTime = performance.now()
+    // startTime2 = new Date().getTime()
     console.log('Hello from onProxyReq')
   },
   onProxyRes: (proxyRes, req, res) => {
@@ -75,17 +51,18 @@ const options: Options = {
     // When the server has finished proxying the response, we will concatenate the response data into a human-readable encoding
     // This needs to be done as the data will not stop streaming until the end event is emitted
     // This is also where we can finalize the payload to be sent to the DB, as we need to wait for the response data
-    proxyRes.on('end', () => {
-      performance.mark('end')
-      performance.measure('test', 'start', 'end')
+    proxyRes.on('end', async () => {
+      endTime = performance.now()
+      // console.log(`this is rr:${new Date().getTime() - startTime2}`)
       const response: string = Buffer.concat(body).toString('utf8')
       const payload: Payload = {
         endpoint: req.url,
         method: req.method,
         body: response,
         statusCode: proxyRes.statusCode,
-        roundTripTime: `${duration} ms`
+        roundTripTime: `${endTime - startTime} ms`
       }
+      // console.log('req', req)
       console.log('data:', payload)
       // store the test and route data into mongoDB
       pushToDB(payload)
