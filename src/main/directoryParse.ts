@@ -12,7 +12,7 @@ interface fetchCall {
 
 // Traverse directory structure and generate ASTs, return ASTs in an array for further processing
 
-export function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
+export default function directoryParse (dirToParse: string, outArray: t.File[] = []):t.File[] {
   fs.readdirSync(path.resolve(__dirname, dirToParse)).forEach(
     // For each file in the directory, generate an AST
     (file, i, arr) => {
@@ -28,8 +28,9 @@ export function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []
         console.log('About to parse: ', pathAndFile)
         const source = fs.readFileSync(pathAndFile, 'utf-8') // Convert the file to a string
         // To DO - infer plugins based on file extensions
-        const ast = parse(source, { errorRecovery: true, plugins: ['jsx', 'typescript'] }) // Convert the string to AST
+        outArray.push(parse(source, { errorRecovery: true, plugins: ['jsx', 'typescript'] })) // Convert the string to AST
       }
     }
   )
+  return outArray
 }
