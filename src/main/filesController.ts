@@ -7,12 +7,12 @@ import path from 'path'
 // Returns an array of full path referenced files inside the directory
 
 const filesController = {
-  dirRecursiveContents: (dirToParse: string, outArray: string[] = [], extFilter: string[]):string[] => {
+  dirRecursiveContents: (dirToParse: string, outArray: string[] = [], extFilter?: string[]):string[] => {
     let allowedExtensions: {[index:string]: boolean} | null = null
 
     fs.readdirSync(path.resolve(__dirname, dirToParse)).forEach(
     // For each file in the directory, generate an AST
-      (file, i, arr) => {
+      (file) => {
         const pathAndFile = path.resolve(__dirname, dirToParse, file)
 
         // Create allowed extensions to prevent pushing non javascript files.
@@ -39,9 +39,23 @@ const filesController = {
   },
 
   cloneRecursive: (dirToClone: string, targetDir: string) => {
-    fs.copyFile('source.txt', 'destination.txt', (err) => {
-      if (err) throw err
-      console.log('source.txt was copied to destination.txt')
+    fs.readdirSync(path.resolve(__dirname, dirToClone)).forEach((file) => {
+      const pathAndFile = path.resolve(__dirname, dirToClone, file)
+
+      // path.extname(path)
+      // path.dirname(path)
+      // path.relative(from, to)
+
+      // If the subject file is actually a directory, then create this directory in the new folder
+      //  Then call this method on the directory
+      if (fs.lstatSync(pathAndFile).isDirectory()) {
+        const recursiveTarget = path.relative(targetDir)
+        fs.mkdirSync(path.resolve(targetDir, pathAndFile))
+
+      fs.copyFile('source.txt', 'destination.txt', (err) => {
+        if (err) throw err
+        console.log('source.txt was copied to destination.txt')
+      })
     })
   }
 
