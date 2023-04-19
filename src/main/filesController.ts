@@ -9,7 +9,6 @@ const path = require('path')
 const filesController = {
   dirRecursiveContents: (dirToParse: string, outArray: string[] = [], extFilter?: string[]):string[] => {
     let allowedExtensions: {[index:string]: boolean} | null = null
-
     fs.readdirSync(path.resolve(__dirname, dirToParse)).forEach(
     // For each file in the directory, generate an AST
       (file: string) => {
@@ -24,10 +23,9 @@ const filesController = {
             }
           }, {})
         }
-
         // If the subject file is actually a directory, then call this function recursively
         if (fs.lstatSync(pathAndFile).isDirectory()) {
-          outArray.concat(filesController.dirRecursiveContents(pathAndFile, outArray))
+          outArray.concat(filesController.dirRecursiveContents(pathAndFile, outArray, extFilter))
 
         // Prevent pushing files not in allowedExtensions
         } else if (!allowedExtensions || path.extname(pathAndFile) in allowedExtensions) {
@@ -41,29 +39,16 @@ const filesController = {
   cloneRecursive: (dirToClone: string, targetDir: string) => {
     const filesArray = filesController.dirRecursiveContents(dirToClone)
 
-    // Helper function to recursively create parent directories if they don't exist
-    function checkParentDirs (dir:string) {
-      if (!fs.existsSync(path.dirname(dir))) checkParentDirs(path.dirname(dir))
-    }
-
-    console.log('fs.existsSync(targetDir) ', fs.existsSync(targetDir))
     if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir) // Create targetDir if needed
 
     // Build out directory structure before copying files to improve efficiency
-    // Get a list of unique directory names
+    const accumulator : {[index: string]: string} = { prev: '', next: '' }
+
+    // dirs will be a list of unique directory names
     const dirs = filesArray.reduce((acc, curr) => {
       const relFilePath = path.relative(dirToClone, curr) // ./frontend/myFile.js
       const targetFilePath = path.resolve(targetDir, relFilePath) // /home/nancy/cloned-project/frontend/myFile.js
-      // Logic to add parent directories here?
-      // path.sep -> will return either / or \ depending on system
-      // checking dir:  /Users/jason/Projects/Codesmith/test
-      // checking dir:  /Users/jason/Projects/Codesmith/test/.git
-      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/hooks
-      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/info
-      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/logs
-      // missing dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs
-      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs/heads
-      // create dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs/heads
+
       acc.next = path.dirname(targetFilePath)
       if (acc.prev !== '') {
         let prevCount = 0
@@ -74,25 +59,40 @@ const filesController = {
         for (let i = 0; i < acc.next.length; i++) {
           if (acc.next.charAt(i) === path.sep) nextCount++
         }
+        // If the directory depth of this item is two or more than the last
         if (nextCount > prevCount + 1) {
-          // const lastSlash = acc.next.lastIndexOf(path.sep)
-          // const newPath = acc.next.slice(0, lastSlash)
-          acc[path.dirname(acc.next)] = true
+          // Store parent directory
+          let newPath = path.dirname(acc.next)
+          const pathsToAdd: string[] = []
+          do {
+            pathsToAdd.push(newPath)
+            newPath = path.dirname(newPath)
+          } while (!fs.existsSync(newPath))
+          // Push all the additional paths to the object
+          for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
         }
       }
       acc.prev = acc.next
+
+      let newPath = path.dirname(acc.next)
+      const pathsToAdd: string[] = []
+      do {
+        pathsToAdd.push(newPath)
+        newPath = path.dirname(newPath)
+      } while (!fs.existsSync(newPath))
+      // Push all the additional paths to the object
+      for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
+
       return {
         ...acc,
-        [path.dirname(targetFilePath)]: true
+        [path.dirname(targetFilePath)]: 'true'
       }
-    }, { prev: '', next: '' })
+    }, accumulator)
 
     // This approach will ensure that keys are arranged alphabetically and therefore we will be creating parent directories first as-needed
     Object.keys(dirs).forEach((dir) => {
-      console.log('checking dir: ', dir)
       if (!fs.existsSync(dir)) {
-        console.log('create dir: ', dir)
-        // fs.mkdirSync(dir)
+        fs.mkdirSync(dir)
       }
     })
 
@@ -109,13 +109,10 @@ const filesController = {
 
       // Copy file to new directory
       fs.copyFile(filePath, targetFilePath, (err:string) => {
-        // console.log('copied to: ', targetFilePath)
         if (err) { console.log('source was not copied to destination: ', err) }
       })
     })
   }
 }
-
-filesController.cloneRecursive('/Users/jason/Projects/Codesmith/precourse-assessment', '/Users/jason/Projects/Codesmith/test')
 
 export default filesController
