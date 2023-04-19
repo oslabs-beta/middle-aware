@@ -41,7 +41,7 @@ const filesController = {
   cloneRecursive: (dirToClone: string, targetDir: string) => {
     const filesArray = filesController.dirRecursiveContents(dirToClone)
 
-    // Helper function to recursively create parent directories if they don't exist?
+    // Helper function to recursively create parent directories if they don't exist
     function checkParentDirs (dir:string) {
       if (!fs.existsSync(path.dirname(dir))) checkParentDirs(path.dirname(dir))
     }
@@ -52,18 +52,47 @@ const filesController = {
     // Build out directory structure before copying files to improve efficiency
     // Get a list of unique directory names
     const dirs = filesArray.reduce((acc, curr) => {
+      const relFilePath = path.relative(dirToClone, curr) // ./frontend/myFile.js
+      const targetFilePath = path.resolve(targetDir, relFilePath) // /home/nancy/cloned-project/frontend/myFile.js
+      // Logic to add parent directories here?
+      // path.sep -> will return either / or \ depending on system
+      // checking dir:  /Users/jason/Projects/Codesmith/test
+      // checking dir:  /Users/jason/Projects/Codesmith/test/.git
+      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/hooks
+      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/info
+      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/logs
+      // missing dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs
+      // checking dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs/heads
+      // create dir:  /Users/jason/Projects/Codesmith/test/.git/logs/refs/heads
+      acc.next = path.dirname(targetFilePath)
+      if (acc.prev !== '') {
+        let prevCount = 0
+        let nextCount = 0
+        for (let i = 0; i < acc.prev.length; i++) {
+          if (acc.prev.charAt(i) === path.sep) prevCount++
+        }
+        for (let i = 0; i < acc.next.length; i++) {
+          if (acc.next.charAt(i) === path.sep) nextCount++
+        }
+        if (nextCount > prevCount + 1) {
+          // const lastSlash = acc.next.lastIndexOf(path.sep)
+          // const newPath = acc.next.slice(0, lastSlash)
+          acc[path.dirname(acc.next)] = true
+        }
+      }
+      acc.prev = acc.next
       return {
         ...acc,
-        [path.dirname(curr)]: true
+        [path.dirname(targetFilePath)]: true
       }
-    }, {})
+    }, { prev: '', next: '' })
 
     // This approach will ensure that keys are arranged alphabetically and therefore we will be creating parent directories first as-needed
     Object.keys(dirs).forEach((dir) => {
-      console.log('create dir: ', dir)
+      console.log('checking dir: ', dir)
       if (!fs.existsSync(dir)) {
         console.log('create dir: ', dir)
-        fs.mkdirSync(dir)
+        // fs.mkdirSync(dir)
       }
     })
 
