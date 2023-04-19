@@ -47,7 +47,7 @@ mongoose.connect(MONGODB_URI, connectionOptions)
 
 interface RouteSchemaType extends Document<Types.ObjectId> {
   detail: string
-  input?: string
+  input?: Document
   middleware: object[]
   last_test_id: TestSchemaType | null// change last_test_id to last test showing the whole object
 }
@@ -59,7 +59,7 @@ const RouteSchema: Schema<RouteSchemaType> = new Schema({
     detail: String,
     input: String
   }], // store middleware chain.
-  last_test_id: {
+  last_test_id: { // its a whole document instead of a id; a copy of the most recent test 
     // type of ObjectId makes this behave like a foreign key referencing the 'Tests' collection
     type: Schema.Types.ObjectId,
     ref: 'Test'
