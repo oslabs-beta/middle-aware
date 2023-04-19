@@ -1,14 +1,7 @@
 import React from 'react'
 import ErrorArrow from './ErrorArrow'
 import SuccessArrow from './SuccessArrow'
-
-type ResultProps = {
-  id: string;
-  request: any;
-  response: any;
-  rtt: string;
-  route_id?:string;
-}
+import { ResultProps } from '../Types'
 
 const resultCards = ({ id, request, response, rtt }: ResultProps) => {
   return (

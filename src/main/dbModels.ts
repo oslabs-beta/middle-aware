@@ -26,52 +26,56 @@ mongoose.connect(MONGODB_URI, connectionOptions)
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err))
 
-  interface TestSchemaType extends Document<Types.ObjectId> {
-    created_at: number
-    request?: {
-      method?: string
-    endpoint?: string
+type StringObject = {
+    [key: string]: string;
   }
-  response?: {
-    status_code?: number
-    message?: string
-    payload?: string
-  }
-  error?: string
-  rtt?: string
-  route_id?: {
-    type: ObjectId
-    ref: string
-  }
+  /*
+  type StringObject = {
+  [key: string]: string;
 }
 
+// Example usage
+const myObj: StringObject = {
+  prop1: "value1",
+  prop2: "value2",
+  // You can add any other properties here
+};
+
+*/
+
 interface RouteSchemaType extends Document<Types.ObjectId> {
-  detail: string
-  input?: Document
-  middleware: object[]
-  last_test_id: TestSchemaType | null// change last_test_id to last test showing the whole object
+  detail: string // method + path/route (eg. GET /api/login)
+  last_test: StringObject
 }
 
 const RouteSchema: Schema<RouteSchemaType> = new Schema({
-  detail: { type: String, required: true }, // path
-  input: String, // if any params, in the body of request
-  middleware: [{
-    detail: String,
-    input: String
-  }], // store middleware chain.
-  last_test_id: { // its a whole document instead of a id; a copy of the most recent test 
-    // type of ObjectId makes this behave like a foreign key referencing the 'Tests' collection
-    type: Schema.Types.ObjectId,
-    ref: 'Test'
-  }
-  // last _test - including the whole test
-  // update in the route(only last_test), add it to the test(test collection)
-
-// rendering history, see if it gets better or worse
+  detail: { type: String, required: true },
+  last_test: Schema.Types.Mixed
 })
 
+interface TestSchemaType extends Document<Types.ObjectId> {
+    route?: {
+      type: ObjectId
+      ref: string
+    }
+    created_at: number
+    request?: {
+      method?: string
+      route?: string
+      params?: string
+      query?: string
+      body?: any// json
+  }
+  response?: {
+    status_code?: number
+    body?: any
+  }
+  middleware?: string[]
+  error?: boolean
+  response_time?: string
+}
 const TestSchema: Schema<TestSchemaType> = new Schema({
-  route_id: {
+  route: {
     // type of ObjectId makes this behave like a foreign key referencing the 'species' collection
     type: Schema.Types.ObjectId,
     ref: 'Route'
@@ -79,15 +83,18 @@ const TestSchema: Schema<TestSchemaType> = new Schema({
   created_at: Number,
   request: {
     method: String,
-    endpoint: String
+    route: String,
+    params: String,
+    query: String,
+    body: Schema.Types.Mixed
   },
   response: {
     status_code: Number,
-    message: String,
-    payload: String
+    body: Schema.Types.Mixed
   },
+  middleware: [String],
   error: String, // set to a boolean value
-  rtt: String
+  response_time: String
 })
 
 // The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural, lowercased version of your model name. Thus, for the example above, the model Tank is for the tanks collection in the database.
