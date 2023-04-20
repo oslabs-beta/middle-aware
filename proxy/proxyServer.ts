@@ -93,7 +93,7 @@ const pushToDB = async (payload: Payload): Promise<void> => {
     if (route) {
       cache.routeId = route._id.toString()
     } else {
-      route = await dbController.createRoute(payload.endpoint)
+      route = await dbController.createRoute(`${payload.endpoint}`)
       cache.routeId = route!._id.toString()
     }
 
@@ -101,7 +101,8 @@ const pushToDB = async (payload: Payload): Promise<void> => {
     // Assign the document id to cache object
     // Cache wil be used to update last_test_id in related route document
     const test = await dbController.createTest(cache.routeId, payload)
-    cache.testId = test!._id.toString()
+    cache.lastTest = test!
+    // getTest(testId)
     dbController.updateRoute(cache)
   }
 }

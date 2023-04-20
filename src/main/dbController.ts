@@ -1,7 +1,7 @@
 // const { Test, Route } = require('./dbModels')
 import { Test, Route } from './dbModels'
 import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType } from './defs'
+import { Details, Payload, TestType, RouteType, StringObject} from './defs'
 
 // interface ControllerConfig {
 //   getAllRoutes: Function;
@@ -59,7 +59,7 @@ const dbController = {
   // find route
   updateRoute: async (obj: Details) => {
     try {
-      const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test_id: obj.testId })
+      const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test: obj.lastTest })
       // route.last_test_id = obj.testId
       return await route
     } catch (err) {
@@ -90,19 +90,21 @@ const dbController = {
   createTest: async (test: string, info: Payload) => {
     try {
       return await Test.create({
-        route_id: test,
+        route: test,
         created_at: Date.now(),
         request: {
-          method: info.method,
-          endpoint: info.endpoint
+          method: info.request.method,
+          route: info.request.endpoint,
+          params: info.request.params,
+          query: info.request.query,
+          body: info.request.body
         },
         response: {
-          status_code: info.statusCode,
-          message: info.body,
-          payload: ''
+          status_code: info.response.statusCode,
+          body: info.response.body
         },
-        error: info.body, // we already capture the status code and message, is there anything else we want to capture here?
-        rtt: info.roundTripTime
+        error: info.response.statusCode >= 400, // we already capture the status code and message, is there anything else we want to capture here?
+        response_time: info.response_time
       })
     } catch (err) {
       console.log('Error in dbController.createTest: ', err)
