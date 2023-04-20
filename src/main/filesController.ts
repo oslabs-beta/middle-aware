@@ -39,6 +39,8 @@ const filesController = {
   cloneRecursive: (dirToClone: string, targetDir: string) => {
     const filesArray = filesController.dirRecursiveContents(dirToClone)
 
+    fs.rmSync(targetDir, { force: true, recursive: true })
+
     if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir) // Create targetDir if needed
 
     // Build out directory structure before copying files to improve efficiency
@@ -115,6 +117,6 @@ const filesController = {
   }
 }
 
-filesController.cloneRecursive('/Users/jason/Projects/Codesmith/precourse-assessment', '/Users/jason/Projects/Codesmith/test')
+// filesController.cloneRecursive('/Users/jason/Projects/Codesmith/precourse-assessment', '/Users/jason/Projects/Codesmith/test')
 
 export default filesController
