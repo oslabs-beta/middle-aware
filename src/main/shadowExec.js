@@ -13,20 +13,6 @@ const config = {
 // 
 // cloneRecursive(config.rootDir, config.targetDir)
 
-// Is this going to work? 
-// we can't just execute npm start this way (need to be in the correct dir for that)
-
-// exec('cd ' + config.targetDir + '; ' + config.startScript, (error, stdout, stder) => {
-//   if (error) {
-//     console.error(`exec error: ${error}`);
-//     return;
-//   }
-//   console.log(`stdout: ${stdout}`);
-//   console.error(`stderr: ${stderr}`);
-// });
-
-// cp -R ${config.rootDir} ${config.targetDir}
-
 let copyProcess = exec('cp -R ' + config.rootDir + '/* ' + config.targetDir)
 
 copyProcess.stdout.on('data', function (data) {
