@@ -1,32 +1,9 @@
 // const { Test, Route } = require('./dbModels')
 import { Test, Route } from './dbModels'
 import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType, StringObject} from './defs'
+import { Details, Payload, TestType, RouteType, StringObject } from './defs'
 
 // interface ControllerConfig {
-//   getAllRoutes: Function;
-//   getRoute: Function;
-//   createRoute: Function;
-//   updateRoute: Function;
-//   getTest: Function;
-//   createTest: Function;
-// }
-
-// interface Test {
-//   route: string;
-//   created_at?: string;
-//   request?: string;
-//   response?: string;
-//   error?: string;
-//   rtt?: string;
-// }
-
-// interface Route {
-//   detail: string;
-//   input: string;
-//   middleware?: string;
-//   last_test: Test;
-// }
 
 const dbController = {
   getAllRoutes: async () => {
@@ -87,10 +64,18 @@ const dbController = {
     }
   },
 
-  createTest: async (test: string, info: Payload) => {
+  createTest: async () => {
     try {
-      return await Test.create({
-        route: test,
+      return await Test.create()
+    } catch (err) {
+      console.log('Error in dbController.createTest: ', err)
+    }
+  },
+
+  updateTest: async (testId: string, routeId: string, info: Payload) => {
+    try {
+      return await Test.findOneAndUpdate({ _id: testId }, {
+        route: routeId,
         created_at: Date.now(),
         request: {
           method: info.request.method,
@@ -103,11 +88,11 @@ const dbController = {
           status_code: info.response.statusCode,
           body: info.response.body
         },
-        error: info.response.statusCode >= 400, // we already capture the status code and message, is there anything else we want to capture here?
+        error: info.response.statusCode >= 400, // return true if stateCode is greater and euqal to 400, else , false
         response_time: info.response_time
       })
     } catch (err) {
-      console.log('Error in dbController.createTest: ', err)
+      console.log('Error in dbController.updateTest: ', err)
     }
   }
 }

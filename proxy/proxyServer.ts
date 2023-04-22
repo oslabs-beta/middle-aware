@@ -24,6 +24,11 @@ let endTime: number
 const options: Options = {
   target: 'http://localhost:5002', // Your target URL here
   onProxyReq: (proxyReq, req, res) => {
+    //create test document and intailze test to hold test document details, including objectId
+    //objectId will be used for our UUID to relate request/response with call stack tracing details
+    const route = dbController.getRoute()
+    const test = dbController.createTest(req.url, )
+      //get testId back from mongo
     startTime = performance.now()
     // startTime2 = new Date().getTime()
     console.log('Hello from onProxyReq')
@@ -54,11 +59,27 @@ const options: Options = {
       // console.log(`this is rr:${new Date().getTime() - startTime2}`)
       const response: string = Buffer.concat(body).toString('utf8')
       const payload: Payload = {
-        endpoint: req.url,
-        method: req.method,
-        body: response,
-        statusCode: proxyRes.statusCode,
-        roundTripTime: `${endTime - startTime} ms`
+        method: string
+        param: string
+        query: string
+        request: {
+          method: string
+          route: string
+          params: string
+          query: string
+          body: string
+        },
+        response_time: `${endTime-startTime}`,
+        error: boolean
+        response: {
+          body: string
+          statusCode: number
+        }
+      //   endpoint: req.url,
+      //   method: req.method,
+      //   body: response,
+      //   statusCode: proxyRes.statusCode,
+      //   roundTripTime: `${endTime - startTime} ms`
       }
       // console.log('req', req)
       console.log('data:', payload)
