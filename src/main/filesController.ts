@@ -119,4 +119,4 @@ const filesController = {
 
 // filesController.cloneRecursive('/Users/jason/Projects/Codesmith/precourse-assessment', '/Users/jason/Projects/Codesmith/test')
 
-export default filesController
+module.exports = filesController
