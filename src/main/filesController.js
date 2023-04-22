@@ -82,7 +82,7 @@ var filesController = {
                 }
             }
             acc.prev = acc.next;
-            var newPath = path.dirname(acc.next);
+            var newPath = path.dirname(acc.next); 
             var pathsToAdd = [];
             do {
                 pathsToAdd.push(newPath);
@@ -98,6 +98,7 @@ var filesController = {
         // This approach will ensure that keys are arranged alphabetically and therefore we will be creating parent directories first as-needed
         Object.keys(dirs).forEach(function (dir) {
             if (!fs.existsSync(dir)) {
+                console.log(dir);
                 fs.mkdirSync(dir);
             }
         });
