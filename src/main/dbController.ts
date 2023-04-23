@@ -1,7 +1,7 @@
 // const { Test, Route } = require('./dbModels')
 import { Test, Route } from './dbModels'
 import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType, StringObject } from './defs'
+import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './defs'
 
 // interface ControllerConfig {
 
@@ -37,7 +37,6 @@ const dbController = {
   updateRoute: async (obj: Details) => {
     try {
       const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test: obj.lastTest })
-      // route.last_test_id = obj.testId
       return await route
     } catch (err) {
       console.log('Error in updateRoute in dbController', err)
@@ -64,9 +63,9 @@ const dbController = {
     }
   },
 
-  createTest: async () => {
+  createTest: async (obj: TestRequest) => {
     try {
-      return await Test.create()
+      return await Test.create(obj)
     } catch (err) {
       console.log('Error in dbController.createTest: ', err)
     }
@@ -79,20 +78,32 @@ const dbController = {
         created_at: Date.now(),
         request: {
           method: info.request.method,
-          route: info.request.endpoint,
+          route: info.request.route,
           params: info.request.params,
           query: info.request.query,
           body: info.request.body
         },
         response: {
-          status_code: info.response.statusCode,
+          status_code: info.response.status_code,
           body: info.response.body
         },
-        error: info.response.statusCode >= 400, // return true if stateCode is greater and euqal to 400, else , false
+        // middleware: [],
+        error: info.response.status_code! >= 400, // return true if stateCode is greater and euqal to 400, else , false
         response_time: info.response_time
       })
     } catch (err) {
       console.log('Error in dbController.updateTest: ', err)
+    }
+  },
+
+  // Update Test document with middleware name inside Middlware property
+  addFuncNameToTest: async (testId: string, funcName: string) => {
+    try {
+      return await Test.findOneAndUpdate({ _id: testId }, {
+        $push: { middleware: funcName }
+      })
+    } catch (err) {
+      console.log('Error in dbController.addFuncNameToTest: ', err)
     }
   }
 }

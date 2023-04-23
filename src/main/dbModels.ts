@@ -1,5 +1,6 @@
 import mongoose, { Schema, model, Document, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
 import * as dotenv from 'dotenv'
+import { TestRequest } from './defs'
 // process.env.MONGODB_URI as MONGODB_URI
 
 // Load config
@@ -54,18 +55,20 @@ const RouteSchema: Schema<RouteSchemaType> = new Schema({
 })
 
 interface TestSchemaType extends Document<Types.ObjectId> {
+    // _id: Types.ObjectId
     route?: {
       type: ObjectId
       ref: string
     }
     created_at: number
-    request?: {
-      method?: string
-      route?: string
-      params?: string
-      query?: string
-      body?: any// json
-  }
+    request?: TestRequest
+  //   {
+  //     method?: string
+  //     route?: string
+  //     params?: string
+  //     query?: string
+  //     body?: any// json!
+  // }
   response?: {
     status_code?: number
     body?: any
