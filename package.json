@@ -2,7 +2,7 @@
   "name": "middle-aware",
   "version": "1.0.0",
   "description": "Complete route testing for full stack applications.",
-  "main": "./dist/main.js",
+  "main": ".webpack/main",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"webpack serve --hot\" \"tsc --watch\" \"electronmon --trace-warnings .\" ",

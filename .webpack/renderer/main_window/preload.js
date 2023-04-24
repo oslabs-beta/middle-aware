@@ -1,0 +1,2 @@
+(()=>{var e={298:e=>{"use strict";e.exports=require("electron")}},t={};function o(r){var n=t[r];if(void 0!==n)return n.exports;var i=t[r]={exports:{}};return e[r](i,i.exports,o),i.exports}(()=>{const{contextBridge:e,ipcRenderer:t}=o(298);e.exposeInMainWorld("electronAPI",{openFile:()=>t.invoke("dialog:openFile"),getAllRoutes:()=>t.invoke("db:getAllRoutes"),getTest:e=>t.invoke("db:getTest",e)})})()})();
+//# sourceMappingURL=preload.js.map

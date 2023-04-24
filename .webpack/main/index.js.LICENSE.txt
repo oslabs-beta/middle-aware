@@ -1,0 +1,220 @@
+/*!
+   * ignore
+   */
+
+/*!
+ * @ignore
+ */
+
+/*!
+ * Applies virtuals properties to `json`.
+ */
+
+/*!
+ * Browser doc exposes the event emitter API
+ */
+
+/*!
+ * Centralize this so we can more easily work around issues with people
+ * stubbing out `process.nextTick()` in tests using sinon:
+ * https://github.com/sinonjs/lolex#automatically-incrementing-mocked-time
+ * See gh-6074
+ */
+
+/*!
+ * Compile other Buffer methods marking this buffer as modified.
+ */
+
+/*!
+ * Connection states
+ */
+
+/*!
+ * Convenience `valueOf()` to allow comparing ObjectIds using double equals re: gh-7299
+ */
+
+/*!
+ * Converts to POJO when you use the document for querying
+ */
+
+/*!
+ * Dependencies
+ */
+
+/*!
+ * Document exposes the NodeJS event emitter API, so you can use
+ * `on`, `once`, etc.
+ */
+
+/*!
+ * Export
+ */
+
+/*!
+ * Exports
+ */
+
+/*!
+ * Exports.
+ */
+
+/*!
+ * Give the constructor the ability to emit events.
+ */
+
+/*!
+ * Helpers
+ */
+
+/*!
+ * Inherit from Buffer.
+ */
+
+/*!
+ * Inherit from EventEmitter
+ */
+
+/*!
+ * Inherit from EventEmitter.
+ */
+
+/*!
+ * Inherit from Subdocument
+ */
+
+/*!
+ * Inherit from abstract Collection.
+ */
+
+/*!
+ * Inherit from the NodeJS document
+ */
+
+/*!
+ * Inherits from ArrayType.
+ */
+
+/*!
+ * Inherits from Connection.
+ */
+
+/*!
+ * Inherits from SchemaType.
+ */
+
+/*!
+ * Internal helper for updateMany, updateOne
+ */
+
+/*!
+ * Minimize _just_ empty objects along the path chain specified
+ * by `parts`, ignoring all other paths. Useful in cases where
+ * you want to minimize after unsetting a path.
+ *
+ * #### Example:
+ *
+ *     const obj = { foo: { bar: { baz: {} } }, a: {} };
+ *     _minimizePath(obj, 'foo.bar.baz');
+ *     obj; // { a: {} }
+ */
+
+/*!
+ * Module dependencies
+ */
+
+/*!
+ * Module dependencies.
+ */
+
+/*!
+ * Module exports
+ */
+
+/*!
+ * Module exports.
+ */
+
+/*!
+ * Module requirements
+ */
+
+/*!
+ * Module requirements.
+ */
+
+/*!
+ * Permissions
+ */
+
+/*!
+ * Populates `docs`
+ */
+
+/*!
+ * Recursively set nested arrays
+ */
+
+/*!
+ * Returns the value passed to it.
+ */
+
+/*!
+ * Runs queued functions
+ */
+
+/*!
+ * Split a string path into components delimited by '.' or
+ * '[\d+]'
+ *
+ * #### Example:
+ *     stringToParts('foo[0].bar.1'); // ['foo', '0', 'bar', '1']
+ */
+
+/*!
+ * Valid mongoose options
+ */
+
+/*!
+ * define methods
+ */
+
+/*!
+ * exports
+ */
+
+/*!
+ * gt, gte, lt, lte, ne, in, nin, all, regex, size, maxDistance
+ *
+ *     Thing.where('type').nin(array)
+ */
+
+/*!
+ * ignore
+ */
+
+/*!
+ * inherit mquery
+ */
+
+/*!
+ * limit, skip, batchSize, comment
+ *
+ * Sets these associated options.
+ *
+ *     query.comment('feed query');
+ */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
