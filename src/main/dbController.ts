@@ -65,7 +65,17 @@ const dbController = {
 
   createTest: async (obj: TestRequest) => {
     try {
-      return await Test.create(obj)
+      console.log('obj', obj)
+      const { method, originalUrl, params, query, body } = obj
+      return await Test.create({
+        request: {
+          method,
+          route: originalUrl,
+          params,
+          query,
+          body
+        }
+      })
     } catch (err) {
       console.log('Error in dbController.createTest: ', err)
     }
@@ -73,6 +83,7 @@ const dbController = {
 
   updateTest: async (testId: string, routeId: string, info: Payload) => {
     try {
+      console.log('updateTest args', [testId, routeId, info])
       return await Test.findOneAndUpdate({ _id: testId }, {
         route: routeId,
         created_at: Date.now(),
