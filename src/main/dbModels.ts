@@ -46,7 +46,7 @@ const myObj: StringObject = {
 
 interface RouteSchemaType extends Document<Types.ObjectId> {
   detail: string // method + path/route (eg. GET /api/login)
-  last_test: StringObject
+  last_test: object
 }
 
 const RouteSchema: Schema<RouteSchemaType> = new Schema({

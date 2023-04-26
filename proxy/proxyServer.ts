@@ -106,9 +106,10 @@ const pushToDB = async (payload: Payload): Promise<void> => {
   // Cache wil be used to update last_test_id in related route document
   // const test = await dbController.createTest(cache.routeId, payload)
   const test = await dbController.updateTest(payload.testId, cache.routeId, payload)
-  // cache.lastTest = await dbController.getTest(payload.testId!)
+  cache.lastTest = await dbController.getTest(payload.testId!)
+  cache.lastTest = JSON.parse(cache.lastTest)[0]
   // getTest(testId)
-  // console.log('lastTest', cache.lastTest)
+  console.log('lastTest', cache.lastTest)
   await dbController.updateRoute(cache)
 }
 
