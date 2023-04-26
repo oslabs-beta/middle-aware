@@ -4,7 +4,8 @@
 //  3. dbController so we can integrate with the DB
 import { IncomingHttpHeaders } from 'http'
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware'
-import express, { Application, Request, Response, NextFunction } from 'express'
+import * as express from 'express'
+import { Application, Request, Response, NextFunction } from 'express'
 import dbController from '../src/main/dbController'
 import { Details, Payload, TestType, RouteType } from '../src/main/defs'
 import { performance } from 'perf_hooks'
@@ -32,7 +33,7 @@ type ModifiedOptions = Options & {
 //  3. onProxyRes will allow us to handle the proxied response
 
 const options: ModifiedOptions = {
-  target: 'http://localhost:5002', // Your target URL here
+  target: 'http://localhost:3000', // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     // create test document and intailze test to hold test document details, including objectId
     // objectId will be used for our UUID to relate request/response with call stack tracing details
@@ -49,6 +50,7 @@ const options: ModifiedOptions = {
     // get testId back from mongo
     // proxyReq.setHeader('middleAwareTestID', testId)
     startTime = performance.now()
+    console.log(JSON.stringify(req.headers))
     console.log('Hello from onProxyReq')
   },
   onProxyRes: (proxyRes, req, res) => {
@@ -149,16 +151,19 @@ app.put('/middleAwareAgent', express.urlencoded(), express.json(), async (req, r
   await dbController.addFuncNameToTest(testId, functionName)
 })
 // set custom header implimentation downhere vs up in option/onProxyreq
-app.use(async (req, res, next) => {
-  const { method, route, params, query, body } = req
-  const test = await dbController.createTest({ method, route, params, query, body }) // passing in req object
+const setHeader = async (req, res, next) => {
+  console.log(JSON.stringify(req.headers))
+  const { method, originalUrl, params, query, body } = req
+  console.log('route', route)
+  const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
+  console.log('test', test)
   console.log('testId: ', testId)
-  res.set('middle-aware-test-id', testId)
+  req.headers['middle-aware-test-id'] = testId
   next()
-})
+}
 
-app.use('**', proxy)
+app.use('**', setHeader, proxy)
 
 app.listen(9000, () => {
   console.log('Proxy server listening on port 9000')
