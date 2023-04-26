@@ -8,7 +8,7 @@
     "start": "concurrently \"webpack serve --hot\" \"tsc --watch\" \"electronmon --trace-warnings .\" ",
     "electron": "electron .",
     "proxy": "nodemon proxy/proxy.js",
-    "start:forge": "electron-forge start",
+    "start:forge": "concurrently \"electron-forge start\" \"npx tailwindcss -i ./src/App.css -o ./src/output.css --watch\"",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
