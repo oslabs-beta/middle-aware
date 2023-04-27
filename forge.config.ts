@@ -11,7 +11,17 @@ import { rendererConfig } from './webpack.renderer.config';
 const config: ForgeConfig = {
   packagerConfig: {},
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [
+    new MakerSquirrel({
+      name: 'myapp',
+      iconUrl: './path/to/icon.ico',
+      certificateFile: './path/to/certificate.pfx',
+      certificatePassword: 'password',
+    }),
+    new MakerZIP({}, ['darwin']),
+    new MakerRpm({}),
+    new MakerDeb({}),
+  ],
   plugins: [
     new WebpackPlugin({
       mainConfig,
@@ -33,3 +43,4 @@ const config: ForgeConfig = {
 };
 
 export default config;
+
