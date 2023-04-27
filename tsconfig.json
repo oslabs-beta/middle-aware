@@ -7,9 +7,9 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
 
-
+    "suppressImplicitAnyIndexErrors": true,
     "noImplicitAny": false,
-
+    "ignoreDeprecations": "5.0",
     
     "sourceMap": true,
     "baseUrl": ".",
