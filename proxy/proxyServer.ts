@@ -18,11 +18,6 @@ app.set('etag', false)
 let startTime: number
 let endTime: number
 
-// export interface CustomRequest extends Request {
-//   foo?: string;
-//   bar?: number;
-// }  maybe customize our Request object?
-
 type ModifiedOptions = Options & {
   onProxyReq: (proxyReq: any, req: Request, res: Response) => Promise<void>
 }
@@ -31,27 +26,10 @@ type ModifiedOptions = Options & {
 //  1. target is the server the proxied requests will be forwarded to
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
-
 const options: ModifiedOptions = {
   target: 'http://localhost:3000', // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
-    // create test document and intailze test to hold test document details, including objectId
-    // objectId will be used for our UUID to relate request/response with call stack tracing details
-
-    /*
-    1. Initialize test document
-    2. Grab object id for test document
-    3. Add test document to request header
-*/
-    // const { method, route, params, query, body } = req
-    // const route = dbController.getRoute()
-    // const test = await dbController.createTest({ method, route, params, query, body }) // passing in req object
-    // const testId = await test!._id.toString()
-    // get testId back from mongo
-    // proxyReq.setHeader('middleAwareTestID', testId)
     startTime = performance.now()
-    console.log(JSON.stringify(req.headers))
-    console.log('Hello from onProxyReq')
   },
   onProxyRes: (proxyRes, req, res) => {
     // Modify the headers to prevent caching, specifically to avoid the 304 status code
@@ -93,8 +71,7 @@ const options: ModifiedOptions = {
         },
         response_time: `${endTime - startTime} ms`
       }
-      console.log('reqest body in proxyRes.on:', req)
-      console.log('data:', payload)
+      console.log('dataPayload:', payload)
       // store the test and route data into mongoDB
       pushToDB(payload)
 
@@ -119,52 +96,43 @@ const pushToDB = async (payload: Payload): Promise<void> => {
 
     // if route document exists, then we will assign only the routeId to cache object
     // otherwise, we will create it, which will return the route document json, then assign only the routeId to cache object
-
     cache.routeId = route._id.toString()
   } else {
     route = await dbController.createRoute(`${payload.request.method} ${payload.request.route}`)
     cache.routeId = route!._id.toString()
   }
-
   // Create test document which will return the test document json
   // Assign the document id to cache object
   // Cache wil be used to update last_test_id in related route document
   // const test = await dbController.createTest(cache.routeId, payload)
-  cache.lastTest = dbController.getTest(payload.testId!)
+  const test = await dbController.updateTest(payload.testId, cache.routeId, payload)
+  cache.lastTest = await dbController.getTest(payload.testId!)
+  cache.lastTest = JSON.parse(cache.lastTest)[0]
   // getTest(testId)
-  dbController.updateRoute(cache)
+  console.log('lastTest', cache.lastTest)
+  await dbController.updateRoute(cache)
 }
 
 const proxy = createProxyMiddleware(options)
 
-/*
-	1. Should exist in its own route handler before the proxy route handler
-	2. app.post('insert unique middleware endpoint')
-	3. Middleware function should leverage updateTest to add to the middleware field by using the object id passed via request
-
-*/
-// Start server
-app.put('/middleAwareAgent', express.urlencoded(), express.json(), async (req, res, next) => {
-  // middleAwareTestID
-  console.log('request body', req.body)
-  const { testId, functionName } = req.body
-  await dbController.addFuncNameToTest(testId, functionName)
-})
 // set custom header implimentation downhere vs up in option/onProxyreq
 const setHeader = async (req, res, next) => {
-  console.log(JSON.stringify(req.headers))
   const { method, originalUrl, params, query, body } = req
-  console.log('route', route)
   const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
-  console.log('test', test)
-  console.log('testId: ', testId)
   req.headers['middle-aware-test-id'] = testId
   next()
 }
 
-app.use('**', setHeader, proxy)
+// Middle-Aware Agent Route to store call stack tracing details
+app.put('/middleAwareAgent', express.urlencoded, express.json, async (req, res, next) => {
+  // middleAwareTestID
+  const { testId, functionName } = req.body
+  await dbController.addFuncNameToTest(testId, functionName)
+})
 
+// Proxy Server Route to handle all other requests (requests from user's frontend)
+app.use('**', setHeader, proxy)
 app.listen(9000, () => {
   console.log('Proxy server listening on port 9000')
 })

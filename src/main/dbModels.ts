@@ -46,7 +46,7 @@ const myObj: StringObject = {
 
 interface RouteSchemaType extends Document<Types.ObjectId> {
   detail: string // method + path/route (eg. GET /api/login)
-  last_test: StringObject
+  last_test: object
 }
 
 const RouteSchema: Schema<RouteSchemaType> = new Schema({
@@ -87,18 +87,27 @@ const TestSchema: Schema<TestSchemaType> = new Schema({
   request: {
     method: String,
     route: String,
-    params: String,
-    query: String,
-    body: Schema.Types.Mixed
+    params: {
+      type: Schema.Types.Mixed,
+      default: {}
+    },
+    query: {
+      type: Schema.Types.Mixed,
+      default: {}
+    },
+    body: {
+      type: Schema.Types.Mixed,
+      default: {}
+    }
   },
   response: {
     status_code: Number,
     body: Schema.Types.Mixed
   },
   middleware: [String],
-  error: String, // set to a boolean value
+  error: Boolean, // set to a boolean value
   response_time: String
-})
+}, { minimize: false })
 
 // The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural, lowercased version of your model name. Thus, for the example above, the model Tank is for the tanks collection in the database.
 // https://mongoosejs.com/docs/models.html

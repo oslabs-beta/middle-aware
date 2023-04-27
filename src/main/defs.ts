@@ -11,7 +11,7 @@ export interface Details {
 
 export type TestRequest = {
   method?: string
-  route?: string | undefined
+  originalUrl?: string | undefined
   params?: any
   query?: any
   body?: any
