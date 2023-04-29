@@ -50,17 +50,17 @@ function handleFileParse (event, dir) {
 }
 
 async function handleGetRoute (event, route) {
-  return await db.getRoute(route)
+  return await db.default.getRoute(route)
 }
 
 async function handleGetTest (event, test) {
-  return await db.getTest(test)
+  return await db.default.getTest(test)
 }
 
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('parseFiles', handleFileParse)
-  ipcMain.handle('db:getAllRoutes', db.getAllRoutes)
+  ipcMain.handle('db:getAllRoutes', db.default.getAllRoutes)
   ipcMain.handle('db:getRoute', handleGetRoute)
   ipcMain.handle('db:getTest', handleGetTest)
 })
