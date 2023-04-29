@@ -11,6 +11,12 @@ interface fetchCall {
   options: object
 }
 
+// This is a stand-in for the path in a babel AST visitor framework
+interface Path {
+  parent: t.Node,
+  node: t.CallExpression
+}
+
 // Traverse directory structure and generate ASTs, return ASTs in an array for further processing
 
 function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
@@ -27,7 +33,7 @@ function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
         // CallExpression.arguments = []
 
         // Look for node type 'CallExpression'
-        CallExpression: function (path: t.Node) {
+        CallExpression: function (path: Path) {
           // May need a helper function for this when the options consists of nested objects
 
           function buildNestedObj (inputObjExp: t.ObjectExpression, outObj: {[index: string]: unknown} = {}): object {
@@ -62,25 +68,8 @@ function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
             // }, {})
             }
 
-            // Are we meant to be able to execute code output by @babel/generator
-            // Create object, parse, then generate?
-            // const test = {
-            //   prop1: 'Beagle',
-            //   prop2: 'Doberman'
-            // }
-
-            // const testAST = parse(JSON.stringify(test), { errorRecovery: true })
-            // const genTest = generate(testAST)
-            // console.log({ genTest })
-
-            // another option
-            // Grab string from fs object
-            // if (funcCall.arguments[1]) {
-            //   options = JSON.parse(source.slice(funcCall.arguments[1].start, funcCall.arguments[1].end))
-            // }
-            // console.log('options: ', options.method)
             outArray.push({
-              method: (options.method ? options.method : 'GET'),
+              method: (options?.method ? options.method : 'GET'),
               route: funcCall.arguments[0].value ?? source.slice(funcCall.arguments[0].start + 1, funcCall.arguments[0].end - 1),
               options: (options || null)
             })
