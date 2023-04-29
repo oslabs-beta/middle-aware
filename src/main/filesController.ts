@@ -44,56 +44,59 @@ const filesController = {
     if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir) // Create targetDir if needed
 
     // Build out directory structure before copying files to improve efficiency
-    const accumulator : {[index: string]: string} = { prev: '', next: '' }
+    const accumulator : {[index: string]: string} = {}
 
     // dirs will be a list of unique directory names
     const dirs = filesArray.reduce((acc, curr) => {
       const relFilePath = path.relative(dirToClone, curr) // ./frontend/myFile.js
       const targetFilePath = path.resolve(targetDir, relFilePath) // /home/nancy/cloned-project/frontend/myFile.js
 
-      acc.next = path.dirname(targetFilePath)
-      if (acc.prev !== '') {
-        let prevCount = 0
-        let nextCount = 0
-        for (let i = 0; i < acc.prev.length; i++) {
-          if (acc.prev.charAt(i) === path.sep) prevCount++
-        }
-        for (let i = 0; i < acc.next.length; i++) {
-          if (acc.next.charAt(i) === path.sep) nextCount++
-        }
-        // If the directory depth of this item is two or more than the last
-        if (nextCount > prevCount + 1) {
-          // Store parent directory
-          let newPath = path.dirname(acc.next)
-          const pathsToAdd: string[] = []
-          do {
-            pathsToAdd.push(newPath)
-            newPath = path.dirname(newPath)
-          } while (!fs.existsSync(newPath))
-          // Push all the additional paths to the object
-          for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
-        }
-      }
-      acc.prev = acc.next
+      // acc.next = path.dirname(targetFilePath) //Users/felixljr/Desktop/shadow/node_modules/@babel/generator/node_modules/@jridgewell
+      // if (acc.prev !== '') {
+      //   let prevCount = 0
+      //   let nextCount = 0
+      //   for (let i = 0; i < acc.prev.length; i++) {
+      //     if (acc.prev.charAt(i) === path.sep) prevCount++
+      //   }
+      //   for (let i = 0; i < acc.next.length; i++) {
+      //     if (acc.next.charAt(i) === path.sep) nextCount++
+      //   }
+      //   // If the directory depth of this item is two or more than the last
+      //   if (nextCount > prevCount + 1) {
+      //     // Store parent directory
+      //     let newPath = path.dirname(acc.next)
+      //     const pathsToAdd: string[] = []
+      //     do {
+      //       pathsToAdd.push(newPath)
+      //       newPath = path.dirname(newPath)
+      //     } while (!fs.existsSync(newPath))
+      //     // Push all the additional paths to the object
+      //     for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
+      //   }
+      // }
+      // acc.prev = acc.next //Users/felixljr/Desktop/shadow/node_modules/@babel/generator/node_modules/@jridgewell
 
-      let newPath = path.dirname(acc.next)
+      // for each file name, check if parent directory exists
+      // if not, add to acc, and check if parent directory exists
+      // if not add to acc
+
+      let newPath = path.dirname(targetFilePath) //Users/felixljr/Desktop/shadow/node_modules/@babel/generator/node_modules/
       const pathsToAdd: string[] = []
       do {
-        pathsToAdd.push(newPath)
-        newPath = path.dirname(newPath)
-      } while (!fs.existsSync(newPath))
+        pathsToAdd.push(newPath) // push file dir
+        newPath = path.dirname(newPath) // make newPath parent dir
+      } while (!fs.existsSync(newPath)) // if parent dir doesn't exist, loop
+      
       // Push all the additional paths to the object
       for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
 
-      return {
-        ...acc,
-        [path.dirname(targetFilePath)]: 'true'
-      }
+      return acc
     }, accumulator)
 
     // This approach will ensure that keys are arranged alphabetically and therefore we will be creating parent directories first as-needed
     Object.keys(dirs).forEach((dir) => {
       if (!fs.existsSync(dir)) {
+        console.log(dir)
         fs.mkdirSync(dir)
       }
     })
