@@ -36,7 +36,7 @@ const dbController = {
   // find route
   updateRoute: async (obj: Details) => {
     try {
-      const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test: obj.lastTest })  // last_test is string type in mongoDB
+      const route = await Route.findOneAndUpdate({ _id: obj.routeId }, { last_test: obj.lastTest }) // last_test is string type in mongoDB
       return await route
     } catch (err) {
       console.log('Error in updateRoute in dbController', err)
@@ -83,7 +83,6 @@ const dbController = {
 
   updateTest: async (testId: string, routeId: string, info: Payload) => {
     try {
-      console.log('updateTest args', [testId, routeId, info])
       return await Test.findOneAndUpdate({ _id: testId }, {
         route: routeId,
         created_at: Date.now(),

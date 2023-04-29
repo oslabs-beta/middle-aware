@@ -27,7 +27,7 @@ type ModifiedOptions = Options & {
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 const options: ModifiedOptions = {
-  target: 'http://localhost:3000', // Your target URL here
+  target: 'http://localhost:5002', // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
   },
@@ -118,18 +118,12 @@ const proxy = createProxyMiddleware(options)
 // set custom header implimentation downhere vs up in option/onProxyreq
 const setHeader = async (req, res, next) => {
   const { method, originalUrl, params, query, body } = req
+  console.log('proxy', { method, originalUrl, params, query, body })
   const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
   req.headers['middle-aware-test-id'] = testId
   next()
 }
-
-// Middle-Aware Agent Route to store call stack tracing details
-app.put('/middleAwareAgent', express.urlencoded, express.json, async (req, res, next) => {
-  // middleAwareTestID
-  const { testId, functionName } = req.body
-  await dbController.addFuncNameToTest(testId, functionName)
-})
 
 // Proxy Server Route to handle all other requests (requests from user's frontend)
 app.use('**', setHeader, proxy)
