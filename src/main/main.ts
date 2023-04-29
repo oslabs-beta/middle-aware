@@ -1,6 +1,6 @@
 
 require('source-map-support').install()
-const parseAPIRequests = require('./parseAPIRequests')
+const parseAPIRequests = require('./parseAPI-FE-Req')
 const session = require('electron').session
 const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const path = require('path')
