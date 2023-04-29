@@ -1,7 +1,8 @@
 export {}
+// export {};
 
-declare global {
-  interface Window {
-    electronAPI: any;
-  }
-}
+// declare global {
+//   interface Window {
+//     electronAPI: any;
+//   }
+// }
