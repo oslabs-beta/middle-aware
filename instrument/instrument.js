@@ -39,7 +39,7 @@ const output = babel.transformSync(code, {
           if (params.has('req') || params.has('res') || params.has('next')) {
             // add the injected logic to the top of each middleware function implemented in this pattern
             const bodyPath = path.get('body')
-            bodyPath.unshiftContainer('body', transform(`  const collectMAData = async (testId, functionName) => {
+            bodyPath.unshiftContainer('body', transform(`const collectMAData = async (testId, functionName) => {
               const test = await fetch('http://127.0.0.1:9001/middleAwareAgent', {
                 method:'PUT',
                 headers: {

@@ -54,7 +54,6 @@ const options: ModifiedOptions = {
     // This is also where we can finalize the payload to be sent to the DB, as we need to wait for the response data
     proxyRes.on('end', async () => {
       endTime = performance.now()
-      // console.log(`this is rr:${new Date().getTime() - startTime2}`)
       const response: string = Buffer.concat(body).toString('utf8')
       const payload: Payload = {
         testId: req.headers['middle-aware-test-id'],
@@ -71,7 +70,6 @@ const options: ModifiedOptions = {
         },
         response_time: `${endTime - startTime} ms`
       }
-      console.log('dataPayload:', payload)
       // store the test and route data into mongoDB
       pushToDB(payload)
 
@@ -109,7 +107,6 @@ const pushToDB = async (payload: Payload): Promise<void> => {
   cache.lastTest = await dbController.getTest(payload.testId!)
   cache.lastTest = JSON.parse(cache.lastTest)[0]
   // getTest(testId)
-  console.log('lastTest', cache.lastTest)
   await dbController.updateRoute(cache)
 }
 
@@ -118,7 +115,6 @@ const proxy = createProxyMiddleware(options)
 // set custom header implimentation downhere vs up in option/onProxyreq
 const setHeader = async (req, res, next) => {
   const { method, originalUrl, params, query, body } = req
-  console.log('proxy', { method, originalUrl, params, query, body })
   const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
   req.headers['middle-aware-test-id'] = testId
