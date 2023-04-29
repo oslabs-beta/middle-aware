@@ -22,6 +22,17 @@ type ModifiedOptions = Options & {
   onProxyReq: (proxyReq: any, req: Request, res: Response) => Promise<void>
 }
 
+// const restream = function (proxyReq, req, res, options) {
+//   if (req.body) {
+//     const bodyData = JSON.stringify(req.body)
+//     // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+//     proxyReq.setHeader('Content-Type', 'application/json')
+//     proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+//     // stream the content
+//     proxyReq.write(bodyData)
+//   }
+// }
+
 // these options will be used in the proxy server, to help configure it
 //  1. target is the server the proxied requests will be forwarded to
 //  2. onProxyReq will allow us to handle the proxied request
@@ -30,6 +41,7 @@ const options: ModifiedOptions = {
   target: 'http://localhost:3000', // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
+    // restream;
   },
   onProxyRes: (proxyRes, req, res) => {
     // Modify the headers to prevent caching, specifically to avoid the 304 status code
