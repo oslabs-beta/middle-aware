@@ -1,13 +1,20 @@
 import mongoose, { Schema, model, Document, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
-import * as dotenv from 'dotenv'
+// import * as dotenv from 'dotenv'
 import { TestRequest } from './Types'
-// process.env.MONGODB_URI as MONGODB_URI
+const path = require('path')
+// import process.env.MONGODB_URI as MONGODB_URI
+require('dotenv').config({ path: ``})
+
+// path.relative()
+// Absolute path to .env won't change
+// Move information to config file
+// Export object from .js file?
 
 // Load config
-dotenv.config({ path: '../.env' })
+// dotenv.config()
+console.log('process.env: ', process.env)
 
-// const MONGODB_URI: string = process.env.MONGODB_URI!
-const MONGODB_URI = 'mongodb+srv://justinwmarchant:l9HPcrjosl0h4tFr@middle-aware-cluster.8frnuhl.mongodb.net/Middle-Aware?retryWrites=true&w=majority'
+const MONGODB_URI: string = process.env.MONGODB_URI!
 
 // create extended ConnectOptions interface by adding two new property
 interface MongoConnectOps extends ConnectOptions {
@@ -22,6 +29,8 @@ const connectionOptions: MongoConnectOps = {
   // sets the name of the DB that our collections are part of
   // dbName: 'middle-aware'
 }
+console.log('process.env: ', process.env)
+console.log('MONGODB_URI', MONGODB_URI)
 
 mongoose.connect(MONGODB_URI, connectionOptions)
   .then(() => console.log('Connected to Mongo DB.'))

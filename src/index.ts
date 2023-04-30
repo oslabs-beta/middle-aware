@@ -1,3 +1,4 @@
+import configManager from './configManager'
 require('source-map-support').install()
 // const parseAPIRequests = require('./parseAPIRequests');
 const session = require('electron').session
@@ -42,10 +43,10 @@ const createWindow = (): void => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  session.defaultSession.setProxy({
-    proxyRules: 'http://127.0.0.1:9000'
-    // proxyBypassRules: 'localhost'
-  })
+  // session.defaultSession.setProxy({
+  //   proxyRules: 'http://127.0.0.1:9000'
+  //   // proxyBypassRules: 'localhost'
+  // })
 
   console.log('MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY:', MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY)
 
@@ -74,9 +75,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 
 async function handleFileOpen () {
-  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
-    properties: ['openDirectory']
-  })
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow)
   if (canceled) {
     //
   } else {
@@ -88,18 +87,23 @@ function handleFileParse (event, dir) {
   return parseAPIRequests(dir)
 }
 
-async function handleGetRoute(event, route) {
+async function handleGetRoute (event, route) {
   return await db.default.getRoute(route)
 }
 
-async function handleGetTest(event, test) {
+async function handleGetTest (event, test) {
   return await db.default.getTest(test)
 }
 
+function handleCopyConfig (event, dir) {
+  configManager.copyConfig(dir)
+}
+
 app.whenReady().then(() => {
-  ipcMain.handle('dialog:openFile', handleFileOpen);
-  ipcMain.handle('parseFiles', handleFileParse);
+  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('parseFiles', handleFileParse)
   ipcMain.handle('db:getAllRoutes', db.default.getAllRoutes)
-  ipcMain.handle('db:getRoute', handleGetRoute);
-  ipcMain.handle('db:getTest', handleGetTest);
-});
+  ipcMain.handle('db:getRoute', handleGetRoute)
+  ipcMain.handle('db:getTest', handleGetTest)
+  ipcMain.handle('copyConfig', handleCopyConfig)
+})
