@@ -74,8 +74,9 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-async function handleFileOpen () {
-  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow)
+async function handleFileOpen (event, fileOrDir) {
+  console.log('fileOrDir: ', fileOrDir)
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, { properties: [(fileOrDir === 'directory' ? 'openDirectory' : 'openFile')] })
   if (canceled) {
     //
   } else {
@@ -83,21 +84,13 @@ async function handleFileOpen () {
   }
 }
 
-function handleFileParse (event, dir) {
-  return parseAPIRequests(dir)
-}
+function handleFileParse (event, dir) { return parseAPIRequests(dir) }
 
-async function handleGetRoute (event, route) {
-  return await db.default.getRoute(route)
-}
+async function handleGetRoute (event, route) { return await db.default.getRoute(route) }
 
-async function handleGetTest (event, test) {
-  return await db.default.getTest(test)
-}
+async function handleGetTest (event, test) { return await db.default.getTest(test) }
 
-function handleCopyConfig (event, dir) {
-  configManager.copyConfig(dir)
-}
+function handleCopyConfig (event, dir) { configManager.copyConfig(dir) }
 
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFile', handleFileOpen)
