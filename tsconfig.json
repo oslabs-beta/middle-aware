@@ -11,7 +11,7 @@
     "noImplicitAny": false,
     "ignoreDeprecations": "5.0",
     
-    "sourceMap": true,
+    "sourceMap": false, // Changed to false to remove warning in compiled files in the ./webpack folder
     "baseUrl": ".",
     "outDir": "dist",
     "moduleResolution": "node",
@@ -20,5 +20,5 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "instrument/agent.ts"]
 }

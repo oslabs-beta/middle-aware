@@ -31,7 +31,7 @@ copyProcess.on('exit', function (code) {
 
 // shadowProcess = exec('cd ' + config.targetDir + '; ' + config.startScript)
 
-function startShadow() {
+function startShadow () {
   const shadowProcess = exec('cd ' + config.targetDir + '; ' + config.startScript)
   shadowProcess.stdout.on('data', function (data) {
     console.log('stdout: ' + data.toString())
