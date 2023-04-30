@@ -1,5 +1,5 @@
 const express = require('express')
-const dbController = require('../src/main/dbController')
+const dbController = require('./dbController')
 
 const app = express()
 

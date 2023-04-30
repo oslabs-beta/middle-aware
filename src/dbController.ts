@@ -1,7 +1,7 @@
 // const { Test, Route } = require('./dbModels')
-import { Test, Route } from './dbModels'
-import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './defs'
+const { Test, Route } = require('./dbModels')
+const mongoose = require('mongoose')
+const { Details, Payload, TestType, RouteType, StringObject, TestRequest } = require('./defs')
 
 // interface ControllerConfig {
 
@@ -118,4 +118,4 @@ const dbController = {
   }
 }
 
-export default dbController
+module.exports = dbController
