@@ -2,7 +2,6 @@ import type { ForgeConfig } from '@electron-forge/shared-types'
 import { MakerSquirrel } from '@electron-forge/maker-squirrel'
 import { MakerZIP } from '@electron-forge/maker-zip'
 import { MakerDeb } from '@electron-forge/maker-deb'
-import { MakerDMG } from '@electron-forge/maker-dmg'
 import { MakerRpm } from '@electron-forge/maker-rpm'
 import { WebpackPlugin } from '@electron-forge/plugin-webpack'
 
@@ -24,11 +23,10 @@ const config: ForgeConfig = {
       config: {
         format: 'ULFO'
       }
-    }
-    //commented out until needed
-    // new MakerZIP({}, ['darwin']),
-    // new MakerRpm({}),
-    // new MakerDeb({}),
+    },
+    new MakerZIP({}, ['darwin']),
+    new MakerRpm({}),
+    new MakerDeb({}),
   ],
   plugins: [
     new WebpackPlugin({
