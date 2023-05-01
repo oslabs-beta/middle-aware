@@ -1,7 +1,7 @@
 // const { Test, Route } = require('./dbModels')
 import { Test, Route } from './dbModels'
 import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './defs'
+import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './Types'
 
 // interface ControllerConfig {
 

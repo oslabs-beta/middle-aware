@@ -33,10 +33,10 @@ function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
         // CallExpression.arguments = []
 
         // Look for node type 'CallExpression'
-        CallExpression: function (path: Path) {
+        CallExpression: function (path: any) {
           // May need a helper function for this when the options consists of nested objects
 
-          function buildNestedObj (inputObjExp: t.ObjectExpression, outObj: {[index: string]: unknown} = {}): object {
+          function buildNestedObj (inputObjExp: any, outObj: {[index: string]: unknown} = {}): object {
             // This function will take in an AST ObjectExpression and return a javascript object of that expression
             return inputObjExp.properties.reduce((result, property) => {
               const key = property.key.name || property.key.value
@@ -69,8 +69,8 @@ function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
             }
 
             outArray.push({
-              method: (options?.method ? options.method : 'GET'),
-              route: funcCall.arguments[0].value ?? source.slice(funcCall.arguments[0].start + 1, funcCall.arguments[0].end - 1),
+              method: (options.method ? options.method : 'GET'),
+              route: funcCall.arguments[0]?.value ?? source.slice(funcCall.arguments[0].start + 1, funcCall.arguments[0].end - 1),
               options: (options || null)
             })
           }
