@@ -17,6 +17,7 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/traverse": "^7.21.3",
     "@babel/types": "^7.21.3",
+    "@types/body-parser": "^1.19.2",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "daisyui": "^2.51.3",
