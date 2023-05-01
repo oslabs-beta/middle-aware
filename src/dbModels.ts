@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, Document, connect, Types, ConnectOptions, ObjectId } from 'mongoose'
 import * as dotenv from 'dotenv'
-import { TestRequest } from './defs'
+import { TestRequest } from './Types'
 // process.env.MONGODB_URI as MONGODB_URI
 
 // Load config

@@ -4,10 +4,9 @@
 //  3. dbController so we can integrate with the DB
 import { IncomingHttpHeaders } from 'http'
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware'
-// import express from 'express'
 import express, { Application, Request, Response, NextFunction } from 'express'
-import dbController from '../src/main/dbController'
-import { Details, Payload, TestType, RouteType } from '../src/main/defs'
+import dbController from './dbController'
+import { Details, Payload, TestType, RouteType } from './Types'
 import { performance } from 'perf_hooks'
 
 // setup express server so that we can start the proxy server and disable etag

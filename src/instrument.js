@@ -24,7 +24,7 @@ const output = babel.transformSync(code, {
     {
       visitor: {
         // visiting every type of function node
-        Function (path) {
+        Function(path) {
           let functionName = ''
           if (path.node.key) {
             // get function name
