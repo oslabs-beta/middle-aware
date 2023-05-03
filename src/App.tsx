@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import { Responses, APIfuncs, fetchCall } from './Types'
+import Header from './components/Header'
 
 declare global {
   interface Window {
@@ -84,10 +85,7 @@ function App () {
 
   return (
     <>
-      <header>
-        <h1>Middle-Aware</h1>
-
-      </header>
+    <Header />
       <hr />
       <div id='interface'>
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
