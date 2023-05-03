@@ -86,14 +86,14 @@ function App () {
   return (
     <>
     <Header />
-      <hr />
+
       <div id='interface'>
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
         <div className='reFetch'>
            <button className="btn btn-sm" onClick={fetchFromDB}>Fetch Tests</button>
         </div>
       </div>
-      <hr />
+
       <div id="main">
 
         {/* <div id="routesAndResults"> */}

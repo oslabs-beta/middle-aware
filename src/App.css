@@ -5,36 +5,37 @@
 /* Universally applied styles and vanill css where necessary*/
 
 html, body{
+padding: 10px;
 background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
 }
 
-h1, .title , #interface{
+/* h1, .title , #interface{
   font-family: 'Silkscreen', sans-serif;
 }
 
 .title{
   @apply text-center text-xl pb-5 pt-3
-}
+} */
 
 /* --------START: header section------------- */
-header{
+/* header{
   @apply mx-auto w-[80%] border-solid pt-3 pb-5
-}
+} */
 
-header h1{
+/* header h1{
   @apply text-6xl text-center
-}
+} */
 
-hr{
+/* hr{
   @apply w-[80%] mx-auto border-gray-500
-}
+} */
 /* --------END: header section------------- */
 
 /* --------START: interface section------------- */
 
-#interface {
+/* #interface {
   @apply mx-auto w-[90%] pt-4 pb-4 flex justify-evenly
-}
+} */
 
 
 /* --------END: interface section------------- */
@@ -42,18 +43,18 @@ hr{
 
 /* --------START: Main section------------- */
 
-#main{
+/* #main{
   @apply w-[90%] flex flex-row mx-auto
 }
 
 /*  Route and Result container*/
-#routesAndResults{
+/* #routesAndResults{
   visibility: hidden;
-}
+} */ 
 
       /* START: routes section------------- */
 
-      #routesSection{
+      /* #routesSection{
         @apply h-44 w-[33%]
       }
 
@@ -63,21 +64,21 @@ hr{
 
       #status{
         @apply bg-red-600
-      }
+      } */
 
 
   /* END: routes section------------- */
       /* START: results section------------- */
 
-      #resultsSection{
+      /* #resultsSection{
         @apply h-44 w-[67%] 
-      }
+      } */
 
       /* .resultCards{
         @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
       } */
 
-            .resultCards{
+            /* .resultCards{
         @apply w-[80%] mx-auto drop-shadow-md bg-[#fef0e4] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
       }
 
@@ -107,9 +108,7 @@ hr{
       #arrow{
         @apply mx-auto text-5xl text-[#b3b2af] animate-bounce
       }
-
+ */
 
       /* END: results section------------- */
 /* --------END: Main section------------- */
-
-
