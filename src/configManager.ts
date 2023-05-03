@@ -36,7 +36,18 @@ export const determineDir = () => {
 }
 
 export const readConfig = () => {
-  return JSON.parse(fs.readFileSync(determineDir() + 'config.json', { encoding: 'utf8' }))
+  if (fs.existsSync(determineDir() + 'config.json')) {
+    return JSON.parse(fs.readFileSync(determineDir() + 'config.json', { encoding: 'utf8' }))
+  } else { // Return default configuration if the config.json does not exist
+    return {
+      rootDir: '',
+      backEnd: '',
+      startScript: 'npm run start',
+      targetDir: determineDir() + '/shadowDir',
+      MONGODB_URI: '',
+      proxyPort: '9003'
+    }
+  }
 }
 
 export default { copyConfig, determineDir, readConfig }

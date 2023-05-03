@@ -1,4 +1,5 @@
 import configManager from './configManager'
+import { mongoConnect } from './dbModels'
 require('source-map-support').install()
 // const parseAPIRequests = require('./parseAPIRequests');
 const session = require('electron').session
@@ -90,7 +91,10 @@ async function handleGetRoute (event, route) { return await db.default.getRoute(
 
 async function handleGetTest (event, test) { return await db.default.getTest(test) }
 
-function handleCopyConfig (event, dir) { configManager.copyConfig(dir) }
+function handleCopyConfig (event, dir) {
+  configManager.copyConfig(dir)
+  mongoConnect()
+}
 
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFile', handleFileOpen)
