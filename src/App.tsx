@@ -3,6 +3,7 @@ import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import { Responses, APIfuncs, fetchCall } from './Types'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 declare global {
   interface Window {
@@ -135,6 +136,7 @@ function App () {
         {/* </div> */}
 
       </div>
+      <Footer />
     </>
   )
 }
