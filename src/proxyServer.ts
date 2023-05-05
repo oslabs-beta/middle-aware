@@ -32,6 +32,16 @@ const options: ModifiedOptions = {
   target: 'http://localhost:5002', // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
+    // restream parsed body before proxying
+    if (req.body) {
+      const bodyData = JSON.stringify(req.body)
+      // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+      proxyReq.setHeader('Content-Type', 'application/json')
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+      console.log('bodyData', bodyData)
+      // stream the content
+      proxyReq.write(bodyData)
+    }
   },
   onProxyRes: (proxyRes, req, res) => {
     // Modify the headers to prevent caching, specifically to avoid the 304 status code
@@ -115,7 +125,7 @@ const pushToDB = async (payload: Payload): Promise<void> => {
 const proxy = createProxyMiddleware(options)
 
 // set custom header implimentation downhere vs up in option/onProxyreq
-const setHeader = async (req, res, next) => {
+const setHeader = async (req: Request, res: Response, next: any): Promise<void> => {
   const { method, originalUrl, params, query, body } = req
   const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
@@ -124,8 +134,9 @@ const setHeader = async (req, res, next) => {
 }
 
 // Proxy Server Route to handle all other requests (requests from user's frontend)
+app.use(express.json()) // parsing incoming data from request body and making it available to req.body
+app.use(express.urlencoded()) // parsing incoming URL-encoded form datafrom reqsuest body as well
 app.use('**', setHeader, proxy)
-
 const { proxyPort } = readConfig()
 app.listen(proxyPort, () => {
   console.log(`Proxy server listening on port ${proxyPort}`)
