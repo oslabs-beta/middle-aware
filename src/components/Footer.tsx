@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai'
+
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
       <p>File Location ///////</p>
       <div className='flex flex-row'>
         <p>Status: </p>
-        <AiFillPauseCircle className='w-5 text-green-600' />
+
       </div>
     </div>
   )

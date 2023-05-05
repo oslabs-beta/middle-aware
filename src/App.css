@@ -2,112 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Universally applied styles and vanill css where necessary*/
 
+/* The html/body style looks better in vanilla css than tailwind */
 html, body{
 background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
 }
 
-/* h1, .title , #interface{
-  font-family: 'Silkscreen', sans-serif;
+/* html, body{
+  @apply bg-gradient-to-r from-pink-100 via-pink-100 to-blue-100
+} */
+
+.button {
+  @apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
 }
 
-.title{
-  @apply text-center text-xl pb-5 pt-3
-} */
-
-/* --------START: header section------------- */
-/* header{
-  @apply mx-auto w-[80%] border-solid pt-3 pb-5
-} */
-
-/* header h1{
-  @apply text-6xl text-center
-} */
-
-/* hr{
-  @apply w-[80%] mx-auto border-gray-500
-} */
-/* --------END: header section------------- */
-
-/* --------START: interface section------------- */
-
-/* #interface {
-  @apply mx-auto w-[90%] pt-4 pb-4 flex justify-evenly
-} */
-
-
-/* --------END: interface section------------- */
-
-
-/* --------START: Main section------------- */
-
-/* #main{
-  @apply w-[90%] flex flex-row mx-auto
+.icons {
+  @apply pr-2
 }
-
-/*  Route and Result container*/
-/* #routesAndResults{
-  visibility: hidden;
-} */ 
-
-      /* START: routes section------------- */
-
-      /* #routesSection{
-        @apply h-44 w-[33%]
-      }
-
-      .routes{
-        @apply  border-solid border-b-2 p-5 mb-4 rounded-md drop-shadow-md
-      }
-
-      #status{
-        @apply bg-red-600
-      } */
-
-
-  /* END: routes section------------- */
-      /* START: results section------------- */
-
-      /* #resultsSection{
-        @apply h-44 w-[67%] 
-      } */
-
-      /* .resultCards{
-        @apply w-[80%] mx-auto drop-shadow-md bg-[#f1efea] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
-      } */
-
-            /* .resultCards{
-        @apply w-[80%] mx-auto drop-shadow-md bg-[#fef0e4] rounded-md p-5 border-dashed border-2 border-slate-300 overflow-hidden
-      }
-
-      #overlay{
-        @apply rounded-md p-5 border-dashed border-2 border-slate-300 bg-[#fef0e4] ml-6 h-96
-      }
-
-      #insideOverlay h1, #insideOverlay h2{
-        @apply text-center mb-12
-      }
-
-      #spinner{
-        @apply animate-spin text-9xl mx-auto
-      }
-      #checkForData {
-        @apply w-[25%] pt-5 mx-auto
-      }
-
-        #successStatus{
-        @apply mx-auto text-5xl text-[#7ec7a7]
-      }
-
-        #errorStatus{
-        @apply mx-auto text-5xl text-[#fba8a0] animate-pulse
-      }
-
-      #arrow{
-        @apply mx-auto text-5xl text-[#b3b2af] animate-bounce
-      }
- */
-
-      /* END: results section------------- */
-/* --------END: Main section------------- */
