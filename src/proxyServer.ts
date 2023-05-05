@@ -4,10 +4,13 @@
 //  3. dbController so we can integrate with the DB
 import { IncomingHttpHeaders } from 'http'
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware'
-import express, { Application, Request, Response, NextFunction } from 'express'
+import { Application, Request, Response, NextFunction } from 'express'
 import dbController from './dbController'
 import { Details, Payload, TestType, RouteType } from './Types'
 import { performance } from 'perf_hooks'
+import { readConfig } from './configManager'
+// import * as express from 'express'
+const express = require('express')
 
 // setup express server so that we can start the proxy server and disable etag
 // etag needs to be disabled otherwise we will get 304 status code for frequent requests and the reponse body will not be captured
@@ -134,6 +137,7 @@ const setHeader = async (req: Request, res: Response, next: any): Promise<void> 
 app.use(express.json()) // parsing incoming data from request body and making it available to req.body
 app.use(express.urlencoded()) // parsing incoming URL-encoded form datafrom reqsuest body as well
 app.use('**', setHeader, proxy)
-app.listen(9000, () => {
-  console.log('Proxy server listening on port 9000')
+const { proxyPort } = readConfig()
+app.listen(proxyPort, () => {
+  console.log(`Proxy server listening on port ${proxyPort}`)
 })

@@ -116,9 +116,10 @@ export type ResultProps = {
 }
 
 export type APIfuncs ={
-  openFile: () => Promise<string>;
+  openFile: (fileOrDir: string) => Promise<string>;
   parseFiles: (dir: string) => Promise<fetchCall[]>;
   getAllRoutes: () => Promise<string>;
   // getRoute: (route: any) => any;
   getTest: (test: string) => Promise<string>;
+  copyConfig: (dir: string) => void;
 }

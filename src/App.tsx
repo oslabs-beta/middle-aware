@@ -61,7 +61,7 @@ function App () {
   // select a directory button to select a path
   const handleButtonClick = () => {
     window.electronAPI
-      .openFile()
+      .openFile('directory')
       .then((result: string) => {
         // Expect result to be a directory
         window.electronAPI
@@ -82,6 +82,16 @@ function App () {
   // })
   // }
 
+  const copyConfig = () => {
+    window.electronAPI
+      .openFile('file')
+      .then((fileSelected: string) => {
+        // Expect result to be a directory
+        window.electronAPI
+          .copyConfig(fileSelected)
+      }).catch((err: unknown) => console.log('copyConfig Error: ', err))
+  }
+
   return (
     <>
       <header>
@@ -93,6 +103,9 @@ function App () {
         <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
         <div className='reFetch'>
            <button className="btn btn-sm" onClick={fetchFromDB}>Fetch Tests</button>
+        </div>
+        <div className='copyConfig'>
+           <button className="btn btn-sm" onClick={copyConfig}>Select Config</button>
         </div>
       </div>
       <hr />
