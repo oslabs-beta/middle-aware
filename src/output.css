@@ -631,6 +631,10 @@ video {
   width: 50%;
 }
 
+.w-\[50\] {
+  width: 50;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -763,6 +767,14 @@ video {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .text-green-600 {
