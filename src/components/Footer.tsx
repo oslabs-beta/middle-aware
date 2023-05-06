@@ -4,7 +4,7 @@ import { RxDividerVertical } from 'react-icons/rx'
 const testName = 'Cards-r-us'
 const testPort = '3000'
 
-const Footer = () => {
+export default function Footer() {
   return (
     <div className='flex flex-row w-[100%] bg-white shadow justify-between bottom-0 fixed h-8 px-6 font-light text-md items-center italic'>
       <div>
@@ -27,4 +27,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+

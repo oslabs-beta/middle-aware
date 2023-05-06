@@ -4,12 +4,12 @@
 
 
 /* The html/body style looks better in vanilla css than tailwind */
-html, body{
+/* html, body{
 background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
-}
+} */
 
 /* html, body{
-  @apply bg-gradient-to-r from-pink-100 via-pink-100 to-blue-100
+  @apply bg-gradient-to-l from-pink-100 via-blue-100 to-blue-100
 } */
 
 .button {

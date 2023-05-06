@@ -28,11 +28,9 @@ export default function Header() {
           <div className='icons'>
             <GrRefresh />
           </div>
-          Button text
+          Start
         </button>
         <RxDividerVertical size={30} />
-
-        {/* <div className='rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between'> */}
           <Toggle />
           <button
             type="button"

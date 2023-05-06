@@ -7,15 +7,15 @@ import Footer from './components/Footer'
 
 declare global {
   interface Window {
-    electronAPI: APIfuncs;
+    electronAPI: APIfuncs
   }
 }
 
-function App () {
+function App() {
   // This will store the lastest test retrieved from the fetchFromDB function below
   const [results, setResults] = useState<Responses[]>([])
   // allRoutes will store all routes from the dB, this is used to populate the Routes card in the GUI
-  const [allRoutes, setAllRoutes] = useState<{detail: string, last_test_id: string}[]>([])
+  const [allRoutes, setAllRoutes] = useState<{ detail: string, last_test_id: string }[]>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<fetchCall[]>([])
 
@@ -86,24 +86,13 @@ function App () {
 
   return (
     <>
-    <Header />
+      <Header />
+      <div className='flex flex-row'>
+<h1 className='bg-black'>hi</h1>
+        <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
+        {/* <div>
+          <h2>Routes</h2>
 
-      <div id='interface'>
-        <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
-        <div className='reFetch'>
-           <button className="btn btn-sm" onClick={fetchFromDB}>Fetch Tests</button>
-        </div>
-      </div>
-
-      <div id="main">
-
-        {/* <div id="routesAndResults"> */}
-        {/* {!routeAndResultVisibility ?
-          <button onClick={routeAndResultDisplayHandler}>Show Routes and Results</button>
-         : */}
-        <div id='routesSection'>
-          <h2 className='title'>Routes</h2>
-          {/* iterate through routes */}
           {fetchResources.map((routes: fetchCall) => {
             const databaseRoutes: string[] = []
             for (const routeData of allRoutes) {
@@ -113,28 +102,22 @@ function App () {
             // change this to use and display the status codes on the GUI
             const error = true
             return (
-              <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={error}/>
+              <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
             )
           })}
+        </div> */}
 
-        </div>
-        <div id='resultsSection'>
-          <h2 className='title'>Results</h2>
+        {/* <div>
+          <h2>Results</h2>
 
-            {!results[0]
-              ? <>
-              {/* <div id='checkForData'>
-              <button className="btn btn-sm" onClick={fetchFromDB}>Look For Test Data</button>
-              </div> */}
-              </>
-              : results.map((results: Responses) => (
-            <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref}/>
-              ))}
-
-        </div>
-        {/* } */}
-        {/* </div> */}
-
+          {!results[0]
+            ? <>
+              {}
+            </>
+            : results.map((results: Responses) => (
+              <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref} />
+            ))}
+        </div> */}
       </div>
       <Footer />
     </>

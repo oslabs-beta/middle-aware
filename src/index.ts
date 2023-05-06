@@ -23,8 +23,9 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     title: 'Middle-Aware',
     width: 1024,
-    minWidth: 600,
+    minWidth: 1000,
     height: 768,
+    minHeight: 600,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     },
