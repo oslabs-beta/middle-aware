@@ -40,3 +40,11 @@ h2 {
 .card-columns {
   @apply flex flex-col w-[40%] items-center
 }
+
+#overlay{
+  @apply blur-lg
+}
+
+.start{
+  @apply w-[50%] items-center p-10 rounded-md overflow-auto flex border border-slate-300 shadow mb-4 bg-[#F8FFE5] mx-auto h-36 mt-[25%]
+}
