@@ -563,6 +563,10 @@ video {
   margin-right: auto;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -612,16 +616,45 @@ video {
   width: 100%;
 }
 
-.w-\[30\%\] {
-  width: 30%;
-}
-
 .w-\[50\%\] {
   width: 50%;
 }
 
 .w-full {
   width: 100%;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-20 {
+  width: 5rem;
+}
+
+.w-28 {
+  width: 7rem;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-36 {
+  width: 9rem;
+}
+
+.w-40 {
+  width: 10rem;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .flex-shrink-0 {
@@ -648,6 +681,10 @@ video {
 
 .flex-row {
   flex-direction: row;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -715,6 +752,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .p-10 {
   padding: 2.5rem;
 }
@@ -733,6 +775,10 @@ video {
   padding-right: 0.5rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .font-light {
   font-weight: 300;
 }
@@ -744,6 +790,21 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
+}
+
+.text-slate-300 {
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity));
+}
+
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
 }
 
 .shadow {
@@ -782,14 +843,15 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* The html/body style looks better in vanilla css than tailwind */
+/* Vanilla css seems to offer more granular control over gradient than tailwind */
+
+html, body{
+  background: linear-gradient(to right, rgb(255, 228, 230), rgb(233, 209, 240));
+  height: 100%;
+}
 
 /* html, body{
-background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
-} */
-
-/* html, body{
-  @apply bg-gradient-to-l from-pink-100 via-blue-100 to-blue-100
+background: linear-gradient(to right, rgb(245, 234, 234), rgb(27, 154, 170))
 } */
 
 .button {
@@ -827,6 +889,32 @@ background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
 
 .icons {
   padding-right: 0.5rem;
+}
+
+/* Main section with all of the cards */
+
+#main {
+  display: flex;
+  justify-content: center;
+}
+
+#cards-section {
+  margin-top: 2.5rem;
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+}
+
+h2 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.card-columns {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  align-items: center;
 }
 
 .focus\:outline-none:focus {

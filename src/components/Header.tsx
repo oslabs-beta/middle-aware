@@ -30,7 +30,11 @@ export default function Header() {
           </div>
           Start
         </button>
-        <RxDividerVertical size={30} />
+        <div className='text-slate-300'>
+          <RxDividerVertical size={30} />
+        </div>
+        
+        <div className='flex flex-row w-44 justify-between items-center'>
           <Toggle />
           <button
             type="button"
@@ -41,8 +45,7 @@ export default function Header() {
             </div>
             Fetch Tests
           </button>
-        {/* </div> */}
-
+        </div>
       </div>
     </div>
   )

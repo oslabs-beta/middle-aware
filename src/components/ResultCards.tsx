@@ -9,7 +9,7 @@ const resultCards = ({ id, request, response, rtt }: ResultProps) => {
     {/* use a conditional statement to not allow
     the first arrow to be rendered perhaps passing the index and making a rule if its [0] */}
 
-      <div id={id} className='resultCards'>
+      <div id={id} className='cards'>
      <h1>Request</h1>
       {/* Endpoint: {request.endpoint}<br />
       Method: {request.method}<br /> */}
@@ -23,7 +23,7 @@ const resultCards = ({ id, request, response, rtt }: ResultProps) => {
       response.status_code !== 200 ? <ErrorArrow/> : <SuccessArrow/>
     }
 
-    <div id={id} className='resultCards'>
+    <div id={id} className='cards'>
      <h1>Response</h1>
       <p>Message: {response.message}</p>
       <br />

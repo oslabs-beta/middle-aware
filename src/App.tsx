@@ -78,46 +78,48 @@ function App() {
     fetchFromDB()
   }
 
-  // const routeAndResultDisplayHandler = () => {
-  //   setRouteAndResultVisibility((priorState) => {
-  //   !priorState
-  // })
-  // }
 
   return (
     <>
       <Header />
-      <div className='flex flex-row'>
-<h1 className='bg-black'>hi</h1>
-        <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-        {/* <div>
-          <h2>Routes</h2>
 
-          {fetchResources.map((routes: fetchCall) => {
-            const databaseRoutes: string[] = []
-            for (const routeData of allRoutes) {
-              databaseRoutes.push(routeData.detail)
-            }
-            const available = databaseRoutes.includes(routes.route)
-            // change this to use and display the status codes on the GUI
-            const error = true
-            return (
-              <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
-            )
-          })}
-        </div> */}
+      <div id='main'>
+        <div id='cards-section'>
 
-        {/* <div>
-          <h2>Results</h2>
+          <div className='card-columns'>
+            <h2>Routes</h2>
+            <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
+            <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
+            {fetchResources.map((routes: fetchCall) => {
+              const databaseRoutes: string[] = []
+              for (const routeData of allRoutes) {
+                databaseRoutes.push(routeData.detail)
+              }
+              const available = databaseRoutes.includes(routes.route)
+              // change this to use and display the status codes on the GUI
+              const error = true
+              return (
+                <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
+              )
+            })}
+          </div>
 
-          {!results[0]
-            ? <>
-              {}
-            </>
-            : results.map((results: Responses) => (
-              <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref} />
-            ))}
-        </div> */}
+          <div className='card-columns'>
+            <h2>Results</h2>
+            <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
+            <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
+            {!results[0]
+              ? <>
+                { }
+              </>
+              : results.map((results: Responses) => (
+                <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref} />
+              ))}
+          </div>
+        </div>
+
+
+
       </div>
       <Footer />
     </>

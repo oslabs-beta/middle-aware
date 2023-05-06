@@ -3,14 +3,17 @@
 @tailwind utilities;
 
 
-/* The html/body style looks better in vanilla css than tailwind */
-/* html, body{
-background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
-} */
+/* Vanilla css seems to offer more granular control over gradient than tailwind */
+
+html, body{
+background: linear-gradient(to right, rgb(255, 228, 230), rgb(233, 209, 240));
+height: 100%;
+}
 
 /* html, body{
-  @apply bg-gradient-to-l from-pink-100 via-blue-100 to-blue-100
+background: linear-gradient(to right, rgb(245, 234, 234), rgb(27, 154, 170))
 } */
+
 
 .button {
   @apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
@@ -18,4 +21,22 @@ background: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241))
 
 .icons {
   @apply pr-2
+}
+
+/* Main section with all of the cards */
+
+#main{
+  @apply flex justify-center
+}
+
+#cards-section {
+  @apply flex justify-around w-[70%] mt-10
+}
+
+h2 {
+  @apply text-lg
+}
+
+.card-columns {
+  @apply flex flex-col w-[40%] items-center
 }
