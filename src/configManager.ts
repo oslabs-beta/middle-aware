@@ -3,7 +3,8 @@ import * as fs from 'fs'
 interface middleAwareConfig{
     backend?: string,
     proxyPort?: number,
-    backEndPort?: number
+    backEndPort?: number,
+    frontEndPort?: number
 }
 interface configManager{
     copyConfig: (filePath: string) => void,
@@ -47,7 +48,8 @@ export const readConfig = () => {
       targetDir: determineDir() + '/shadowDir',
       MONGODB_URI: '',
       proxyPort: 9003,
-      backEndPort: 3000
+      backEndPort: 3000,
+      frontEndPort: 8080
     }
   }
 }
