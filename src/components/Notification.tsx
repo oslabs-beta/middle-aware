@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Fragment, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
 export default function Notification() {
   const [show, setShow] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(false)
+    }, 4000)
+  }, [show]);
 
   return (
     <>
@@ -30,7 +36,7 @@ export default function Notification() {
                 <div className="flex items-center">
                   <div className="flex w-0 flex-1 justify-between">
                     <p className="w-0 flex-1 text-sm font-medium text-gray-900">New tests fetched!</p>
-                
+
                   </div>
                   <div className="ml-4 flex flex-shrink-0">
                     <button
