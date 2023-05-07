@@ -48,3 +48,11 @@ h2 {
 .start{
   @apply w-[50%] items-center p-10 rounded-md overflow-auto flex border border-slate-300 shadow mb-4 bg-[#F8FFE5] mx-auto h-36 mt-[25%]
 }
+
+#config_pic {
+  @apply rounded-md shadow-sm border-solid border-2 border-slate-300 mx-2
+}
+
+#start-message{
+  @apply flex flex-row
+}
