@@ -14,7 +14,7 @@ declare global {
 
 function App() {
   //checks if a config file was selected already
-  const [config, setConfig] = useState<boolean>(false)
+  const [config, setConfig] = useState<boolean>(true)
   //control overlay
   const [overlay, setOverlay] = useState<boolean>(true)
   // This will store the lastest test retrieved from the fetchFromDB function below
@@ -93,7 +93,6 @@ function App() {
       <Header />
       {config ?
         <div id='main'>
-
           <div id='cards-section'>
             <div className='card-columns'>
               <h2>Routes</h2>
