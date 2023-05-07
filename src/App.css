@@ -43,6 +43,7 @@ h2 {
 
 #overlay {
   @apply flex h-screen items-center overflow-clip bg-[#7784a1];
+  background-image: radial-gradient(circle at center, #ECEFF4, #3B4252);
 }
 
 .start{
@@ -63,4 +64,8 @@ h2 {
 
 .title{
   @apply text-2xl mb-4 text-slate-300 border-2 p-2 rounded-md border-slate-300 w-[100%] text-center
+}
+
+#paper{
+  @apply mr-2
 }

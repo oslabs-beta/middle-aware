@@ -1037,6 +1037,7 @@ h2 {
   overflow: clip;
   --tw-bg-opacity: 1;
   background-color: rgb(119 132 161 / var(--tw-bg-opacity));
+  background-image: radial-gradient(circle at center, #ECEFF4, #3B4252);
 }
 
 .start {
@@ -1128,6 +1129,10 @@ h2 {
   line-height: 2rem;
   --tw-text-opacity: 1;
   color: rgb(203 213 225 / var(--tw-text-opacity));
+}
+
+#paper {
+  margin-right: 0.5rem;
 }
 
 .hover\:text-gray-500:hover {

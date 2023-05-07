@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import config_pic from './static/config_pic.png'
 import Notification from './components/Notification'
+import { IoDocumentTextOutline } from 'react-icons/io5'
 
 declare global {
   interface Window {
@@ -15,7 +16,7 @@ declare global {
 
 function App() {
   //checks if a config file was selected already
-  const [config, setConfig] = useState<boolean>(true)
+  const [config, setConfig] = useState<boolean>(false)
   //control overlay
   const [overlay, setOverlay] = useState<boolean>(true)
   // This will store the lastest test retrieved from the fetchFromDB function below
@@ -155,7 +156,8 @@ function App() {
                   <div className='icons'>
 
                   </div>
-                  Documentation
+                  <IoDocumentTextOutline id='paper' />
+                 <p>Documentation</p> 
                 </button>
               </div>
             </div>
