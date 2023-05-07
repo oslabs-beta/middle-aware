@@ -80,13 +80,13 @@ const filesController = {
       // if not, add to acc, and check if parent directory exists
       // if not add to acc
 
-      let newPath = path.dirname(targetFilePath) //Users/felixljr/Desktop/shadow/node_modules/@babel/generator/node_modules/
+      let newPath = path.dirname(targetFilePath) // Users/felixljr/Desktop/shadow/node_modules/@babel/generator/node_modules/
       const pathsToAdd: string[] = []
       do {
         pathsToAdd.push(newPath) // push file dir
         newPath = path.dirname(newPath) // make newPath parent dir
       } while (!fs.existsSync(newPath)) // if parent dir doesn't exist, loop
-      
+
       // Push all the additional paths to the object
       for (const pathToAdd of pathsToAdd) { acc[pathToAdd] = 'true' }
 

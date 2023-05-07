@@ -1,25 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/*.{html, tsx}',
-    'node_modules/daisyui/dist/**/*.js',
-    'node_modules/react-daisyui/dist/**/*.js'
+    '.src/App.tsx',
+    './src/components/**/*.tsx',
+    './src/index.html'
   ],
   theme: {
     extend: {}
   },
-  plugins: [require('daisyui')],
-  // daisyui: {
-  //   styled: true,
-  //   themes: true,
-  //   base: true,
-  //   utils: true,
-  //   logs: true,
-  //   rtl: false,
-  //   prefix: '',
-  //   darkTheme: 'light',
-  // },
-  daisyui: {
-    themes: ['emerald']
-  }
+  plugins: [],
+
 }
