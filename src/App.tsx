@@ -6,7 +6,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Notification from './components/Notification'
 import { GrConfigure } from 'react-icons/gr'
-import { IoDocumentTextOutline } from 'react-icons/io5'
+import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
 
 declare global {
   interface Window {
@@ -97,8 +97,10 @@ function App() {
         // Expect result to be a directory
         window.electronAPI
           .copyConfig(fileSelected)
-
-      }).then(() => setConfig(true))
+          if (fileSelected) {
+            setConfig(true)
+          }
+      })
       .catch((err: unknown) => console.log('copyConfig Error: ', err))
   }
 
@@ -142,6 +144,7 @@ function App() {
         :
         <div id='overlay'>
           <div className='start'>
+            <IoAlertCircleSharp id='start_point' />
             <div>
               <div className='start-message'>To get started please select
                 <button

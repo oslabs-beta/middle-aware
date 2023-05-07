@@ -958,7 +958,7 @@ video {
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-  background-color: #7784a1;
+  background-color: #1B9AAA;
   height: 100%;
 }
 
@@ -1121,6 +1121,16 @@ h2 {
 
 .start_icon {
   margin-right: 0.5rem;
+}
+
+#start_point {
+  position: relative;
+  top: -3rem;
+  left: -1.5rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 196 61 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-500:hover {
