@@ -69,7 +69,7 @@ function parseAPIRequests (dirToParse: string, outArray: fetchCall[] = []) {
             }
 
             outArray.push({
-              method: (options.method ? options.method : 'GET'),
+              method: (options?.method ? options.method : 'GET'),
               route: funcCall.arguments[0]?.value ?? source.slice(funcCall.arguments[0].start + 1, funcCall.arguments[0].end - 1),
               options: (options || null)
             })
