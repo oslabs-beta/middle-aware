@@ -83,6 +83,10 @@ function App() {
     fetchFromDB()
   }
 
+  const openDocs = () => {
+    window.electronAPI
+      .documentation()
+  }
 
   return (
     <>
@@ -128,8 +132,20 @@ function App() {
             <div >
               <div id='start-message'>To get started please select
                 <img src={config_pic} alt="Picture of config button" width={100} id='config_pic' /> above.</div> 
-          
-              If you need assistance see our documentation
+          <div>
+                If you need assistance see our documentation
+                <button
+                  type="button"
+                  className="button"
+                  onClick={openDocs}
+                >
+                  <div className='icons'>
+  
+                  </div>
+                  Config File
+                </button>
+          </div>
+              
         
             </div>
           </div>
