@@ -4,6 +4,10 @@ export type StringObject = {
   [key: string]: string;
 }
 
+export type HeaderProps = {
+  config: () => void
+}
+
 export interface Details {
   routeId?: string
   lastTest?: any

@@ -102,7 +102,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header config={copyConfig} />
       {config ?
         <div id='main'>
           <div id='cards-section'>
