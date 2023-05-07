@@ -8,6 +8,7 @@ import { Application, Request, Response, NextFunction } from 'express'
 import dbController from './dbController'
 import { Details, Payload, TestType, RouteType } from './Types'
 import { performance } from 'perf_hooks'
+import { readConfig } from './configManager'
 const express = require('express')
 
 // setup express server so that we can start the proxy server and disable etag
@@ -17,6 +18,7 @@ const app = express()
 app.set('etag', false)
 let startTime: number
 let endTime: number
+const { backEndPort } = readConfig()
 
 type ModifiedOptions = Options & {
   onProxyReq: (proxyReq: any, req: Request, res: Response) => Promise<void>
@@ -27,7 +29,7 @@ type ModifiedOptions = Options & {
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 const options: ModifiedOptions = {
-  target: 'http://localhost:5002', // Your target URL here
+  target: `http://localhost:${backEndPort}`, // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
     // restream parsed body before proxying
