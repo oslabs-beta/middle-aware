@@ -6,7 +6,8 @@
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-background: linear-gradient(to right, rgb(255, 228, 230), rgb(233, 209, 240));
+/* background: linear-gradient(to right, rgb(255, 228, 230), rgb(233, 209, 240)); */
+background-image: linear-gradient(to bottom, #ccd3dc, #25314e);
 height: 100%;
 }
 
@@ -41,9 +42,12 @@ h2 {
   @apply flex flex-col w-[40%] items-center
 }
 
-#overlay{
-  @apply flex h-screen items-center
+#overlay {
+  @apply flex h-screen items-center;
+  /* background-image: linear-gradient(to bottom, #ccd3dc, #25314e); */
+  background-image: linear-gradient(to bottom, #c6f5fb, #556c70);
 }
+
 
 .start{
   @apply w-fit items-center p-10 rounded-md overflow-auto flex border border-slate-300 shadow mb-4 bg-[#F8FFE5] mx-auto h-36 justify-center
@@ -58,5 +62,5 @@ h2 {
 }
 
 #docBtn{
-  @apply ml-2 h-6
+  @apply ml-2 h-6 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
 }

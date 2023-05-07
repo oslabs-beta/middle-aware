@@ -129,7 +129,7 @@ function App() {
         :
         <div id='overlay'>
           <div className='start'>
-            <div >
+            <div>
               <div className='start-message'>To get started please select
                 <img src={config_pic} alt="Picture of config button" width={100} id='config_pic' /> above.</div>
                 <br/>
