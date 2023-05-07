@@ -158,5 +158,3 @@ app.whenReady().then(() => {
   ipcMain.handle('copyConfig', handleCopyConfig)
   ipcMain.handle('startFEParseAndServer', handleStartFEParseAndServer)
 })
-
-console.log(handleStartFEParseAndServer())
