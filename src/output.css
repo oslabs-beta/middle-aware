@@ -628,6 +628,10 @@ video {
   width: 100%;
 }
 
+.w-screen {
+  width: 100vw;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -794,10 +798,8 @@ video {
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-  /* background: linear-gradient(to right, rgb(255, 228, 230), rgb(233, 209, 240)); */
-  background-image: linear-gradient(to bottom, #ccd3dc, #25314e);
+  background-color: #7784a1;
   height: 100%;
-  overflow: clip;
 }
 
 /* html, body{
@@ -846,6 +848,7 @@ background: linear-gradient(to right, rgb(245, 234, 234), rgb(27, 154, 170))
 #main {
   display: flex;
   justify-content: center;
+  padding-top: 5rem;
 }
 
 #cards-section {
@@ -872,10 +875,8 @@ h2 {
   height: 100vh;
   align-items: center;
   overflow: clip;
-  /* background-image: linear-gradient(to bottom, #ccd3dc, #25314e); */
-  /* background-image: linear-gradient(to bottom, #c6f5fb, #556c70); */
-  /* background-image: radial-gradient(circle at center, #ECEFF4, #3B4252); */
-  background-image: linear-gradient(to bottom, #ccd3dc, #25314e);
+  --tw-bg-opacity: 1;
+  background-color: rgb(119 132 161 / var(--tw-bg-opacity));
 }
 
 .start {
@@ -952,6 +953,21 @@ h2 {
 #docBtn:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.title {
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {

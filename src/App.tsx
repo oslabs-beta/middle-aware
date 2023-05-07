@@ -95,7 +95,7 @@ function App() {
         <div id='main'>
           <div id='cards-section'>
             <div className='card-columns'>
-              <h2>Routes</h2>
+              <h2 className='title'>Routes</h2>
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
               {fetchResources.map((routes: fetchCall) => {
@@ -112,7 +112,7 @@ function App() {
               })}
             </div>
             <div className='card-columns'>
-              <h2>Results</h2>
+              <h2 className='title'>Results</h2>
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
               {!results[0]
