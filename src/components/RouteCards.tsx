@@ -14,11 +14,11 @@ const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
     <div id={id} className='w-[100%] min-h-fit items-center p-10 rounded-md overflow-auto flex flex-row border border-slate-300 shadow mb-4'
       style={{ background: '#F8FFE5' }}
       onClick={onClick}>
-      <div className='pr-2 text-white'>
+      <div className='pr-2 text-green'>
         <MdOutlineRoute size={30} />
       </div>
 
-      <p className='whitespace-normal break-words text-white'>{detail}</p>
+      <p className='whitespace-normal break-words text-slate-600'>{detail}</p>
     </div>
   )
 }
