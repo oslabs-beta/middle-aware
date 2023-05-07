@@ -97,9 +97,10 @@ function App() {
         // Expect result to be a directory
         window.electronAPI
           .copyConfig(fileSelected)
-      }).catch((err: unknown) => console.log('copyConfig Error: ', err))
-  }
 
+      }).then(() => setConfig(true))
+      .catch((err: unknown) => console.log('copyConfig Error: ', err))
+  }
 
   return (
     <>
@@ -154,7 +155,7 @@ function App() {
                   <GrConfigure className='start_icon' />
                   <p>Config File</p>
                 </button> above.</div>
-                <br/>
+              <br />
               <div className='start-message'>
                 If you need assistance see our
                 <button
@@ -166,14 +167,14 @@ function App() {
 
                   </div>
                   <IoDocumentTextOutline className='start_icon' />
-                 <p>Documentation</p> 
+                  <p>Documentation</p>
                 </button>
               </div>
             </div>
           </div>
         </div>
       }
-      <Notification/>
+      <Notification />
       <Footer />
     </>
   )
