@@ -33,8 +33,4 @@ export const rules: Required<ModuleOptions>['rules'] = [
     exclude: /(node_modules|\.webpack)/,
     use: '@svgr/webpack'
   },
-  {
-    test: /\.(png|jpe?g|gif)$/i,
-    use: 'url-loader'
-  }
 ];

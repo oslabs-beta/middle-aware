@@ -43,29 +43,25 @@ h2 {
 
 #overlay {
   @apply flex h-screen items-center overflow-clip bg-[#7784a1];
-  background-image: radial-gradient(circle at center, #ECEFF4, #3B4252);
+  background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
 }
 
 .start{
   @apply w-fit items-center p-10 rounded-md flex border border-slate-300 shadow mb-4 bg-[#F8FFE5] mx-auto h-36 justify-center overflow-clip
 }
 
-#config_pic {
-  @apply rounded-md shadow-sm border-solid border-2 border-slate-300 mx-2
-}
-
 .start-message{
   @apply flex flex-row
 }
 
-#docBtn{
-  @apply ml-2 h-6 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
+.start-button{
+  @apply mx-2 h-6 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
 }
 
 .title{
   @apply text-2xl mb-4 text-slate-300 border-2 p-2 rounded-md border-slate-300 w-[100%] text-center
 }
 
-#paper{
+.start_icon{
   @apply mr-2
 }

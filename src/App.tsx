@@ -4,8 +4,8 @@ import RouteCards from './components/RouteCards'
 import { Responses, APIfuncs, fetchCall } from './Types'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import config_pic from './static/config_pic.png'
 import Notification from './components/Notification'
+import { GrConfigure } from 'react-icons/gr'
 import { IoDocumentTextOutline } from 'react-icons/io5'
 
 declare global {
@@ -143,20 +143,29 @@ function App() {
           <div className='start'>
             <div>
               <div className='start-message'>To get started please select
-                <img src={config_pic} alt="Picture of config button" width={100} id='config_pic' /> above.</div>
+                <button
+                  type="button"
+                  className="start-button"
+                  onClick={copyConfig}
+                >
+                  <div className='icons'>
+
+                  </div>
+                  <GrConfigure className='start_icon' />
+                  <p>Config File</p>
+                </button> above.</div>
                 <br/>
               <div className='start-message'>
                 If you need assistance see our
                 <button
                   type="button"
-                  className="button"
-                  id='docBtn'
+                  className="start-button"
                   onClick={openDocs}
                 >
                   <div className='icons'>
 
                   </div>
-                  <IoDocumentTextOutline id='paper' />
+                  <IoDocumentTextOutline className='start_icon' />
                  <p>Documentation</p> 
                 </button>
               </div>
