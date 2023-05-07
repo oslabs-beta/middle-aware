@@ -5,6 +5,7 @@ import { Responses, APIfuncs, fetchCall } from './Types'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import config_pic from './static/config_pic.png'
+import Notification from './components/Notification'
 
 declare global {
   interface Window {
@@ -150,6 +151,7 @@ function App() {
           </div>
         </div>
       }
+      <Notification/>
       <Footer />
     </>
   )
