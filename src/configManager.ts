@@ -38,8 +38,10 @@ export const determineDir = () => {
 }
 
 export const readConfig = () => {
+  const configurations = {}
+  const properties = ['rootDir', 'backEnd', 'startScript', 'targetDir', 'MONGODB_URI', 'proxyPort', 'backEndPort', 'frontEndPort']
   if (fs.existsSync(determineDir() + 'config.json')) {
-    return JSON.parse(fs.readFileSync(determineDir() + 'config.json', { encoding: 'utf8' }))
+    const file = JSON.parse(fs.readFileSync(determineDir() + 'config.json', { encoding: 'utf8' }))
   } else { // Return default configuration if the config.json does not exist
     return {
       rootDir: '',
