@@ -1,12 +1,12 @@
-import type { ForgeConfig } from '@electron-forge/shared-types';
-import { MakerSquirrel } from '@electron-forge/maker-squirrel';
-import { MakerZIP } from '@electron-forge/maker-zip';
-import { MakerDeb } from '@electron-forge/maker-deb';
-import { MakerRpm } from '@electron-forge/maker-rpm';
-import { WebpackPlugin } from '@electron-forge/plugin-webpack';
+import type { ForgeConfig } from '@electron-forge/shared-types'
+import { MakerSquirrel } from '@electron-forge/maker-squirrel'
+import { MakerZIP } from '@electron-forge/maker-zip'
+import { MakerDeb } from '@electron-forge/maker-deb'
+import { MakerRpm } from '@electron-forge/maker-rpm'
+import { WebpackPlugin } from '@electron-forge/plugin-webpack'
 
-import { mainConfig } from './webpack.main.config';
-import { rendererConfig } from './webpack.renderer.config';
+import { mainConfig } from './webpack.main.config'
+import { rendererConfig } from './webpack.renderer.config'
 
 const config: ForgeConfig = {
   packagerConfig: {},
@@ -18,6 +18,12 @@ const config: ForgeConfig = {
       certificateFile: './path/to/certificate.pfx',
       certificatePassword: 'password',
     }),
+    {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        format: 'ULFO'
+      }
+    },
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({}),
@@ -40,7 +46,7 @@ const config: ForgeConfig = {
       },
     }),
   ],
-};
+}
 
 export default config;
 

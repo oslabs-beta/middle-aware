@@ -4,6 +4,10 @@ export type StringObject = {
   [key: string]: string;
 }
 
+export type HeaderProps = {
+  config: () => void
+}
+
 export interface Details {
   routeId?: string
   lastTest?: any
@@ -121,5 +125,6 @@ export type APIfuncs ={
   getAllRoutes: () => Promise<string>;
   // getRoute: (route: any) => any;
   getTest: (test: string) => Promise<string>;
+  documentation: ()=>void;
   copyConfig: (dir: string) => void;
 }
