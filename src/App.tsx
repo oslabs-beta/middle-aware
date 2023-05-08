@@ -8,6 +8,7 @@ import Notification from './components/Notification'
 import { GrConfigure } from 'react-icons/gr'
 import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
 import Loading from './components/Loading'
+import { set } from 'mongoose'
 
 declare global {
   interface Window {
@@ -19,7 +20,7 @@ function App() {
   //checks if a config file was selected already
   const [config, setConfig] = useState<boolean>(false)
   //control overlay
-  const [overlay, setOverlay] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   // This will store the lastest test retrieved from the fetchFromDB function below
   const [results, setResults] = useState<Responses[]>([])
   // allRoutes will store all routes from the dB, this is used to populate the Routes card in the GUI
@@ -95,12 +96,16 @@ function App() {
     window.electronAPI
       .openFile('file')
       .then((fileSelected: string) => {
+        setLoading(true)
         // Expect result to be a directory
         window.electronAPI
           .copyConfig(fileSelected)
-          if (fileSelected) {
+        if (fileSelected) {
+          setTimeout(() => {
             setConfig(true)
-          }
+            setLoading(false)
+          }, 2000)
+        }
       })
       .catch((err: unknown) => console.log('copyConfig Error: ', err))
   }
@@ -143,40 +148,43 @@ function App() {
           </div>
         </div>
         :
-        <div id='overlay'>
-          <div className='start'>
-            <IoAlertCircleSharp id='start_point' />
-            <div>
-              <div className='start-message'>To get started please select
-                <button
-                  type="button"
-                  className="start-button"
-                  onClick={copyConfig}
-                >
-                  <div className='icons'>
+        loading ?
+          <Loading />
+          :
+          <div id='overlay'>
+            <div className='start'>
+              <IoAlertCircleSharp id='start_point' />
+              <div>
+                <div className='start-message'>To get started please select
+                  <button
+                    type="button"
+                    className="start-button"
+                    onClick={copyConfig}
+                  >
+                    <div className='icons'>
 
-                  </div>
-                  <GrConfigure className='start_icon' />
-                  <p>Config File</p>
-                </button> above.</div>
-              <br />
-              <div className='start-message'>
-                If you need assistance see our
-                <button
-                  type="button"
-                  className="start-button"
-                  onClick={openDocs}
-                >
-                  <div className='icons'>
+                    </div>
+                    <GrConfigure className='start_icon' />
+                    <p>Config File</p>
+                  </button> above.</div>
+                <br />
+                <div className='start-message'>
+                  If you need assistance see our
+                  <button
+                    type="button"
+                    className="start-button"
+                    onClick={openDocs}
+                  >
+                    <div className='icons'>
 
-                  </div>
-                  <IoDocumentTextOutline className='start_icon' />
-                  <p>Documentation</p>
-                </button>
+                    </div>
+                    <IoDocumentTextOutline className='start_icon' />
+                    <p>Documentation</p>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
       }
       <Notification />
       <Footer />
