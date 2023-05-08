@@ -995,7 +995,7 @@ video {
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-  background-image: linear-gradient(to bottom, #ECEFF4, #449da8);
+  background-image: linear-gradient(to bottom,#449da8, #ECEFF4 );
   background-attachment: fixed;
   height: 100%;
 }
