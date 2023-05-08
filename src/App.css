@@ -6,7 +6,8 @@
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-background-color: #1B9AAA;
+background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
+background-attachment: fixed;
 height: 100%;
 }
 
@@ -38,12 +39,11 @@ h2 {
 }
 
 .card-columns {
-  @apply flex flex-col w-[40%] items-center
+  @apply flex flex-col w-[40%] items-center overflow-scroll
 }
 
 #overlay {
-  @apply flex h-screen items-center overflow-clip bg-[#7784a1];
-  background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
+  @apply flex h-screen items-center overflow-clip 
 }
 
 .start{

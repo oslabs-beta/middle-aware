@@ -801,6 +801,11 @@ video {
   background-color: rgb(6 214 160 / var(--tw-bg-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -809,11 +814,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .p-10 {
@@ -852,14 +852,14 @@ video {
   padding-right: 0.5rem;
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .text-9xl {
   font-size: 8rem;
   line-height: 1;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .font-light {
@@ -905,10 +905,6 @@ video {
 
 .opacity-100 {
   opacity: 1;
-}
-
-.opacity-25 {
-  opacity: 0.25;
 }
 
 .opacity-40 {
@@ -999,7 +995,8 @@ video {
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
 
 html, body{
-  background-color: #1B9AAA;
+  background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
+  background-attachment: fixed;
   height: 100%;
 }
 
@@ -1069,6 +1066,7 @@ h2 {
   width: 40%;
   flex-direction: column;
   align-items: center;
+  overflow: scroll;
 }
 
 #overlay {
@@ -1076,9 +1074,6 @@ h2 {
   height: 100vh;
   align-items: center;
   overflow: clip;
-  --tw-bg-opacity: 1;
-  background-color: rgb(119 132 161 / var(--tw-bg-opacity));
-  background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
 }
 
 .start {
