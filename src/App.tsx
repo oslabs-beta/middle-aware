@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Notification from './components/Notification'
 import { GrConfigure } from 'react-icons/gr'
 import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
+import Loading from './components/Loading'
 
 declare global {
   interface Window {

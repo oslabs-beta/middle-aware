@@ -8,7 +8,7 @@ import { HeaderProps } from '../Types'
 
 export default function Header({ config }: HeaderProps) {
   return (
-    <div className='fixed w-screen'>
+    <div className='fixed w-screen z-50'>
       <div className='h-18 flex flex-row bg-white shadow py-2 px-6 items-center justify-between'>
         <div>
           <Logo height={50} />
