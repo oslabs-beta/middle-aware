@@ -137,16 +137,6 @@ function App() {
               <h2 className='title'>Results</h2>
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
               <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
               {!results[0]
                 ? <>
                   { }
