@@ -1,5 +1,6 @@
 import React from 'react'
 import { RxDividerVertical } from 'react-icons/rx'
+import { FaCircle } from 'react-icons/fa'
 
 const testName = 'Cards-r-us'
 const testPort = '3000'
@@ -9,6 +10,11 @@ export default function Footer() {
     <div className='flex flex-row w-[100%] bg-white shadow justify-between bottom-0 fixed h-8 px-6 font-light text-md items-center italic'>
       <div>
         <p>{testName} </p>
+      </div>
+      <div className='flex flex-row items-center'>
+        <p className='mr-2'>App Status: </p>
+        <FaCircle className='text-[#06D6A0] animate-pulse' />
+        <p>&nbsp;(Running)</p>
       </div>
       <div className='flex flex-row w-[50%] justify-between items-center'>
       <div>
