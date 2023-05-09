@@ -26,12 +26,17 @@ function App() {
   const [allRoutes, setAllRoutes] = useState<{ detail: string, last_test_id: string }[]>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<fetchCall[]>([])
-  // this is used to send start status from header to footer
-  const [startStatus, setStartStatus] = useState<boolean>(false)
 
+
+  //send start status from header to footer
+  const [startStatus, setStartStatus] = useState<boolean>(false)
   const startStatusHandler = () => {
     setStartStatus(!startStatus)
   }
+
+
+
+
   // const [routeAndResultVisibility, setRouteAndResultVisibility] = useState(false)
 
   // fetchTestFromDB fetches the tests associated with the endpoint that is selected on the left hand side of the app; this is used to render the Result cards
