@@ -6,6 +6,11 @@ export type StringObject = {
 
 export type HeaderProps = {
   config: () => void
+  started: () => void
+}
+
+export type FooterProps = {
+  started: boolean
 }
 
 export interface Details {

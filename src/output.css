@@ -668,12 +668,12 @@ video {
   width: 100vw;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
 .max-w-\[20\%\] {
   max-width: 20%;
+}
+
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .flex-1 {
@@ -909,6 +909,11 @@ video {
   color: rgb(6 214 160 / var(--tw-text-opacity));
 }
 
+.text-\[\#EF476F\] {
+  --tw-text-opacity: 1;
+  color: rgb(239 71 111 / var(--tw-text-opacity));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -932,11 +937,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-\[\#EF476F\] {
-  --tw-text-opacity: 1;
-  color: rgb(239 71 111 / var(--tw-text-opacity));
 }
 
 .opacity-0 {

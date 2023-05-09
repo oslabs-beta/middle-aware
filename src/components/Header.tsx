@@ -7,7 +7,7 @@ import { BiTestTube } from 'react-icons/bi'
 import { IoStopSharp } from 'react-icons/io5'
 import { HeaderProps } from '../Types'
 
-export default function Header({ config }: HeaderProps) {
+export default function Header({ config, started }: HeaderProps) {
 
   const [auto, setAuto] = useState(true)
   const [start, setStart] = useState(false)
@@ -32,8 +32,12 @@ export default function Header({ config }: HeaderProps) {
           <button
             type="button"
             className="button w-20"
-            onClick={() => setStart(!start)}
+            onClick={() => {
+              setStart(!start)
+              started()
+            }}
           >
+
             <div className='icons'>
               {start ? <IoStopSharp /> : <GrRefresh />}
              
