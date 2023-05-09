@@ -121,7 +121,7 @@ function App() {
 
   return (
     <>
-      <Header config={copyConfig} started={startStatusHandler} />
+      <Header config={copyConfig} configStatus={config} started={startStatusHandler} />
       {config ?
         <div id='main'>
           <div id='cards-section'>
@@ -195,7 +195,6 @@ function App() {
             </div>
           </div>
       }
-      <Notification message={'test'}/>
       <Footer started={startStatus} />
     </>
   )

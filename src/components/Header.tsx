@@ -6,11 +6,25 @@ import Toggle from "./Toggle"
 import { BiTestTube } from 'react-icons/bi'
 import { IoStopSharp } from 'react-icons/io5'
 import { HeaderProps } from '../Types'
+import Notification from './Notification'
 
-export default function Header({ config, started }: HeaderProps) {
+export default function Header({ config, configStatus, started }: HeaderProps) {
 
   const [auto, setAuto] = useState(true)
   const [start, setStart] = useState(false)
+  const [show, setShow] = useState(false)
+
+  const startOrNot = ()=>{
+    if(!configStatus) {
+      setShow(true)
+    } else {
+      setStart(!start)
+      started()
+    }
+    setTimeout(() => {
+      setShow(false)
+    }, 4000)
+  }
 
   return (
     <div className='fixed w-screen z-50'>
@@ -29,13 +43,11 @@ export default function Header({ config, started }: HeaderProps) {
             </div>
             Config File
           </button>
+
           <button
             type="button"
             className="button w-20"
-            onClick={() => {
-              setStart(!start)
-              started()
-            }}
+            onClick={() => startOrNot()}
           >
 
             <div className='icons'>
@@ -45,6 +57,7 @@ export default function Header({ config, started }: HeaderProps) {
             {start ? 'Stop' : 'Start'}
 
           </button>
+          {show ? <Notification message={'Select "Config File" first'} />: null}
           <div className='text-slate-300'>
             <RxDividerVertical size={30} />
           </div>

@@ -6,6 +6,7 @@ export type StringObject = {
 
 export type HeaderProps = {
   config: () => void
+  configStatus: boolean
   started: () => void
 }
 
