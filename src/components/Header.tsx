@@ -14,29 +14,47 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
   const [start, setStart] = useState(false)
   //for notification
   const [show, setShow] = useState(false)
+  //to rotate start button refresh icon
+  const [loading, setLoading] = useState(false)
+  //for tracking when stop is an active option
+  const [stop, setStop] = useState(false)
 
-  //Prevent start if config file is not loaded
-  const startOrNot = ()=>{
-    if(!configStatus) {
+  //Prevent start if config file is not loaded or if stop is active
+  const startOrNot = () => {
+    if (!configStatus) {
       setShow(true)
+    } else if (!start && configStatus) { 
+      //spinner while starting
+      setLoading(true)
+      setTimeout(() => {
+        setLoading(false)
+        setStart(!start)
+        started()
+      }, 3000)
     } else {
-      setStart(!start)
-      started()
+      //flashing stop button (start is true)
+      setStop(true)
+      setTimeout(() => {
+        setStop(false)
+        setStart(!start)
+        started()
+      }, 3000)
     }
+    //dismiss the notification (5s is longer than component-(4s) for transition)
     setTimeout(() => {
       setShow(false)
-    }, 4000)
+    }, 5000)
   }
-//Prevent fetch if config file is not loaded
+  //Prevent fetch if config file is not loaded
   const fetchOrNot = () => {
     if (!configStatus) {
       setShow(true)
     } else {
-      console.log('Placeholder for fetch tests from DB');
+      console.log('Placeholder for fetch tests from DB')
     }
     setTimeout(() => {
       setShow(false)
-    }, 4000)
+    }, 5000)
   }
 
   return (
@@ -62,22 +80,29 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
             className="button w-20"
             onClick={() => startOrNot()}
           >
-
             <div className='icons'>
-              {start ? <IoStopSharp /> : <GrRefresh />}
-             
+              {start ? 
+              
+                stop?
+                <IoStopSharp className='animate-pulse text-[#EF476F]' /> 
+                :
+                  <IoStopSharp /> 
+
+                :
+
+                loading ? <GrRefresh className='animate-spin' /> 
+                  :
+                  <GrRefresh />}
             </div>
             {start ? 'Stop' : 'Start'}
-
           </button>
-
           <div className='text-slate-300'>
             <RxDividerVertical size={30} />
           </div>
 
           <div className='flex flex-row w-48 justify-between items-center'>
-            <Toggle auto={()=> setAuto(!auto)} />
-           {auto ?
+            <Toggle auto={() => setAuto(!auto)} />
+            {auto ?
               <button
                 type="button"
                 className="fetchButton"
@@ -87,7 +112,7 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
                 <div className='icons'>
                   <BiTestTube />
                 </div>
-                  Fetch Tests
+                Fetch Tests
               </button>
               :
               <button
@@ -97,9 +122,9 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
                 <div className='icons'>
                   <BiTestTube />
                 </div>
-                  Auto Fetch
+                Auto Fetch
               </button>
-          }
+            }
           </div>
         </div>
       </div>
