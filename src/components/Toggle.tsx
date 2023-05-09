@@ -5,13 +5,23 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Toggle() {
+interface ToggleProps {
+  auto: () => void
+}
+
+
+export default function Toggle({ auto }: ToggleProps) {
   const [enabled, setEnabled] = useState(false)
+
+  const toggle = () => {
+    setEnabled(!enabled)
+    auto()
+  }
 
   return (
     <Switch
       checked={enabled}
-      onChange={setEnabled}
+      onChange={toggle}
       className="group relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none  focus:ring-offset-2"
     >
       <span className="sr-only">Toggle Auto Tests Fetching</span>
