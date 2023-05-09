@@ -59,7 +59,7 @@ export default function Header({ config, started }: HeaderProps) {
                 <div className='icons'>
                   <BiTestTube />
                 </div>
-                  Manually Fetch Tests
+                  Fetch Tests
               </button>
               :
               <button
@@ -69,7 +69,7 @@ export default function Header({ config, started }: HeaderProps) {
                 <div className='icons'>
                   <BiTestTube />
                 </div>
-                  Auto Fetch Activated
+                  Auto Fetch
               </button>
           }
           </div>
