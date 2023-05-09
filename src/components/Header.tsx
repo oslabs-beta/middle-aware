@@ -12,14 +12,27 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
 
   const [auto, setAuto] = useState(true)
   const [start, setStart] = useState(false)
+  //for notification
   const [show, setShow] = useState(false)
 
+  //Prevent start if config file is not loaded
   const startOrNot = ()=>{
     if(!configStatus) {
       setShow(true)
     } else {
       setStart(!start)
       started()
+    }
+    setTimeout(() => {
+      setShow(false)
+    }, 4000)
+  }
+//Prevent fetch if config file is not loaded
+  const fetchOrNot = () => {
+    if (!configStatus) {
+      setShow(true)
+    } else {
+      console.log('Placeholder for fetch tests from DB');
     }
     setTimeout(() => {
       setShow(false)
@@ -57,7 +70,7 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
             {start ? 'Stop' : 'Start'}
 
           </button>
-          {show ? <Notification message={'Select "Config File" first'} />: null}
+
           <div className='text-slate-300'>
             <RxDividerVertical size={30} />
           </div>
@@ -68,7 +81,9 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
               <button
                 type="button"
                 className="fetchButton"
+                onClick={fetchOrNot}
               >
+
                 <div className='icons'>
                   <BiTestTube />
                 </div>
@@ -88,6 +103,7 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
           </div>
         </div>
       </div>
+      {show ? <Notification message={'Select a Config File'} /> : null}
     </div>
   )
 }
