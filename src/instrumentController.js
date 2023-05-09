@@ -1,5 +1,5 @@
 import fkill from 'fkill'
-const { spawn, spawnSync, execSync } = require('node:child_process')
+const { spawn, exec, spawnSync, execSync } = require('node:child_process')
 const babel = require('@babel/core')
 const fs = require('fs')
 
@@ -65,30 +65,27 @@ const instrumentController = {
   },
 
   makeShadow: function (rootDir, targetDir) {
-    const child = spawn('cp -R ' + rootDir + '/* ' + targetDir, { stdio: ['inherit', 'pipe', 'pipe'] })
+    const copyProcess = execSync('cp -R ' + rootDir + '/* ' + targetDir)
 
-    child.stdout.on('data', data => {
-      console.log(`stdout: ${data}`)
-    })
-
-    child.stderr.on('data', data => {
-      console.error(`stderr: ${data}`)
-    })
-
-    child.on('close', (code, signal) => {
-      console.log(`child process exited with code ${code} and signal ${signal}`)
-    })
+    console.log('stdout: ' + copyProcess.toString())
     //   const copyProcess = execSync('cp -R ' + rootDir + '/* ' + targetDir)
 
     //   console.log('stdout: ' + copyProcess.toString())
-    // },
+  },
 
-  // startShadow: function (targetDir, startScript) {
-  //   try {
-  //     const shadowProcess = execSync('cd ' + targetDir + '; ' + startScript, { stdio: 'inherit' })
-  //   } catch (err) {
-  //     console.log('err: ' + err)
-  //   }
+  startShadow: function (targetDir, startScript) {
+    const shadowProcess = exec('cd ' + targetDir + '; ' + startScript)
+    shadowProcess.stdout.on('data', function (data) {
+      console.log('stdout: ' + data.toString())
+    })
+
+    shadowProcess.stderr.on('data', function (data) {
+      console.log('stderr: ' + data.toString())
+    })
+
+    shadowProcess.on('exit', function (code) {
+      console.log('child process exited with code ' + code.toString())
+    })
   }
 }
 
