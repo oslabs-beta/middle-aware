@@ -117,7 +117,7 @@ async function handleStartFEParseAndServer () {
     } else if (proxyPort <= 0) {
       throw new Error('Proxy port must be greater than 0')
     }
-    await tcpPortUsed.check(9000, '127.0.0.1').then((inUse) => {
+    await tcpPortUsed.check(proxyPort, '127.0.0.1').then((inUse) => {
       if (inUse) { throw new Error(`Proxy port is in use: ${proxyPort}`) }
     })
 
@@ -149,7 +149,6 @@ async function handleStartFEParseAndServer () {
     parsedAPI.error = err
   }
   // this will return either the error or the routes
-  console.log(server, parsedAPI)
   return { server, parsedAPI }
 }
 
@@ -157,16 +156,13 @@ function handleStartInstrumentation () {
   try {
     const { backEnd, backEndPort, frontEndPort, targetDir, rootDir, startScript, proxyPort } = readConfig()
 
-    console.log('kill port')
     instrumentController.killPorts([`:${frontEndPort.toString()}`, `:${backEndPort.toString()}`])
 
     // make shadow copy of directory
-    console.log('makeShadow')
     instrumentController.makeShadow(rootDir, targetDir)
 
     // get array of relevant files to parse from shadow directory
     // import dirRecursiveContents and run itfrom filesController
-    console.log('dirRecursiveContents')
     // get the shadowBackend by getting the path difference between rootDir and the backend
     // the difference is then appended to the targetDir
     const relativeBackEnd = path.relative(rootDir, backEnd)
@@ -178,12 +174,9 @@ function handleStartInstrumentation () {
       shadowBackEnd = `${targetDir}\\${relativeBackEnd}`
     }
     const arrJSFiles = filesController.dirRecursiveContents(shadowBackEnd !== '' ? shadowBackEnd : targetDir, [], ['.js'])
-    console.log(arrJSFiles)
 
     // instrument those files
-    console.log('transform')
     for (const file of arrJSFiles) {
-      console.log('file', file)
       const code = instrumentController.transformFile(file, proxyPort)
       instrumentController.modifyShadowFile(file, code)
     }
@@ -191,14 +184,12 @@ function handleStartInstrumentation () {
 
     // execute shadow project
     // run start shadow
-    console.log('startShadow')
     instrumentController.startShadow(targetDir, startScript)
     return { status: true, message: 'Instrumentation completed successfully' }
   } catch (err) {
     return { status: false, message: err }
   }
 }
-
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('db:getAllRoutes', db.default.getAllRoutes)
@@ -208,11 +199,3 @@ app.whenReady().then(() => {
   ipcMain.handle('startFEParseAndServer', handleStartFEParseAndServer)
   ipcMain.handle('startInstrumentation', handleStartInstrumentation)
 })
-
-setTimeout(() => {
-  console.log(handleStartInstrumentation())
-}, 1000)
-
-setTimeout(() => {
-  console.log(handleStartInstrumentation())
-}, 100000)

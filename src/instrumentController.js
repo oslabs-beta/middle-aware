@@ -1,8 +1,8 @@
 import fkill from 'fkill'
+import fixPath from 'fix-path'
 const { exec, execSync } = require('node:child_process')
 const babel = require('@babel/core')
 const fs = require('fs')
-
 const instrumentController = {
   killPorts: async (ports) => {
     // kill ports
@@ -11,7 +11,6 @@ const instrumentController = {
   transformFile: (path, proxyPort) => {
     // read the contents of the js file provided in this path
     const code = fs.readFileSync(path, 'utf8')
-    console.log('path', path)
     // helper function to inject code
     const transform = (content) => {
       return babel.transformSync(content, { ast: true }).ast.program.body
@@ -23,6 +22,17 @@ const instrumentController = {
       plugins: [
         {
           visitor: {
+            Program (path) {
+              const importStatement = path.node.body.find(node => node.type === 'ImportDeclaration' && node.source.value === 'axios')
+              if (!importStatement) {
+                const t = require('@babel/types')
+                const importNode = t.importDeclaration(
+                  [t.importDefaultSpecifier(t.identifier('axios'))],
+                  t.stringLiteral('axios')
+                )
+                path.node.body.unshift(importNode)
+              }
+            },
             // visiting every type of function node
             Function (path) {
               let functionName = ''
@@ -40,13 +50,7 @@ const instrumentController = {
                 // add the injected logic to the top of each middleware function implemented in this pattern
                 const bodyPath = path.get('body')
                 bodyPath.unshiftContainer('body', transform(`const collectMAData = async (testId, functionName) => {
-              const test = await fetch('http://127.0.0.1:${proxyPort}/middleAwareAgent', {
-                method:'PUT',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({testId, functionName})
-              });
+              const test = await axios.put('http://127.0.0.1:${proxyPort}/middleAwareAgent', {testId, functionName});
             }
             collectMAData(req.headers['middle-aware-test-id'].toString(), '${functionName}')`))
               }
@@ -55,7 +59,6 @@ const instrumentController = {
         }
       ]
     })
-    console.log('end')
     return output.code
   },
 
@@ -66,11 +69,11 @@ const instrumentController = {
 
   makeShadow: function (rootDir, targetDir) {
     const copyProcess = execSync(`rsync -a --exclude .git ${rootDir}/ ${targetDir}`)
-
     console.log('stdout: ' + copyProcess.toString())
   },
 
   startShadow: function (targetDir, startScript) {
+    fixPath()
     const shadowProcess = exec('cd ' + targetDir + '; ' + startScript)
     shadowProcess.stdout.on('data', function (data) {
       console.log('stdout: ' + data.toString())
