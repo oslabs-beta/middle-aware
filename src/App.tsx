@@ -8,7 +8,6 @@ import Notification from './components/Notification'
 import { GrConfigure } from 'react-icons/gr'
 import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
 import Loading from './components/Loading'
-import { set } from 'mongoose'
 
 declare global {
   interface Window {
@@ -186,7 +185,7 @@ function App() {
             </div>
           </div>
       }
-      <Notification />
+      <Notification message={'test'}/>
       <Footer />
     </>
   )

@@ -3,7 +3,12 @@ import { Fragment, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
-export default function Notification() {
+interface NotificationProps {
+  message: string
+  // setShow: (show: boolean) => void
+}
+
+export default function Notification({ message }: NotificationProps) {
   const [show, setShow] = useState(true)
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export default function Notification() {
               <div className="p-4">
                 <div className="flex items-center">
                   <div className="flex w-0 flex-1 justify-between">
-                    <p className="w-0 flex-1 text-sm font-medium text-gray-900">New tests fetched!</p>
+                    <p className="w-0 flex-1 text-sm font-medium text-gray-900">{message}</p>
 
                   </div>
                   <div className="ml-4 flex flex-shrink-0">

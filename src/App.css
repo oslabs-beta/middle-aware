@@ -4,16 +4,12 @@
 
 
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
-
+/* background attachment keeps the gradient from scrolling with the page */
 html, body{
 background-image: linear-gradient(to bottom,#449da8, #ECEFF4 );
 background-attachment: fixed;
 height: 100%;
 }
-
-/* html, body{
-background: linear-gradient(to right, rgb(245, 234, 234), rgb(27, 154, 170))
-} */
 
 
 .button {
