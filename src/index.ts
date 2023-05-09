@@ -119,6 +119,9 @@ async function handleStartFEParseAndServer () {
     } else if (proxyPort <= 0) {
       throw new Error('Proxy port must be greater than 0')
     }
+    await tcpPortUsed.check(9000, '127.0.0.1').then((inUse) => {
+      if (inUse) { throw new Error(`Proxy port is in use: ${proxyPort}`) }
+    })
 
     proxyServer.listen(proxyPort, () => {
       console.log(`Proxy is listening on port ${proxyPort}`)
@@ -148,7 +151,7 @@ async function handleStartFEParseAndServer () {
     parsedAPI.error = err
   }
   // this will return either the error or the routes
-  console.log({ server, parsedAPI })
+  console.log(server, parsedAPI)
   return { server, parsedAPI }
 }
 
@@ -217,4 +220,6 @@ app.whenReady().then(() => {
 //   console.log(handleStartInstrumentation())
 // }, 200000)
 
-handleStartFEParseAndServer()
+setTimeout(async () => {
+  await handleStartFEParseAndServer()
+}, 1000)

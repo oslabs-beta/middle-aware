@@ -121,5 +121,6 @@ export type APIfuncs ={
   getAllRoutes: () => Promise<string>;
   // getRoute: (route: any) => any;
   getTest: (test: string) => Promise<string>;
+  startFEParseAndServer: () => Promise<any>;
   copyConfig: (dir: string) => void;
 }
