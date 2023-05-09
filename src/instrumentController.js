@@ -1,5 +1,5 @@
 import fkill from 'fkill'
-const { spawn, exec, spawnSync, execSync } = require('node:child_process')
+const { exec, execSync } = require('node:child_process')
 const babel = require('@babel/core')
 const fs = require('fs')
 
@@ -8,7 +8,7 @@ const instrumentController = {
     // kill ports
     await fkill(ports, { silent: true })
   },
-  transformFile: (path) => {
+  transformFile: (path, proxyPort) => {
     // read the contents of the js file provided in this path
     const code = fs.readFileSync(path, 'utf8')
     console.log('path', path)
@@ -40,7 +40,7 @@ const instrumentController = {
                 // add the injected logic to the top of each middleware function implemented in this pattern
                 const bodyPath = path.get('body')
                 bodyPath.unshiftContainer('body', transform(`const collectMAData = async (testId, functionName) => {
-              const test = await fetch('http://127.0.0.1:9001/middleAwareAgent', {
+              const test = await fetch('http://127.0.0.1:${proxyPort}/middleAwareAgent', {
                 method:'PUT',
                 headers: {
                   'Content-Type': 'application/json'
@@ -65,12 +65,9 @@ const instrumentController = {
   },
 
   makeShadow: function (rootDir, targetDir) {
-    const copyProcess = execSync('cp -R ' + rootDir + '/* ' + targetDir)
+    const copyProcess = execSync(`rsync -a --exclude .git ${rootDir}/ ${targetDir}`)
 
     console.log('stdout: ' + copyProcess.toString())
-    //   const copyProcess = execSync('cp -R ' + rootDir + '/* ' + targetDir)
-
-    //   console.log('stdout: ' + copyProcess.toString())
   },
 
   startShadow: function (targetDir, startScript) {

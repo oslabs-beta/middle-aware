@@ -4,7 +4,8 @@ interface middleAwareConfig{
     backend?: string,
     proxyPort?: number,
     backEndPort?: number,
-    frontEndPort?: number
+    frontEndPort?: number,
+    projectName?: string
 }
 interface configManager{
     copyConfig: (filePath: string) => void,
@@ -49,7 +50,8 @@ export const readConfig = () => {
       MONGODB_URI: '',
       proxyPort: 9003,
       backEndPort: 3000,
-      frontEndPort: 8080
+      frontEndPort: 8080,
+      projectName: 'Middle-Aware Project'
     }
   }
 }
