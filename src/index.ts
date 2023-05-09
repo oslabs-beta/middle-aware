@@ -199,9 +199,3 @@ app.whenReady().then(() => {
   ipcMain.handle('startFEParseAndServer', handleStartFEParseAndServer)
   ipcMain.handle('startInstrumentation', handleStartInstrumentation)
 })
-setTimeout(() => {
-  console.log(handleStartFEParseAndServer())
-}, 500)
-setTimeout(() => {
-  console.log(handleStartInstrumentation())
-}, 10000)
