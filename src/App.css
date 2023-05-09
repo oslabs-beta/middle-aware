@@ -4,19 +4,24 @@
 
 
 /* Vanilla css seems to offer more granular control over gradient than tailwind */
-
+/* background attachment keeps the gradient from scrolling with the page */
 html, body{
-background-color: #1B9AAA;
+background-image: linear-gradient(to bottom,#449da8, #ECEFF4 );
+background-attachment: fixed;
 height: 100%;
 }
-
-/* html, body{
-background: linear-gradient(to right, rgb(245, 234, 234), rgb(27, 154, 170))
-} */
 
 
 .button {
   @apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
+}
+
+.fetchButton {
+@apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between mx-2
+}
+
+.autoFetchButton {
+@apply rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 items-center flex flex-row justify-between mx-2
 }
 
 .icons {
@@ -38,12 +43,11 @@ h2 {
 }
 
 .card-columns {
-  @apply flex flex-col w-[40%] items-center
+  @apply flex flex-col w-[40%] items-center overflow-scroll
 }
 
 #overlay {
-  @apply flex h-screen items-center overflow-clip bg-[#7784a1];
-  background-image: linear-gradient(to bottom, #ECEFF4, #3B4252);
+  @apply flex h-screen items-center overflow-clip 
 }
 
 .start{
