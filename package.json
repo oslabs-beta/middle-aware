@@ -31,6 +31,7 @@
     "electron": "24.1.2",
     "electron-squirrel-startup": "^1.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "fkill": "^8.1.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "html-webpack-plugin": "^5.5.0",
     "http-proxy": "^1.18.1",

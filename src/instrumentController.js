@@ -1,15 +1,12 @@
-// using babel/core to parse, traverse, transform, and generate javascript code
+import fkill from 'fkill'
+const { spawn, spawnSync, execSync } = require('node:child_process')
 const babel = require('@babel/core')
-// filesystem is being used to ingest a single file
 const fs = require('fs')
-// const code = fs.readFileSync('/Users/timchang/Documents/Codesmith/Projects/Subslify/server/src/controllers/authController.js', 'utf8')
-// used to track if module type of the relevant js file is ESM or CJS
-const isESM = false
-// send the function name to the proxy server
 
 const instrumentController = {
-  killPorts: () => {
+  killPorts: async (ports) => {
     // kill ports
+    await fkill(ports, { silent: true })
   },
   transformFile: (path) => {
     // read the contents of the js file provided in this path
@@ -20,10 +17,7 @@ const instrumentController = {
       return babel.transformSync(content, { ast: true }).ast.program.body
     }
 
-    // Optimization Opportunity - Is there a way where we don't have to traverse the AST twice? Maybe force subject code to be interpreted as ESM by enabling module type in nearest package.json. Could potentially force the visitor to run some logic at program before inserting import or require statement.
     // https://stackoverflow.com/questions/58384179/syntaxerror-cannot-use-import-statement-outside-a-module
-    // It appears that AST traversal and use of plugins is done in parallel to save processing time
-    // Therefore, we have two transforms happening
     // https://jamie.build/babel-plugin-ordering.html
     const output = babel.transformSync(code, {
       plugins: [
@@ -68,6 +62,33 @@ const instrumentController = {
   modifyShadowFile: (path, code) => {
     // write to the existing shadow file in this path the new trasnformed code
     fs.writeFileSync(path, code)
+  },
+
+  makeShadow: function (rootDir, targetDir) {
+    const child = spawn('cp -R ' + rootDir + '/* ' + targetDir, { stdio: ['inherit', 'pipe', 'pipe'] })
+
+    child.stdout.on('data', data => {
+      console.log(`stdout: ${data}`)
+    })
+
+    child.stderr.on('data', data => {
+      console.error(`stderr: ${data}`)
+    })
+
+    child.on('close', (code, signal) => {
+      console.log(`child process exited with code ${code} and signal ${signal}`)
+    })
+    //   const copyProcess = execSync('cp -R ' + rootDir + '/* ' + targetDir)
+
+    //   console.log('stdout: ' + copyProcess.toString())
+    // },
+
+  // startShadow: function (targetDir, startScript) {
+  //   try {
+  //     const shadowProcess = execSync('cd ' + targetDir + '; ' + startScript, { stdio: 'inherit' })
+  //   } catch (err) {
+  //     console.log('err: ' + err)
+  //   }
   }
 }
 
