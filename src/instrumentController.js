@@ -25,11 +25,11 @@ const instrumentController = {
             Program (path) {
               const importStatement = path.node.body.find(node => node.type === 'ImportDeclaration' && node.source.value === 'axios')
               if (!importStatement) {
-                const t = require('@babel/types')
-                const importNode = t.importDeclaration(
-                  [t.importDefaultSpecifier(t.identifier('axios'))],
-                  t.stringLiteral('axios')
-                )
+                const importNode = transform('import axios from \'axios\'')[0]
+                // t.importDeclaration(
+                //   [t.importDefaultSpecifier(t.identifier('axios'))],
+                //   t.stringLiteral('axios')
+                // )
                 path.node.body.unshift(importNode)
               }
             },
