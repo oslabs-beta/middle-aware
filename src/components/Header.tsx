@@ -8,7 +8,7 @@ import { IoStopSharp } from 'react-icons/io5'
 import { HeaderProps } from '../Types'
 import Notification from './Notification'
 
-export default function Header({ config, configStatus, started }: HeaderProps) {
+export default function Header({ config, configStatus, started, instrument }: HeaderProps) {
 
   const [auto, setAuto] = useState(true)
   const [start, setStart] = useState(false)
@@ -21,6 +21,8 @@ export default function Header({ config, configStatus, started }: HeaderProps) {
 
   //Prevent start if config file is not loaded or if stop is active
   const startOrNot = () => {
+    instrument()
+    console.log('startInstrumentation triggered')
     if (!configStatus) {
       setShow(true)
     } else if (!start && configStatus) { 

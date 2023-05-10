@@ -78,6 +78,12 @@ function App() {
       .catch((err: unknown) => console.log('Problem with db Routes:', err))
   }
 
+  //this is declare just to pass as a prop to header, might be an easier way to do this
+  const startInstrumentation = () => {
+    window.electronAPI
+      .startInstrumentation()
+  }
+
   // select a directory button to select a path
   // const handleButtonClick = () => {
   //   window.electronAPI
@@ -127,7 +133,7 @@ function App() {
 
   return (
     <>
-      <Header config={copyConfig} configStatus={config} started={startStatusHandler} />
+      <Header config={copyConfig} configStatus={config} started={startStatusHandler} instrument={startInstrumentation} />
       {config ?
         <div id='main'>
           <div id='cards-section'>
@@ -139,9 +145,9 @@ function App() {
                 for (const routeData of allRoutes) {
                   databaseRoutes.push(routeData.detail)
                 }
-                const available = databaseRoutes.includes(routes.route)
-                // change this to use and display the status codes on the GUI
-                const error = true
+                // const available = databaseRoutes.includes(routes.route)
+                // // change this to use and display the status codes on the GUI
+                // const error = true
                 return (
                   <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
                 )
