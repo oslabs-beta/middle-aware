@@ -7,6 +7,7 @@ require('source-map-support').install()
 const session = require('electron').session
 const { BrowserWindow, dialog, ipcMain, app } = require('electron')
 const path = require('path')
+const { shell } = require('electron')
 const db = require('./dbController')
 const parseAPIRequests = require('./parseAPI-FE-Req')
 const fs = require('fs')
@@ -29,7 +30,9 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     title: 'Middle-Aware',
     width: 1024,
+    minWidth: 1000,
     height: 768,
+    minHeight: 600,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     },
@@ -89,7 +92,17 @@ async function handleFileOpen (event, fileOrDir) {
   }
 }
 
-// function handleFileParse (event, dir) { return parseAPIRequests(dir) }
+function documentation () {
+  // const docWindow = new BrowserWindow({
+  //   width: 800,
+  //   height: 600,
+  //   webPreferences: {
+  //     nodeIntegration: false // disable node integration to improve security
+  //   }
+  // })
+  // docWindow.loadFile('a documentation html file')
+  shell.openExternal('https://github.com/oslabs-beta/middle-aware/blob/main/README.md')
+}
 
 async function handleGetRoute (event, route) { return await db.default.getRoute(route) }
 
@@ -101,7 +114,7 @@ function handleCopyConfig (event, dir) {
 }
 
 async function handleStartFEParseAndServer () {
-  const server = { status: null, error: null }
+  const server = { status: true, error: null }
   const parsedAPI = { body: null, error: null }
   const { proxyPort, frontEnd } = configManager.readConfig()
   // MIGHT BE ABLE TO INCLUDE ALL THIS LOGIC IN server.on('error', (error) => {})
@@ -195,7 +208,10 @@ app.whenReady().then(() => {
   ipcMain.handle('db:getAllRoutes', db.default.getAllRoutes)
   ipcMain.handle('db:getRoute', handleGetRoute)
   ipcMain.handle('db:getTest', handleGetTest)
+  ipcMain.handle('openDocs', documentation)
   ipcMain.handle('copyConfig', handleCopyConfig)
   ipcMain.handle('startFEParseAndServer', handleStartFEParseAndServer)
   ipcMain.handle('startInstrumentation', handleStartInstrumentation)
 })
+setTimeout(() => { console.log(handleStartFEParseAndServer()) }, 500)
+setTimeout(() => { console.log(handleStartInstrumentation()) }, 1000)

@@ -4,6 +4,10 @@ export type StringObject = {
   [key: string]: string;
 }
 
+export type HeaderProps = {
+  config: () => void
+}
+
 export interface Details {
   routeId?: string
   lastTest?: any
@@ -123,4 +127,5 @@ export type APIfuncs ={
   getTest: (test: string) => Promise<string>;
   startFEParseAndServer: () => Promise<any>;
   copyConfig: (dir: string) => void;
+  documentation: () => void;
 }

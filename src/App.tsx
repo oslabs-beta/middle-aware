@@ -2,18 +2,28 @@ import React, { useState } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
 import { Responses, APIfuncs, fetchCall } from './Types'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Notification from './components/Notification'
+import { GrConfigure } from 'react-icons/gr'
+import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
+import Loading from './components/Loading'
 
 declare global {
   interface Window {
-    electronAPI: APIfuncs;
+    electronAPI: APIfuncs
   }
 }
 
-function App () {
+function App() {
+  //checks if a config file was selected already
+  const [config, setConfig] = useState<boolean>(false)
+  //control overlay
+  const [loading, setLoading] = useState<boolean>(false)
   // This will store the lastest test retrieved from the fetchFromDB function below
   const [results, setResults] = useState<Responses[]>([])
   // allRoutes will store all routes from the dB, this is used to populate the Routes card in the GUI
-  const [allRoutes, setAllRoutes] = useState<{detail: string, last_test_id: string}[]>([])
+  const [allRoutes, setAllRoutes] = useState<{ detail: string, last_test_id: string }[]>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<fetchCall[]>([])
 
@@ -76,80 +86,107 @@ function App () {
     fetchFromDB()
   }
 
-  // const routeAndResultDisplayHandler = () => {
-  //   setRouteAndResultVisibility((priorState) => {
-  //   !priorState
-  // })
-  // }
+  const openDocs = () => {
+    window.electronAPI
+      .documentation()
+  }
 
   const copyConfig = () => {
     window.electronAPI
       .openFile('file')
       .then((fileSelected: string) => {
+        setLoading(true)
         // Expect result to be a directory
         window.electronAPI
           .copyConfig(fileSelected)
-      }).catch((err: unknown) => console.log('copyConfig Error: ', err))
+        if (fileSelected) {
+          setTimeout(() => {
+            setConfig(true)
+            setLoading(false)
+          }, 2000)
+        }
+      })
+      .catch((err: unknown) => console.log('copyConfig Error: ', err))
   }
 
   return (
     <>
-      <header>
-        <h1>Middle-Aware</h1>
-
-      </header>
-      <hr />
-      <div id='interface'>
-        <button className="btn btn-sm" onClick={handleButtonClick}>Select A Directory</button>
-        <div className='reFetch'>
-           <button className="btn btn-sm" onClick={fetchFromDB}>Fetch Tests</button>
+      <Header config={copyConfig} />
+      {config ?
+        <div id='main'>
+          <div id='cards-section'>
+            <div className='card-columns'>
+              <h2 className='title'>Routes</h2>
+              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
+              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
+              {fetchResources.map((routes: fetchCall) => {
+                const databaseRoutes: string[] = []
+                for (const routeData of allRoutes) {
+                  databaseRoutes.push(routeData.detail)
+                }
+                const available = databaseRoutes.includes(routes.route)
+                // change this to use and display the status codes on the GUI
+                const error = true
+                return (
+                  <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
+                )
+              })}
+            </div>
+            <div className='card-columns'>
+              <h2 className='title'>Results</h2>
+              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
+              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
+              {!results[0]
+                ? <>
+                  { }
+                </>
+                : results.map((results: Responses) => (
+                  <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref} />
+                ))}
+            </div>
+          </div>
         </div>
-        <div className='copyConfig'>
-           <button className="btn btn-sm" onClick={copyConfig}>Select Config</button>
-        </div>
-      </div>
-      <hr />
-      <div id="main">
+        :
+        loading ?
+          <Loading />
+          :
+          <div id='overlay'>
+            <div className='start'>
+              <IoAlertCircleSharp id='start_point' />
+              <div>
+                <div className='start-message'>To get started please select
+                  <button
+                    type="button"
+                    className="start-button"
+                    onClick={copyConfig}
+                  >
+                    <div className='icons'>
 
-        {/* <div id="routesAndResults"> */}
-        {/* {!routeAndResultVisibility ?
-          <button onClick={routeAndResultDisplayHandler}>Show Routes and Results</button>
-         : */}
-        <div id='routesSection'>
-          <h2 className='title'>Routes</h2>
-          {/* iterate through routes */}
-          {fetchResources.map((routes: fetchCall) => {
-            const databaseRoutes: string[] = []
-            for (const routeData of allRoutes) {
-              databaseRoutes.push(routeData.detail)
-            }
-            const available = databaseRoutes.includes(routes.route)
-            // change this to use and display the status codes on the GUI
-            const error = true
-            return (
-              <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={error}/>
-            )
-          })}
+                    </div>
+                    <GrConfigure className='start_icon' />
+                    <p>Config File</p>
+                  </button> above.</div>
+                <br />
+                <div className='start-message'>
+                  If you need assistance see our
+                  <button
+                    type="button"
+                    className="start-button"
+                    onClick={openDocs}
+                  >
+                    <div className='icons'>
 
-        </div>
-        <div id='resultsSection'>
-          <h2 className='title'>Results</h2>
-
-            {!results[0]
-              ? <>
-              {/* <div id='checkForData'>
-              <button className="btn btn-sm" onClick={fetchFromDB}>Look For Test Data</button>
-              </div> */}
-              </>
-              : results.map((results: Responses) => (
-            <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref}/>
-              ))}
-
-        </div>
-        {/* } */}
-        {/* </div> */}
-
-      </div>
+                    </div>
+                    <IoDocumentTextOutline className='start_icon' />
+                    <p>Documentation</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      }
+      <Notification message={'test'}/>
+      <Footer />
     </>
   )
 }
