@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Switch } from '@headlessui/react'
+import { ToggleProps } from '../Types'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-interface ToggleProps {
-  auto: () => void
-}
-
-
-export default function Toggle({ auto }: ToggleProps) {
+export default function Toggle({ auto, fetch, autoFetch }: ToggleProps) {
   const [enabled, setEnabled] = useState(false)
 
+  //UseEffect to auto fetch tests every 15s
+  useEffect(() => {
+    const interval = setInterval(() => {
+     if(enabled) autoFetch()
+    }, 15000)
+    return () => clearInterval(interval)
+  }, [fetch])
+
+  //Toggle switch affects Fetch Tests button
   const toggle = () => {
     setEnabled(!enabled)
     auto()

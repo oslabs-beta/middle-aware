@@ -104,7 +104,7 @@ export default function Header({ config, configStatus, started, instrument, test
           </div>
 
           <div className='flex flex-row w-48 justify-between items-center'>
-            <Toggle auto={() => setAuto(!auto)} />
+            <Toggle auto={() => setAuto(!auto)} fetch={auto} autoFetch={tests}/>
             {auto ?
               <button
                 type="button"

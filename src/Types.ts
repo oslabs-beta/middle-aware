@@ -16,6 +16,12 @@ export type FooterProps = {
   started: boolean
 }
 
+export type ToggleProps  ={
+  auto: () => void
+  fetch: boolean
+  autoFetch: () => void
+}
+
 export interface Details {
   routeId?: string
   lastTest?: any
