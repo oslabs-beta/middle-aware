@@ -79,22 +79,22 @@ function App() {
   }
 
   // select a directory button to select a path
-  const handleButtonClick = () => {
-    window.electronAPI
-      .openFile('directory')
-      .then((result: string) => {
-        // Expect result to be a directory
-        window.electronAPI
-          .parseFiles(result)
-          .then((result: fetchCall[]) => {
-            // Expect result to be an array of fetch resources
-            setResources(result) //    return result;
-          })
-          .catch((err: unknown) => console.log('parseFiles Error:', err))
-      })
-      .catch((err: unknown) => console.log('openFile Error: ', err))
-    fetchFromDB()
-  }
+  // const handleButtonClick = () => {
+  //   window.electronAPI
+  //     .openFile('directory')
+  //     .then((result: string) => {
+  //       // Expect result to be a directory
+  //       window.electronAPI
+  //         .parseFiles(result)
+  //         .then((result: fetchCall[]) => {
+  //           // Expect result to be an array of fetch resources
+  //           setResources(result) //    return result;
+  //         })
+  //         .catch((err: unknown) => console.log('parseFiles Error:', err))
+  //     })
+  //     .catch((err: unknown) => console.log('openFile Error: ', err))
+  //   fetchFromDB()
+  // }
 
   const openDocs = () => {
     window.electronAPI
