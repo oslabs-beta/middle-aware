@@ -8,7 +8,7 @@ import { IoStopSharp } from 'react-icons/io5'
 import { HeaderProps } from '../Types'
 import Notification from './Notification'
 
-export default function Header({ config, configStatus, started, instrument }: HeaderProps) {
+export default function Header({ config, configStatus, started, instrument, tests }: HeaderProps) {
 
   const [auto, setAuto] = useState(true)
   const [start, setStart] = useState(false)
@@ -52,7 +52,8 @@ export default function Header({ config, configStatus, started, instrument }: He
     if (!configStatus) {
       setShow(true)
     } else {
-      console.log('Placeholder for fetch tests from DB')
+      tests()
+      console.log('Tests triggered')
     }
     setTimeout(() => {
       setShow(false)

@@ -50,6 +50,7 @@ function App() {
       })
       .catch((err: unknown) => console.log('Problem with db Tests:', err))
   }
+  
   // Each route card on the left is a div, when clicked the divs render the result cards on the right; fetchTestsFromDB is invoked for the test data
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -67,8 +68,9 @@ function App() {
     fetchTestsFromDB(testToFilter)
   }
 
-  // triggered by 'Look for test data' button
+  // triggered by 'Look for test data' button (passed as prop to header)
   const fetchFromDB = () => {
+    console.log('allRoutes: ', allRoutes) //this is set before during copyConfig()
     window.electronAPI
       .getAllRoutes()
       .then((data: string) => {
@@ -129,25 +131,26 @@ function App() {
             setResources(result.parsedAPI.body)
           }).catch((err: unknown) => console.log('parseFiles Error:', err))
       })
+    fetchFromDB() //should we leave this here?????????? Thought we should at least get the test in advance
   }
 
   return (
     <>
-      <Header config={copyConfig} configStatus={config} started={startStatusHandler} instrument={startInstrumentation} />
+      <Header config={copyConfig} configStatus={config} started={startStatusHandler} instrument={startInstrumentation} tests={fetchFromDB} />
       {config ?
         <div id='main'>
           <div id='cards-section'>
             <div className='card-columns'>
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
-                 console.log('routes: ', routes)
+                //  console.log('routes: ', routes)
                 const databaseRoutes: string[] = []
                 for (const routeData of allRoutes) {
                   databaseRoutes.push(routeData.detail)
                 }
-                // const available = databaseRoutes.includes(routes.route)
-                // // change this to use and display the status codes on the GUI
-                // const error = true
+                const available = databaseRoutes.includes(routes.route)
+                // change this to use and display the status codes on the GUI
+                const error = true
                 return (
                   <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
                 )

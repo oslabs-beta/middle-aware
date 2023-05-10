@@ -9,6 +9,7 @@ export type HeaderProps = {
   configStatus: boolean
   started: () => void
   instrument: () => void
+  tests: () => void
 }
 
 export type FooterProps = {
