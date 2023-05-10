@@ -18,6 +18,12 @@ const config: ForgeConfig = {
       certificateFile: './path/to/certificate.pfx',
       certificatePassword: 'password'
     }),
+    {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        format: 'ULFO'
+      }
+    },
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({})

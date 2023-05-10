@@ -20,5 +20,5 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*", "instrument/agent.ts"]
+  "include": ["src/**/*"]
 }
