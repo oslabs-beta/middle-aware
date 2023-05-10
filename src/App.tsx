@@ -115,9 +115,17 @@ function App() {
             setLoading(false)
           }, 2000)
         }
-      })
+      }) // Add then statement to execute startFEParseAndServer, which has been exposed through preload
+      // Add another then statement to use the response from startFEParseAndServer to update state (using setResources)
+      // Shape of the response:
+      // { status: 
+      //    parsedAPI:{
+      //      body: [] <- Here's the data
+      // }}  
       .catch((err: unknown) => console.log('copyConfig Error: ', err))
   }
+
+
 
   return (
     <>

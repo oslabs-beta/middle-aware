@@ -676,10 +676,6 @@ video {
   max-width: 24rem;
 }
 
-.max-w-\[20\%\] {
-  max-width: 20%;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -949,6 +945,10 @@ video {
 
 .opacity-100 {
   opacity: 1;
+}
+
+.opacity-40 {
+  opacity: 0.4;
 }
 
 .shadow {
