@@ -63,7 +63,7 @@ function App() {
         testToFilter = item.last_test_id
       }
     }
-    console.log('testToFilter: ', testToFilter)
+    //console.log('testToFilter: ', testToFilter)
     fetchTestsFromDB(testToFilter)
   }
 
@@ -115,17 +115,15 @@ function App() {
             setLoading(false)
           }, 2000)
         }
-      }) // Add then statement to execute startFEParseAndServer, which has been exposed through preload
-      // Add another then statement to use the response from startFEParseAndServer to update state (using setResources)
-      // Shape of the response:
-      // { status: 
-      //    parsedAPI:{
-      //      body: [] <- Here's the data
-      // }}  
-      .catch((err: unknown) => console.log('copyConfig Error: ', err))
+      }).catch((err: unknown) => console.log('copyConfig Error: ', err))
+      .then(()=>{
+        window.electronAPI
+          .startFEParseAndServer()
+          .then((result: any) => {
+            setResources(result.parsedAPI.body)
+          }).catch((err: unknown) => console.log('parseFiles Error:', err))
+      })
   }
-
-
 
   return (
     <>
@@ -135,9 +133,8 @@ function App() {
           <div id='cards-section'>
             <div className='card-columns'>
               <h2 className='title'>Routes</h2>
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
               {fetchResources.map((routes: fetchCall) => {
+                 console.log('routes: ', routes)
                 const databaseRoutes: string[] = []
                 for (const routeData of allRoutes) {
                   databaseRoutes.push(routeData.detail)
@@ -152,8 +149,6 @@ function App() {
             </div>
             <div className='card-columns'>
               <h2 className='title'>Results</h2>
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={1} available={true} error={true} />
-              <RouteCards id={'routes.route'} detail={'routes.route'} onClick={resultHandler} key={2} available={true} error={true} />
               {!results[0]
                 ? <>
                   { }

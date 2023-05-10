@@ -134,4 +134,5 @@ export type APIfuncs ={
   startFEParseAndServer: () => Promise<any>;
   copyConfig: (dir: string) => void;
   documentation: () => void;
+  startInstrumentation: () => void;
 }
