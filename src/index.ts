@@ -108,6 +108,8 @@ async function handleGetRoute (event, route) { return await db.default.getRoute(
 
 async function handleGetTest (event, test) { return await db.default.getTest(test) }
 
+function handleReadConfig () { return configManager.readConfig() }
+
 function handleCopyConfig (event, dir) {
   configManager.copyConfig(dir)
   mongoConnect()
@@ -208,6 +210,7 @@ app.whenReady().then(() => {
   ipcMain.handle('db:getRoute', handleGetRoute)
   ipcMain.handle('db:getTest', handleGetTest)
   ipcMain.handle('openDocs', documentation)
+  ipcMain.handle('readConfig', handleReadConfig)
   ipcMain.handle('copyConfig', handleCopyConfig)
   ipcMain.handle('startFEParseAndServer', handleStartFEParseAndServer)
   ipcMain.handle('startInstrumentation', handleStartInstrumentation)

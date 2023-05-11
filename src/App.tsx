@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import ResultCards from './components/ResultCards'
 import RouteCards from './components/RouteCards'
-import { Responses, APIfuncs, fetchCall } from './Types'
+import { Responses, APIfuncs, fetchCall, MAConfig } from './Types'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Notification from './components/Notification'
 import { GrConfigure } from 'react-icons/gr'
 import { IoDocumentTextOutline, IoAlertCircleSharp } from 'react-icons/io5'
 import Loading from './components/Loading'
+import { BiWindows } from 'react-icons/bi'
 
 declare global {
   interface Window {
@@ -15,10 +16,10 @@ declare global {
   }
 }
 
-function App() {
-  //checks if a config file was selected already
+function App () {
+  // checks if a config file was selected already
   const [config, setConfig] = useState<boolean>(false)
-  //control overlay
+  // control overlay
   const [loading, setLoading] = useState<boolean>(false)
   // This will store the lastest test retrieved from the fetchFromDB function below
   const [results, setResults] = useState<Responses[]>([])
@@ -28,13 +29,12 @@ function App() {
   const [fetchResources, setResources] = useState<fetchCall[]>([])
   // Notifcation for new test
   const [showNewTest, setShowTests] = useState<boolean>(false)
+  // Import app configuration to electron front end
+  const [appConfig, setAppConfig] = useState<MAConfig|null>(null)
 
+  // This will watch if there are any new tests and will trigger the notification
 
-  //This will watch if there are any new tests and will trigger the notification
-
-
-
-  //send start status from header to footer
+  // send start status from header to footer
   const [startStatus, setStartStatus] = useState<boolean>(false)
   const startStatusHandler = () => {
     setStartStatus(!startStatus)
@@ -53,7 +53,7 @@ function App() {
       })
       .catch((err: unknown) => console.log('Problem with db Tests:', err))
   }
-  
+
   // Each route card on the left is a div, when clicked the divs render the result cards on the right; fetchTestsFromDB is invoked for the test data
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -67,13 +67,13 @@ function App() {
         testToFilter = item.last_test_id
       }
     }
-    //console.log('testToFilter: ', testToFilter)
+    // console.log('testToFilter: ', testToFilter)
     fetchTestsFromDB(testToFilter)
   }
 
   // triggered by 'Look for test data' button (passed as prop to header)
   const fetchFromDB = () => {
-    console.log('allRoutes: ', allRoutes) //this is set before during copyConfig()
+    console.log('allRoutes: ', allRoutes) // this is set before during copyConfig()
     window.electronAPI
       .getAllRoutes()
       .then((data: string) => {
@@ -83,7 +83,7 @@ function App() {
       .catch((err: unknown) => console.log('Problem with db Routes:', err))
   }
 
-  //this is declare just to pass as a prop to header, might be an easier way to do this
+  // this is declare just to pass as a prop to header, might be an easier way to do this
   const startInstrumentation = () => {
     window.electronAPI
       .startInstrumentation()
@@ -127,27 +127,30 @@ function App() {
           }, 2000)
         }
       }).catch((err: unknown) => console.log('copyConfig Error: ', err))
-      .then(()=>{
+      .then(() => {
+        window.electronAPI.readConfig().then((result) => setAppConfig(result))
+      })
+      .then(() => {
         window.electronAPI
           .startFEParseAndServer()
           .then((result: any) => {
             setResources(result.parsedAPI.body)
           }).catch((err: unknown) => console.log('parseFiles Error:', err))
       })
-    fetchFromDB() //should we leave this here?????????? Thought we should at least get the test in advance
+    fetchFromDB() // should we leave this here?????????? Thought we should at least get the test in advance
   }
 
   return (
     <>
       <Header config={copyConfig} configStatus={config} started={startStatusHandler} instrument={startInstrumentation} tests={fetchFromDB} />
       {showNewTest ? <Notification message={'Found New Test!'} /> : null}
-      {config ?
-        <div id='main'>
+      {config
+        ? <div id='main'>
           <div id='cards-section'>
             <div className='card-columns'>
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
-                 console.log('routes: ', routes)
+                console.log('routes: ', routes)
                 const databaseRoutes: string[] = []
                 for (const routeData of allRoutes) {
                   databaseRoutes.push(routeData.detail)
@@ -172,11 +175,9 @@ function App() {
             </div>
           </div>
         </div>
-        :
-        loading ?
-          <Loading />
-          :
-          <div id='overlay'>
+        : loading
+          ? <Loading />
+          : <div id='overlay'>
             <div className='start'>
               <IoAlertCircleSharp id='start_point' />
               <div>
@@ -211,7 +212,10 @@ function App() {
             </div>
           </div>
       }
-      <Footer started={startStatus} />
+      {appConfig
+        ? <Footer projectName={appConfig.projectName} proxyPort={appConfig.proxyPort} frontEndPort={appConfig.frontEndPort} backEndPort={appConfig.backEndPort} started={startStatus} />
+        : <div></div>
+      }
     </>
   )
 }
