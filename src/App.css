@@ -98,3 +98,15 @@ h2 {
 .horizontalRule {
   @apply my-3 border-gray-400
 }
+
+  #successStatus{
+  @apply mx-auto text-5xl text-[#06D6A0]
+  }
+
+  #errorStatus{
+  @apply mx-auto text-5xl text-[#EF476F] animate-pulse
+  }
+
+#arrow{
+  @apply mx-auto text-5xl text-[#b3b2af] 
+}
