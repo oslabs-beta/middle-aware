@@ -166,8 +166,8 @@ function App() {
                 ? <> 
                   { }
                 </>
-                : results.map((results: any) => (
-                  <ResultCards id={results._id} key={results._id} request={results.last_test.request} response={results.last_test.response} rtt={results.last_test.response_time} middleware={results.last_test.middleware} />
+                : results.map((result: any) => (
+                  <ResultCards id={result._id} key={results.indexOf(result)} request={result.last_test.request} response={result.last_test.response} rtt={result.last_test.response_time} middleware={result.last_test.middleware} />
                 ))}
             </div>
           </div>

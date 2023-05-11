@@ -29,13 +29,13 @@ const resultCards = ({ id, request, response, rtt, middleware }: any) => {
     queryKeys = Object.keys(request.query)
     queryValues = Object.values(request.query)
   }
-  if (rtt !== undefined) { time = `${rtt.slice(0, 5)} ms` }
+  if (rtt !== undefined) { time = `${rtt.slice(0, 3)} ms` }
   if (response.status_code !== null) { statusCode = response.status_code }
 
   return (
 
     <>
-      <div id={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow mb-4'
+      <div id={id} key={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow mb-4'
         style={{ background: '#F8FFE5' }}>
 
         <p className='underline underline-offset-4 text-2xl self-center text-slate-600'>Request</p>
@@ -73,7 +73,7 @@ const resultCards = ({ id, request, response, rtt, middleware }: any) => {
         statusCode !== 200 ? <ErrorArrow /> : <SuccessArrow />
       }
 
-      <div id={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow mb-44'
+      <div id={id} key={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow mb-44'
         style={{ background: '#F8FFE5' }}>
 
         <p className='underline underline-offset-4 text-2xl self-center text-slate-600'>Response</p>
