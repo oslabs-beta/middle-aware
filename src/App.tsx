@@ -156,7 +156,7 @@ function App() {
                 const available = routes.route in databaseRoutes
 
                 return (
-                  <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={databaseRoutes[routes.route]} />
+                  <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={databaseRoutes[routes.route]} method={routes.method} />
                 )
               })}
             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { RouteProps, statusColors } from '../Types'
 import { MdOutlineRoute } from 'react-icons/md'
 
-const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
+const RouteCards = ({ id, detail, onClick, available, error, method }: RouteProps) => {
 
   return (
     <div id={id} className='w-[100%] min-h-fit items-center p-10 rounded-md overflow-auto flex flex-row border border-slate-300 shadow mb-4'
@@ -30,8 +30,11 @@ const RouteCards = ({ id, detail, onClick, available, error }: RouteProps) => {
         </div>)
       }
 
+<div className='flex flex-col'>
+      <p className='whitespace-normal break-words text-slate-600'>Route:{' '}{detail}</p>
 
-      <p className='whitespace-normal break-words text-slate-600'>{detail}</p>
+      <p className='whitespace-normal break-words text-slate-600'>Method:{' '}{method}</p>
+      </div>
     </div>
   )
 }
