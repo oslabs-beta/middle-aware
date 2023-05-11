@@ -4,6 +4,18 @@ import SuccessArrow from './SuccessArrow'
 import { ResultProps } from '../Types'
 
 const resultCards = ({ id, request, response, rtt, middleware }: any) => {
+
+  const bodyKeys = Object.keys(request.body)
+  const bodyValues = Object.values(request.body)
+
+  const paramsKeys = Object.keys(request.params)
+  const paramsValues = Object.values(request.params)
+
+  const queryKeys = Object.keys(request.query)
+  const queryValues = Object.values(request.query)
+
+  const time = `${rtt.slice(0, 5)} ms`
+
   return (
     // <>
     // {/* use a conditional statement to not allow
@@ -38,10 +50,17 @@ const resultCards = ({ id, request, response, rtt, middleware }: any) => {
     <>
       <div id={id} className='w-[100%] min-h-fit items-center p-10 rounded-md overflow-auto flex flex-row border border-slate-300 shadow mb-4'
         style={{ background: '#F8FFE5' }}>
-          
+ 
 
 
-        {request.method}
+
+            <div> <p>Method:</p> {request.method}</div>
+
+            <div> <p>Body:</p> {typeof request.body}</div>
+        <div> <p>Params:</p> {typeof request?.params}</div>
+        <div> <p>Query:</p> {typeof request?.method}</div>
+
+  
       </div>
 
       {
