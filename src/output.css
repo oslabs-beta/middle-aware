@@ -583,16 +583,16 @@ video {
   margin-bottom: 1rem;
 }
 
+.mb-44 {
+  margin-bottom: 11rem;
+}
+
 .ml-4 {
   margin-left: 1rem;
 }
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.mb-44 {
-  margin-bottom: 11rem;
 }
 
 .inline-block {
@@ -1343,6 +1343,7 @@ h2 {
 
 .card-sub-titles {
   margin-right: 0.5rem;
+  font-style: italic;
   text-decoration-line: underline;
   text-underline-offset: 1px;
 }
@@ -1389,6 +1390,31 @@ h2 {
   line-height: 1;
   --tw-text-opacity: 1;
   color: rgb(179 178 175 / var(--tw-text-opacity));
+}
+
+#noResults {
+  display: flex;
+  height: 24rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border-width: 2px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  opacity: 0.25;
+}
+
+#noResultMsg {
+  padding: 2.5rem;
+  font-size: 3rem;
+  line-height: 1;
+  font-style: italic;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-500:hover {

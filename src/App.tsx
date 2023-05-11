@@ -164,7 +164,15 @@ function App() {
               <h2 className='title'>Results</h2>
               {!results[0]
                 ? <> 
-                  { }
+                  { 
+                  <div id='noResults'>
+                    <p id='noResultMsg'>
+                      Please select a route to view results or exercise a route to generate results.
+                    </p>
+                  </div>
+                  
+                  
+                  }
                 </>
                 : results.map((result: any) => (
                   <ResultCards id={result._id} key={results.indexOf(result)} request={result.last_test.request} response={result.last_test.response} rtt={result.last_test.response_time} middleware={result.last_test.middleware} />

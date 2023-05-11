@@ -92,7 +92,7 @@ h2 {
 } */
 
 .card-sub-titles{
-  @apply underline underline-offset-1 mr-2
+  @apply underline underline-offset-1 mr-2 italic
 }
 
 .horizontalRule {
@@ -109,4 +109,12 @@ h2 {
 
 #arrow{
   @apply mx-auto text-5xl text-[#b3b2af] 
+}
+
+#noResults{
+  @apply rounded-md border-dashed border-2 border-slate-300 bg-black opacity-25 h-96 flex flex-col justify-center items-center
+}
+
+#noResultMsg{
+  @apply text-5xl text-white italic p-10
 }
