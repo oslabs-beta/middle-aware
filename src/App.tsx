@@ -26,6 +26,12 @@ function App() {
   const [allRoutes, setAllRoutes] = useState<{ detail: string, last_test_id: string }[]>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<fetchCall[]>([])
+  // Notifcation for new test
+  const [showNewTest, setShowTests] = useState<boolean>(false)
+
+
+  //This will watch if there are any new tests and will trigger the notification
+
 
 
   //send start status from header to footer
@@ -33,9 +39,6 @@ function App() {
   const startStatusHandler = () => {
     setStartStatus(!startStatus)
   }
-
-
-
 
   // const [routeAndResultVisibility, setRouteAndResultVisibility] = useState(false)
 
@@ -137,13 +140,14 @@ function App() {
   return (
     <>
       <Header config={copyConfig} configStatus={config} started={startStatusHandler} instrument={startInstrumentation} tests={fetchFromDB} />
+      {showNewTest ? <Notification message={'Found New Test!'} /> : null}
       {config ?
         <div id='main'>
           <div id='cards-section'>
             <div className='card-columns'>
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
-                //  console.log('routes: ', routes)
+                 console.log('routes: ', routes)
                 const databaseRoutes: string[] = []
                 for (const routeData of allRoutes) {
                   databaseRoutes.push(routeData.detail)
