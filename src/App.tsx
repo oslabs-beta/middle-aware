@@ -143,7 +143,7 @@ function App() {
       {config ?
         <div id='main'>
           <div id='cards-section'>
-            <div className='card-columns'>
+            <div id='route-cards'>
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
                  console.log('routes: ', routes)
@@ -160,7 +160,7 @@ function App() {
                 )
               })}
             </div>
-            <div className='card-columns'>
+            <div id='result-cards'>
               <h2 className='title'>Results</h2>
               {!results[0]
                 ? <> 

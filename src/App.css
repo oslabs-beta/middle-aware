@@ -35,15 +35,19 @@ height: 100%;
 }
 
 #cards-section {
-  @apply flex justify-around w-[70%] mt-10
+  @apply flex justify-around w-[80%] mt-10
 }
 
 h2 {
   @apply text-lg
 }
 
-.card-columns {
+#route-cards {
   @apply flex flex-col w-[40%] items-center overflow-scroll
+}
+
+#result-cards {
+  @apply flex flex-col w-[55%] items-center overflow-scroll
 }
 
 #overlay {
