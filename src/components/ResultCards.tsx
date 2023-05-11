@@ -73,7 +73,7 @@ const resultCards = ({ id, request, response, rtt, middleware }: any) => {
         statusCode !== 200 ? <ErrorArrow /> : <SuccessArrow />
       }
 
-      <div id={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow mb-44'
+      <div id={id} className='w-[100%] p-10 rounded-md overflow-auto flex flex-col border border-slate-300 shadow'
         style={{ background: '#F8FFE5' }}>
 
         <p className='underline underline-offset-4 text-2xl self-center text-slate-600'>Response</p>
