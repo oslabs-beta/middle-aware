@@ -5,8 +5,8 @@ import { MdOutlineRoute } from 'react-icons/md'
 const RouteCards = ({ id, detail, onClick, available, error, method }: RouteProps) => {
 
   return (
-    <div id={id} className='w-[100%] min-h-fit items-center p-10 rounded-md overflow-auto flex flex-row border border-slate-300 shadow mb-4'
-      style={{ background: '#F8FFE5' }}
+    <div id={id} className='w-[100%] min-h-fit items-center p-10 rounded-md overflow-auto flex flex-row border border-slate-300 shadow mb-4 bg-[#F8FFE5] hover:bg-[#f8d47e]'
+      // style={{ background: '#F8FFE5' }}
       onClick={onClick}>
 
       {available ?
