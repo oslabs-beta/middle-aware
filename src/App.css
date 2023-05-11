@@ -77,3 +77,24 @@ h2 {
 #start_point{
   @apply text-[#FFC43D] text-3xl relative -top-12 -left-6
 }
+
+.ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-scroll text-slate-600
+}
+
+/* .ReqRespCards {
+  @apply flex flex-row whitespace-normal break-words w-[80%] items-start text-slate-600;
+} */
+
+
+/* .ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-auto whitespace-normal text-slate-600;
+} */
+
+.card-sub-titles{
+  @apply underline underline-offset-1 mr-2
+}
+
+.horizontalRule {
+  @apply my-3 border-gray-400
+}

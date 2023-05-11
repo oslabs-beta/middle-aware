@@ -575,6 +575,10 @@ video {
   margin-right: auto;
 }
 
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -660,12 +664,20 @@ video {
   width: 50%;
 }
 
+.w-\[60\%\] {
+  width: 60%;
+}
+
 .w-full {
   width: 100%;
 }
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[80\%\] {
+  width: 80%;
 }
 
 .max-w-\[20\%\] {
@@ -776,6 +788,10 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.self-center {
+  align-self: center;
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -786,6 +802,10 @@ video {
 
 .overflow-clip {
   overflow: clip;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .whitespace-normal {
@@ -882,14 +902,29 @@ video {
   padding-right: 0.5rem;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-9xl {
   font-size: 8rem;
   line-height: 1;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-light {
@@ -941,6 +976,14 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
 }
 
 .opacity-0 {
@@ -1282,6 +1325,37 @@ h2 {
   line-height: 2.25rem;
   --tw-text-opacity: 1;
   color: rgb(255 196 61 / var(--tw-text-opacity));
+}
+
+.ReqRespCards {
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  align-items: flex-start;
+  overflow: scroll;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
+/* .ReqRespCards {
+  @apply flex flex-row whitespace-normal break-words w-[80%] items-start text-slate-600;
+} */
+
+/* .ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-auto whitespace-normal text-slate-600;
+} */
+
+.card-sub-titles {
+  margin-right: 0.5rem;
+  text-decoration-line: underline;
+  text-underline-offset: 1px;
+}
+
+.horizontalRule {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .hover\:text-gray-500:hover {
