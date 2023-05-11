@@ -23,14 +23,14 @@ function App() {
   // This will store the lastest test retrieved from the fetchFromDB function below
   const [results, setResults] = useState<Responses[]>([])
   // allRoutes will store all routes from the dB, this is used to populate the Routes card in the GUI
-  const [allRoutes, setAllRoutes] = useState<{ detail: string, last_test_id: string }[]>([])
+  const [allRoutes, setAllRoutes] = useState<any>([])
   // this is used to store all the routes found by parseAPIRequest
   const [fetchResources, setResources] = useState<fetchCall[]>([])
   // Notifcation for new test
   const [showNewTest, setShowTests] = useState<boolean>(false)
 
 
-  //This will watch if there are any new tests and will trigger the notification
+  //This will watch if there are any new tests and will trigger the notification--------------------------------complete before launch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
@@ -148,15 +148,16 @@ function App() {
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
                  console.log('routes: ', routes)
-                const databaseRoutes: string[] = []
+                 //use this array to store the routes that have been tested
+                const databaseRoutes: any = {}
                 for (const routeData of allRoutes) {
-                  databaseRoutes.push(routeData.detail)
+                  databaseRoutes[routeData.last_test.request.route] = routeData.last_test.error
                 }
-                const available = databaseRoutes.includes(routes.route)
-                // change this to use and display the status codes on the GUI
-                const error = true
+                console.log('allRoutes :', allRoutes)
+                const available = routes.route in databaseRoutes
+
                 return (
-                  <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={true} error={true} />
+                  <RouteCards id={routes.route} detail={routes.route} onClick={resultHandler} key={fetchResources.indexOf(routes)} available={available} error={databaseRoutes[routes.route]} />
                 )
               })}
             </div>
