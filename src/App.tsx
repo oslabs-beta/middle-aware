@@ -43,32 +43,31 @@ function App() {
   // const [routeAndResultVisibility, setRouteAndResultVisibility] = useState(false)
 
   // fetchTestFromDB fetches the tests associated with the endpoint that is selected on the left hand side of the app; this is used to render the Result cards
-  const fetchTestsFromDB = (id: string) => {
-    let getTests: Responses[]
-    window.electronAPI
-      .getTest(id)
-      .then((data: string) => {
-        getTests = JSON.parse(data)
-        setResults(getTests)
-      })
-      .catch((err: unknown) => console.log('Problem with db Tests:', err))
-  }
+  
+  // const fetchTestsFromDB = (id: string) => {
+  //   let getTests: Responses[]
+  //   window.electronAPI
+  //     .getTest(id)
+  //     .then((data: string) => {
+  //       getTests = JSON.parse(data)
+  //       setResults(getTests)
+  //     })
+  //     .catch((err: unknown) => console.log('Problem with db Tests:', err))
+  // }
   
   // Each route card on the left is a div, when clicked the divs render the result cards on the right; fetchTestsFromDB is invoked for the test data
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
     let testToFilter = (event.target as HTMLDivElement).id // path name from parseAPIReq.js
+    console.log('testToFilter: ', testToFilter)
     // this will stay as is. consider adding a popover or something to explain template literals!!!!!!
+    const testsToRender = [];
     for (const item of allRoutes) {
-      // item.detail (e.g. /api/auth/user/)
-      const temp = (item.detail.charAt(item.detail.length - 1) === '/' ? item.detail.slice(0, item.detail.length - 2) : item.detail)
-      // if path from div === cleaned up temp
-      if (testToFilter === temp) {
-        testToFilter = item.last_test_id
+      if (item.last_test.request.route === testToFilter) {
+        testsToRender.push(item)
       }
     }
-    //console.log('testToFilter: ', testToFilter)
-    fetchTestsFromDB(testToFilter)
+    setResults(testsToRender)
   }
 
   // triggered by 'Look for test data' button (passed as prop to header)
@@ -163,11 +162,11 @@ function App() {
             </div>
             <div className='card-columns'>
               <h2 className='title'>Results</h2>
-              {!allRoutes[0]
+              {!results[0]
                 ? <> 
                   { }
                 </>
-                : allRoutes.map((results: any) => (
+                : results.map((results: any) => (
                   <ResultCards id={results._id} key={results._id} request={results.last_test.request} response={results.last_test.response} rtt={results.last_test.response_time} middleware={results.last_test.middleware} />
                 ))}
             </div>
