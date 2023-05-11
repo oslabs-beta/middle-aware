@@ -163,12 +163,12 @@ function App() {
             </div>
             <div className='card-columns'>
               <h2 className='title'>Results</h2>
-              {!results[0]
-                ? <>
+              {!allRoutes[0]
+                ? <> 
                   { }
                 </>
-                : results.map((results: Responses) => (
-                  <ResultCards id={results._id} key={results._id} request={results.request} response={results.response} rtt={results.rtt} route_id={results.route_id.ref} />
+                : allRoutes.map((results: any) => (
+                  <ResultCards id={results._id} key={results._id} request={results.last_test.request} response={results.last_test.response} rtt={results.last_test.response_time} middleware={results.last_test.middleware} />
                 ))}
             </div>
           </div>

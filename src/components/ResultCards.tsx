@@ -3,7 +3,7 @@ import ErrorArrow from './ErrorArrow'
 import SuccessArrow from './SuccessArrow'
 import { ResultProps } from '../Types'
 
-const resultCards = ({ id, request, response, rtt }: ResultProps) => {
+const resultCards = ({ id, request, response, rtt, middlware }: any) => {
   return (
     <>
     {/* use a conditional statement to not allow
