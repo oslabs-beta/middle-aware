@@ -108,7 +108,8 @@ h2 {
   }
 
 #arrow{
-  @apply mx-auto text-5xl text-[#b3b2af] 
+  /* @apply mx-auto text-5xl text-[#b3b2af]  */
+  @apply mx-auto text-5xl text-slate-300
 }
 
 #noResults{
