@@ -43,7 +43,7 @@ function App () {
   // const [routeAndResultVisibility, setRouteAndResultVisibility] = useState(false)
 
   // fetchTestFromDB fetches the tests associated with the endpoint that is selected on the left hand side of the app; this is used to render the Result cards
-  
+
   // const fetchTestsFromDB = (id: string) => {
   //   let getTests: Responses[]
   //   window.electronAPI
@@ -54,14 +54,14 @@ function App () {
   //     })
   //     .catch((err: unknown) => console.log('Problem with db Tests:', err))
   // }
-  
+
   // Each route card on the left is a div, when clicked the divs render the result cards on the right; fetchTestsFromDB is invoked for the test data
   const resultHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    let testToFilter = (event.target as HTMLDivElement).id // path name from parseAPIReq.js
+    const testToFilter = (event.target as HTMLDivElement).id // path name from parseAPIReq.js
     console.log('testToFilter: ', testToFilter)
     // this will stay as is. consider adding a popover or something to explain template literals!!!!!!
-    const testsToRender = [];
+    const testsToRender = []
     for (const item of allRoutes) {
       if (item.last_test.request.route === testToFilter) {
         testsToRender.push(item)
@@ -126,6 +126,7 @@ function App () {
           }, 2000)
         }
       }).catch((err: unknown) => console.log('copyConfig Error: ', err))
+      .then(() => {
         window.electronAPI.readConfig().then((result) => setAppConfig(result))
       })
       .then(() => {
@@ -148,8 +149,8 @@ function App () {
             <div id='route-cards'>
               <h2 className='title'>Routes</h2>
               {fetchResources.map((routes: fetchCall) => {
-                 console.log('routes: ', routes)
-                 //use this array to store the routes that have been tested
+                console.log('routes: ', routes)
+                // use this array to store the routes that have been tested
                 const databaseRoutes: any = {}
                 for (const routeData of allRoutes) {
                   databaseRoutes[routeData.last_test.request.route] = routeData.last_test.error
@@ -165,15 +166,14 @@ function App () {
             <div id='result-cards'>
               <h2 className='title'>Results</h2>
               {!results[0]
-                ? <> 
-                  { 
+                ? <>
+                  {
                   <div id='noResults'>
                     <p id='noResultMsg'>
                       Please select a route to view results or exercise a route to generate results.
                     </p>
                   </div>
-                  
-                  
+
                   }
                 </>
                 : results.map((result: any) => (
