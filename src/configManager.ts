@@ -1,16 +1,10 @@
 import * as fs from 'fs'
+import { MAConfig } from './Types'
 
-interface middleAwareConfig{
-    backend?: string,
-    proxyPort?: number,
-    backEndPort?: number,
-    frontEndPort?: number,
-    projectName?: string
-}
 interface configManager{
     copyConfig: (filePath: string) => void,
     determineDir: ()=> void,
-    readConfig: () => middleAwareConfig
+    readConfig: () => MAConfig
 }
 
 export const copyConfig = (filePath) => {
@@ -38,20 +32,21 @@ export const determineDir = () => {
   return fileDir
 }
 
-export const readConfig = () => {
+export const readConfig = (): MAConfig => {
   if (fs.existsSync(determineDir() + 'config.json')) {
     return JSON.parse(fs.readFileSync(determineDir() + 'config.json', { encoding: 'utf8' }))
   } else { // Return default configuration if the config.json does not exist
     return {
-      rootDir: '',
-      backEnd: '',
-      startScript: 'npm run start',
-      targetDir: determineDir() + '/shadowDir',
       MONGODB_URI: '',
       proxyPort: 9003,
       backEndPort: 3000,
       frontEndPort: 8080,
-      projectName: 'Middle-Aware Project'
+      targetDir: '',
+      rootDir: '',
+      backEnd: '',
+      frontEnd: '',
+      startScript: '',
+      projectName: 'ENTER CONFIG'
     }
   }
 }
