@@ -1,18 +1,12 @@
 import * as fs from 'fs'
 import { MAConfig } from './Types'
 
-interface configManager{
-    copyConfig: (filePath: string) => void,
-    determineDir: ()=> void,
-    readConfig: () => MAConfig
-}
-
-export const copyConfig = (filePath) => {
+export const copyConfig = (filePath: string): void => {
   // OpenFileDialog? <= This is handled by the electron FE
   fs.copyFileSync(filePath, determineDir() + 'config.json')
 }
 
-export const determineDir = () => {
+export const determineDir = ():string => {
   // Determine users OS to get the correct path for config file
   // https://cameronnokes.com/blog/how-to-store-user-data-in-electron/
   let fileDir: string
