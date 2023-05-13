@@ -6,6 +6,24 @@ export type StringObject = {
 
 export type HeaderProps = {
   config: () => void
+  configStatus: boolean
+  started: () => void
+  instrument: () => void
+  tests: () => void
+}
+
+export type FooterProps = {
+  started: boolean
+  projectName: string
+  proxyPort: number
+  frontEndPort: number
+  backEndPort: number
+}
+
+export type ToggleProps ={
+  auto: () => void
+  fetch: boolean
+  autoFetch: () => void
 }
 
 export interface Details {
@@ -119,12 +137,28 @@ export type ResultProps = {
   route_id?:string;
 }
 
+export type MAConfig = {
+  MONGODB_URI: string;
+  proxyPort:number;
+  backEndPort:number;
+  frontEndPort:number;
+  targetDir: string;
+  rootDir: string;
+  backEnd: string;
+  frontEnd: string;
+  startScript: string;
+  projectName: string;
+}
+
 export type APIfuncs ={
   openFile: (fileOrDir: string) => Promise<string>;
   parseFiles: (dir: string) => Promise<fetchCall[]>;
   getAllRoutes: () => Promise<string>;
   // getRoute: (route: any) => any;
   getTest: (test: string) => Promise<string>;
-  documentation: ()=>void;
+  readConfig: () => Promise<MAConfig>;
   copyConfig: (dir: string) => void;
+  documentation: () => void;
+  startFEParseAndServer: () => Promise<any>;
+  startInstrumentation: () => void;
 }

@@ -16,7 +16,7 @@ const config: ForgeConfig = {
       name: 'myapp',
       iconUrl: './path/to/icon.ico',
       certificateFile: './path/to/certificate.pfx',
-      certificatePassword: 'password',
+      certificatePassword: 'password'
     }),
     {
       name: '@electron-forge/maker-dmg',
@@ -26,7 +26,7 @@ const config: ForgeConfig = {
     },
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
-    new MakerDeb({}),
+    new MakerDeb({})
   ],
   plugins: [
     new WebpackPlugin({
@@ -39,14 +39,13 @@ const config: ForgeConfig = {
             js: './src/renderer.tsx',
             name: 'main_window',
             preload: {
-              js: './src/preload.ts',
-            },
-          },
-        ],
-      },
-    }),
-  ],
+              js: './src/preload.ts'
+            }
+          }
+        ]
+      }
+    })
+  ]
 }
 
-export default config;
-
+export default config
