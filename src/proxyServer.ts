@@ -4,11 +4,12 @@
 //  3. dbController so we can integrate with the DB
 import { IncomingHttpHeaders } from 'http'
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware'
-import * as express from 'express'
 import { Application, Request, Response, NextFunction } from 'express'
-import dbController from '../src/main/dbController'
-import { Details, Payload, TestType, RouteType } from '../src/main/defs'
+import dbController from './dbController'
+import { Details, Payload, TestType, RouteType } from './Types'
 import { performance } from 'perf_hooks'
+import { readConfig } from './configManager'
+const express = require('express')
 
 // setup express server so that we can start the proxy server and disable etag
 // etag needs to be disabled otherwise we will get 304 status code for frequent requests and the reponse body will not be captured
@@ -17,6 +18,7 @@ const app = express()
 app.set('etag', false)
 let startTime: number
 let endTime: number
+const { backEndPort } = readConfig()
 
 type ModifiedOptions = Options & {
   onProxyReq: (proxyReq: any, req: Request, res: Response) => Promise<void>
@@ -27,9 +29,18 @@ type ModifiedOptions = Options & {
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 const options: ModifiedOptions = {
-  target: 'http://localhost:5002', // Your target URL here
+  target: `http://localhost:${backEndPort}`, // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
+    // restream parsed body before proxying
+    if (req.body) {
+      const bodyData = JSON.stringify(req.body)
+      // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+      proxyReq.setHeader('Content-Type', 'application/json')
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+      // stream the content
+      proxyReq.write(bodyData)
+    }
   },
   onProxyRes: (proxyRes, req, res) => {
     // Modify the headers to prevent caching, specifically to avoid the 304 status code
@@ -113,7 +124,7 @@ const pushToDB = async (payload: Payload): Promise<void> => {
 const proxy = createProxyMiddleware(options)
 
 // set custom header implimentation downhere vs up in option/onProxyreq
-const setHeader = async (req, res, next) => {
+const setHeader = async (req: Request, res: Response, next: any): Promise<void> => {
   const { method, originalUrl, params, query, body } = req
   const test = await dbController.createTest({ method, originalUrl, params, query, body }) // passing in req object
   const testId = await test!._id.toString()
@@ -122,7 +133,16 @@ const setHeader = async (req, res, next) => {
 }
 
 // Proxy Server Route to handle all other requests (requests from user's frontend)
-app.use('**', setHeader, proxy)
-app.listen(9000, () => {
-  console.log('Proxy server listening on port 9000')
+app.use(express.json()) // parsing incoming data from request body and making it available to req.body
+app.use(express.urlencoded()) // parsing incoming URL-encoded form datafrom reqsuest body as well
+// Middle-Aware Agent Route to store call stack tracing details
+// this may need to be separated from the proxy server
+app.put('/middleAwareAgent', async (req, res, next) => {
+  // middleAwareTestID
+  const { testId, functionName } = req.body
+  // do I have to use default here? why am I required here but not elsewhere?
+  await dbController.addFuncNameToTest(testId, functionName)
 })
+app.use('**', setHeader, proxy)
+
+module.exports = app

@@ -1,7 +1,7 @@
 // const { Test, Route } = require('./dbModels')
 import { Test, Route } from './dbModels'
 import mongoose from 'mongoose'
-import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './defs'
+import { Details, Payload, TestType, RouteType, StringObject, TestRequest } from './Types'
 
 // interface ControllerConfig {
 
@@ -11,7 +11,6 @@ const dbController = {
       // return await JSON.stringify(models.Route.find({}))
       const allRoutes = await Route.find({})
       const allRoutesStringified = JSON.stringify(allRoutes)
-      // console.log(allRoutesStringified)
       return allRoutesStringified
     } catch (err) {
       console.log('something: ', err)
@@ -53,10 +52,8 @@ const dbController = {
 
   getTest: async (test: string) => {
     try {
-      console.log('test id queried: ', test)
       const testData = await Test.find({ _id: test })
       const testDataStringified = JSON.stringify(testData)
-      console.log(testDataStringified)
       return testDataStringified
     } catch (err) {
       console.log('Error caught in dbController.getTest: ', err)
@@ -65,7 +62,6 @@ const dbController = {
 
   createTest: async (obj: TestRequest) => {
     try {
-      console.log('obj', obj)
       const { method, originalUrl, params, query, body } = obj
       return await Test.create({
         request: {

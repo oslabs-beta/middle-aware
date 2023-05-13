@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Vanilla css seems to offer more granular control over gradient than tailwind */
+/* background attachment keeps the gradient from scrolling with the page */
+html, body{
+background-image: linear-gradient(to bottom,#449da8, #ECEFF4 );
+background-attachment: fixed;
+height: 100%;
+}
+
+
+.button {
+  @apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
+}
+
+.fetchButton {
+@apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between mx-2
+}
+
+.autoFetchButton {
+@apply rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 items-center flex flex-row justify-between mx-2
+}
+
+.icons {
+  @apply pr-2
+}
+
+/* Main section with all of the cards */
+
+#main{
+  @apply flex justify-center pt-20 
+}
+
+#cards-section {
+  @apply flex justify-around w-[80%] mt-10 mb-44
+}
+
+h2 {
+  @apply text-lg
+}
+
+#route-cards {
+  @apply flex flex-col w-[40%] items-center overflow-scroll
+}
+
+#result-cards {
+  @apply flex flex-col w-[55%] items-center overflow-scroll
+}
+
+#overlay {
+  @apply flex h-screen items-center overflow-clip 
+}
+
+.start{
+  @apply w-fit items-center p-10 rounded-md flex border border-slate-300 shadow mb-4 bg-[#F8FFE5] mx-auto h-36 justify-center overflow-clip
+}
+
+.start-message{
+  @apply flex flex-row
+}
+
+.start-button{
+  @apply mx-2 h-6 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center flex flex-row justify-between
+}
+
+.title{
+  @apply text-2xl mb-4 text-slate-300 border-2 p-2 rounded-md border-slate-300 w-[100%] text-center
+}
+
+.start_icon{
+  @apply mr-2
+}
+
+#start_point{
+  @apply text-[#FFC43D] text-3xl relative -top-12 -left-6
+}
+
+.ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-scroll text-slate-600
+}
+
+/* .ReqRespCards {
+  @apply flex flex-row whitespace-normal break-words w-[80%] items-start text-slate-600;
+} */
+
+
+/* .ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-auto whitespace-normal text-slate-600;
+} */
+
+.card-sub-titles{
+  @apply underline underline-offset-1 mr-2 italic
+}
+
+.horizontalRule {
+  @apply my-3 border-gray-400
+}
+
+  #successStatus{
+  @apply mx-auto text-5xl text-[#06D6A0]
+  }
+
+  #errorStatus{
+  @apply mx-auto text-5xl text-[#EF476F] animate-pulse
+  }
+
+#arrow{
+  /* @apply mx-auto text-5xl text-[#b3b2af]  */
+  @apply mx-auto text-5xl text-slate-300
+}
+
+#noResults{
+  @apply rounded-md border-dashed border-2 border-slate-300 bg-black opacity-25 h-96 flex flex-col justify-center items-center
+}
+
+#noResultMsg{
+  @apply text-5xl text-white italic p-10
+}
