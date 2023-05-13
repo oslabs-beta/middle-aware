@@ -31,19 +31,23 @@ height: 100%;
 /* Main section with all of the cards */
 
 #main{
-  @apply flex justify-center pt-20
+  @apply flex justify-center pt-20 
 }
 
 #cards-section {
-  @apply flex justify-around w-[70%] mt-10
+  @apply flex justify-around w-[80%] mt-10 mb-44
 }
 
 h2 {
   @apply text-lg
 }
 
-.card-columns {
+#route-cards {
   @apply flex flex-col w-[40%] items-center overflow-scroll
+}
+
+#result-cards {
+  @apply flex flex-col w-[55%] items-center overflow-scroll
 }
 
 #overlay {
@@ -72,4 +76,46 @@ h2 {
 
 #start_point{
   @apply text-[#FFC43D] text-3xl relative -top-12 -left-6
+}
+
+.ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-scroll text-slate-600
+}
+
+/* .ReqRespCards {
+  @apply flex flex-row whitespace-normal break-words w-[80%] items-start text-slate-600;
+} */
+
+
+/* .ReqRespCards{
+  @apply flex flex-row w-[80%] items-start overflow-auto whitespace-normal text-slate-600;
+} */
+
+.card-sub-titles{
+  @apply underline underline-offset-1 mr-2 italic
+}
+
+.horizontalRule {
+  @apply my-3 border-gray-400
+}
+
+  #successStatus{
+  @apply mx-auto text-5xl text-[#06D6A0]
+  }
+
+  #errorStatus{
+  @apply mx-auto text-5xl text-[#EF476F] animate-pulse
+  }
+
+#arrow{
+  /* @apply mx-auto text-5xl text-[#b3b2af]  */
+  @apply mx-auto text-5xl text-slate-300
+}
+
+#noResults{
+  @apply rounded-md border-dashed border-2 border-slate-300 bg-black opacity-25 h-96 flex flex-col justify-center items-center
+}
+
+#noResultMsg{
+  @apply text-5xl text-white italic p-10
 }

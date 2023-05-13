@@ -9,7 +9,6 @@ import dbController from './dbController'
 import { Details, Payload, TestType, RouteType } from './Types'
 import { performance } from 'perf_hooks'
 import { readConfig } from './configManager'
-// import * as express from 'express'
 const express = require('express')
 
 // setup express server so that we can start the proxy server and disable etag
@@ -19,6 +18,7 @@ const app = express()
 app.set('etag', false)
 let startTime: number
 let endTime: number
+const { backEndPort } = readConfig()
 
 type ModifiedOptions = Options & {
   onProxyReq: (proxyReq: any, req: Request, res: Response) => Promise<void>
@@ -29,7 +29,7 @@ type ModifiedOptions = Options & {
 //  2. onProxyReq will allow us to handle the proxied request
 //  3. onProxyRes will allow us to handle the proxied response
 const options: ModifiedOptions = {
-  target: 'http://localhost:5002', // Your target URL here
+  target: `http://localhost:${backEndPort}`, // Your target URL here
   onProxyReq: async (proxyReq, req, res) => {
     startTime = performance.now()
     // restream parsed body before proxying
@@ -38,7 +38,6 @@ const options: ModifiedOptions = {
       // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
       proxyReq.setHeader('Content-Type', 'application/json')
       proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
-      console.log('bodyData', bodyData)
       // stream the content
       proxyReq.write(bodyData)
     }
@@ -136,8 +135,14 @@ const setHeader = async (req: Request, res: Response, next: any): Promise<void> 
 // Proxy Server Route to handle all other requests (requests from user's frontend)
 app.use(express.json()) // parsing incoming data from request body and making it available to req.body
 app.use(express.urlencoded()) // parsing incoming URL-encoded form datafrom reqsuest body as well
-app.use('**', setHeader, proxy)
-const { proxyPort } = readConfig()
-app.listen(proxyPort, () => {
-  console.log(`Proxy server listening on port ${proxyPort}`)
+// Middle-Aware Agent Route to store call stack tracing details
+// this may need to be separated from the proxy server
+app.put('/middleAwareAgent', async (req, res, next) => {
+  // middleAwareTestID
+  const { testId, functionName } = req.body
+  // do I have to use default here? why am I required here but not elsewhere?
+  await dbController.addFuncNameToTest(testId, functionName)
 })
+app.use('**', setHeader, proxy)
+
+module.exports = app

@@ -1,6 +1,9 @@
 {
   "name": "middle-aware",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18"
+  },
   "description": "Complete route testing for full stack applications.",
   "main": ".webpack/main",
   "scripts": {
@@ -19,6 +22,7 @@
     "@babel/parser": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.5",
     "@babel/traverse": "^7.21.3",
     "@babel/types": "^7.21.3",
     "@headlessui/react": "^1.7.14",
@@ -34,6 +38,9 @@
     "electron": "24.1.2",
     "electron-squirrel-startup": "^1.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "execa": "^7.1.1",
+    "fix-path": "^4.0.0",
+    "fkill": "^8.1.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "html-webpack-plugin": "^5.5.0",
     "http-proxy": "^1.18.1",
@@ -51,6 +58,7 @@
     "source-map-support": "^0.5.21",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.3.1",
+    "tcp-port-used": "^1.0.2",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "url": "^0.11.0",
